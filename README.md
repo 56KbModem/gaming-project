@@ -5,6 +5,9 @@ Repo voor het themaproject gaming
 Clone repository with:<br>
 `git clone --recursive https://github.com/56KbModem/gaming-project.git`<br>
 The `--recursive` parameter insures that the submodules are cloned too
+
+If you already cloned the repo without `--recursive` param<br>
+`git submodule update --init --recursive`
 ## Team
 
   * Marc Dirven (Teamleider)
