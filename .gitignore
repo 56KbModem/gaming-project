@@ -1,0 +1,4 @@
+#Exclude Clion-specific project files 
+.idea/*
+.DS_Store
+cmake-build-*
