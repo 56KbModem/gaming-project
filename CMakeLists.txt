@@ -7,6 +7,12 @@ set(CMAKE_CXX_STANDARD 17)
 set(GCC_COVERAGE_COMPILE_FLAGS "-Wall")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GCC_COVERAGE_COMPILE_FLAGS}")
 
+#Windows specific parametes
+if (WIN32)
+    set(SFML_DIR "C:/SFML-2.5.1/lib/cmake/SFML")
+    set(SFML_STATIC_LIBRARIES TRUE)
+endif (WIN32)
+
 #Find SFML packages
 find_package(SFML 2.5 COMPONENTS graphics audio REQUIRED)
 
