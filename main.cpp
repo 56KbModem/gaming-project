@@ -1,33 +1,24 @@
-#include "Headers.hpp"
+#include "topforce.hpp"
+#include "gui/main_menu.hpp"
 
-int main( int argc, char *argv[] ){
-
-    auto console = spdlog::stdout_color_mt("Console");
+int main(){
+    // Setup loggers
+    auto console = spdlog::stdout_color_mt("console");
     auto err_logger = spdlog::stderr_color_mt("stderr");
-    console->info("Welcome to spdlog!");
-    err_logger->error("This is an error test with arg: {}","Hello");
-
     // Anti aliasing
     sf::ContextSettings settings;
     settings.antialiasingLevel = 8;
     // Window object
-    sf::RenderWindow window( sf::VideoMode(1280, 720), "Topforce", sf::Style::Titlebar | sf::Style::Close, settings);
+    sf::RenderWindow window( sf::VideoMode(1920, 1080), "Topforce", sf::Style::Titlebar | sf::Style::Close, settings);
 
-    while (window.isOpen()) {
-        window.clear();
-        // Draw items
+    game_mode selected_mode;
 
-        window.display();
+    tf::gui::main_menu menu(window);
+    selected_mode = menu.run();
 
-        sf::sleep( sf::milliseconds( 20 ));
+    console->info("Chosen game mode: {}",int(selected_mode));
 
-        sf::Event event;
-        while( window.pollEvent(event) ){
-            if( event.type == sf::Event::Closed ){
-                window.close();
-            }
-        }
-    }
-    std::cout << "Terminating application!\n";
+    window.close();
+    console->info("Terminating application!");
     return 0;
 }

@@ -4,8 +4,12 @@ project(Topforce)
 set(CMAKE_CXX_STANDARD 17)
 
 #Set extra flags
-set(GCC_COVERAGE_COMPILE_FLAGS "-Wall")
+set(GCC_COVERAGE_COMPILE_FLAGS "-Wall -Wextra")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GCC_COVERAGE_COMPILE_FLAGS}")
+
+if (CMAKE_BUILD_TYPE MATCHES Debug)
+    add_definitions(-DDEBUG=1)
+endif()
 
 #Find SFML packages
 find_package(SFML 2.5 COMPONENTS graphics audio REQUIRED)
@@ -15,7 +19,7 @@ include_directories(vendor/spdlog/include)
 link_directories(vendor/spdlog/include)
 
 #Add cource and header files
-add_executable(Topforce main.cpp Headers.hpp)
+add_executable(Topforce main.cpp topforce.hpp gui/menu.hpp gui/main_menu.cpp gui/main_menu.hpp)
 
 #Link library's
 target_link_libraries(Topforce sfml-graphics sfml-audio)
