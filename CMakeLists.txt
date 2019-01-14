@@ -16,6 +16,7 @@ if (WIN32)
     set(CMAKE_EXE_LINKER_FLAGS "-static")
     set(SFML_DIR "C:/SFML-2.5.1/lib/cmake/SFML")
     set(SFML_STATIC_LIBRARIES TRUE)
+    link_directories(vendor/spdlog/include lib/windows/)
 endif (WIN32)
 
 #Find SFML packages
@@ -23,8 +24,10 @@ find_package(SFML 2.5 COMPONENTS graphics audio network REQUIRED)
 
 #Add library's
 include_directories(vendor/spdlog/include vendor/tmxlite/include)
-link_directories(vendor/spdlog/include lib/)
 
+if(UNIX)
+    link_directories(vendor/spdlog/include lib/macos/)
+endif(UNIX)
 #Add cource and header files
 add_executable(Topforce main.cpp topforce.hpp gui/menu.hpp gui/main_menu.cpp gui/main_menu.hpp log.cpp log.hpp)
 
