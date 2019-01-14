@@ -4,7 +4,7 @@
 
 #include "log.hpp"
 
-namespace TF{
+namespace tf{
     std::shared_ptr<spdlog::logger> log::s_Logger;
     void log::init()
     {

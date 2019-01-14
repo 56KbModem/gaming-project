@@ -8,7 +8,7 @@
 #include "spdlog/spdlog.h"
 #include "spdlog/fmt/ostr.h"
 #include "spdlog/sinks/stdout_color_sinks.h"
-namespace TF{
+namespace tf{
     class log {
     public:
         static void init();
@@ -20,10 +20,10 @@ namespace TF{
 }
 
 // Core log macros
-#define TF_TRACE(...)    ::TF::log::get_logger()->trace(__VA_ARGS__)
-#define TF_INFO(...)     ::TF::log::get_logger()->info(__VA_ARGS__)
-#define TF_WARN(...)     ::TF::log::get_logger()->warn(__VA_ARGS__)
-#define TF_ERROR(...)    ::TF::log::get_logger()->error(__VA_ARGS__)
-#define TF_FATAL(...)    ::TF::log::get_logger()->fatal(__VA_ARGS__)
+#define TF_TRACE(...)    ::tf::log::get_logger()->trace(__VA_ARGS__)
+#define TF_INFO(...)     ::tf::log::get_logger()->info(__VA_ARGS__)
+#define TF_WARN(...)     ::tf::log::get_logger()->warn(__VA_ARGS__)
+#define TF_ERROR(...)    ::tf::log::get_logger()->error(__VA_ARGS__)
+#define TF_FATAL(...)    ::tf::log::get_logger()->fatal(__VA_ARGS__)
 
 #endif //TOPFORCE_LOG_HPP

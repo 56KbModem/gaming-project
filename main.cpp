@@ -3,7 +3,7 @@
 
 int main(){
     // Setup logger
-    TF::log::init();
+    tf::log::init();
     TF_WARN("Initialized log!");
 
     // Anti aliasing
