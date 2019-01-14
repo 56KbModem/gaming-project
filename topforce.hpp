@@ -18,9 +18,8 @@
 #include <SFML/Network.hpp>
 #include <SFML/Audio.hpp>
 
-// Logger includes
-#include "spdlog/spdlog.h"
-#include "spdlog/sinks/stdout_color_sinks.h"
+// Logger include
+#include "log.hpp"
 
 // Global enum classes
 enum class game_mode {
