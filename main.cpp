@@ -1,9 +1,9 @@
 #include "topforce.hpp"
 #include "gui/main_menu.hpp"
 
-//tmx includes
 #include <tmxlite/Map.hpp>
 #include "level/SFMLOrthogonalLayer.hpp"
+
 int main(){
     // Setup logger
     tf::log::init();

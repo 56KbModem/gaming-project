@@ -1,0 +1,7 @@
+/Users/nathanhoekstra/Downloads/tmxlite-master/tmxlite/build/CMakeFiles/install/local.dir
+/Users/nathanhoekstra/Downloads/tmxlite-master/tmxlite/build/CMakeFiles/install/strip.dir
+/Users/nathanhoekstra/Downloads/tmxlite-master/tmxlite/build/CMakeFiles/install.dir
+/Users/nathanhoekstra/Downloads/tmxlite-master/tmxlite/build/CMakeFiles/list_install_components.dir
+/Users/nathanhoekstra/Downloads/tmxlite-master/tmxlite/build/CMakeFiles/rebuild_cache.dir
+/Users/nathanhoekstra/Downloads/tmxlite-master/tmxlite/build/CMakeFiles/edit_cache.dir
+/Users/nathanhoekstra/Downloads/tmxlite-master/tmxlite/build/CMakeFiles/tmxlite.dir

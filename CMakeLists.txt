@@ -23,10 +23,10 @@ find_package(SFML 2.5 COMPONENTS graphics audio network REQUIRED)
 
 #Add library's
 include_directories(vendor/spdlog/include vendor/tmxlite/include)
-link_directories(vendor/spdlog/include)
+link_directories(vendor/spdlog/include lib/)
 
 #Add cource and header files
-add_executable(Topforce main.cpp topforce.hpp gui/menu.hpp gui/main_menu.cpp gui/main_menu.hpp log.cpp log.hpp level/SFMLOrthogonalLayer.hpp)
+add_executable(Topforce main.cpp topforce.hpp gui/menu.hpp gui/main_menu.cpp gui/main_menu.hpp log.cpp log.hpp)
 
 #Link library's
-target_link_libraries(Topforce sfml-graphics sfml-audio sfml-network)
+target_link_libraries(Topforce sfml-graphics sfml-audio sfml-network tmxlite)
