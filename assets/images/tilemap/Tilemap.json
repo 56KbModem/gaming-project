@@ -1,0 +1,14 @@
+{ "columns":108,
+ "image":"tilesheet_complete_2X.png",
+ "imageheight":2560,
+ "imagewidth":3456,
+ "margin":0,
+ "name":"Tilemap",
+ "spacing":0,
+ "tilecount":8640,
+ "tiledversion":"1.2.1",
+ "tileheight":32,
+ "tilewidth":32,
+ "type":"tileset",
+ "version":1.2
+}

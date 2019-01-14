@@ -3,7 +3,6 @@
 //
 
 #include "main_menu.hpp"
-
 #define MENU_SOUND "assets/sounds/menu_sound.wav"
 #define SELECT_SOUND "assets/sounds/ui_select.wav"
 

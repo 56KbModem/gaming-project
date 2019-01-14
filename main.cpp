@@ -1,6 +1,9 @@
 #include "topforce.hpp"
 #include "gui/main_menu.hpp"
 
+//tmx includes
+#include <tmxlite/Map.hpp>
+#include "level/SFMLOrthogonalLayer.hpp"
 int main(){
     // Setup logger
     tf::log::init();
@@ -16,10 +19,29 @@ int main(){
 
     tf::gui::main_menu menu(window);
     selected_mode = menu.run();
-
     TF_INFO("Chosen game mode: {}",int(selected_mode));
 
-    window.close();
+    // Load level test
+    tmx::Map map;
+    map.load("assets/levels/level1.tmx");
+
+    MapLayer layerZero(map, 0);
+    MapLayer layerOne(map, 1);
+
+    while (window.isOpen())
+    {
+        sf::Event event;
+        while (window.pollEvent(event))
+        {
+            if (event.type == sf::Event::Closed)
+                window.close();
+        }
+
+        window.clear(sf::Color::Black);
+        window.draw(layerZero);
+        window.draw(layerOne);
+        window.display();
+    }
     TF_INFO("Terminating application!");
     return 0;
 }
