@@ -23,7 +23,7 @@
 #include "log.hpp"
 
 // Global enum classes
-enum class game_mode {
+enum class game_modes {
     None,
     Team_Deathmatch,
     Search_and_Destroy,

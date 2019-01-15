@@ -9,10 +9,14 @@ int main(){
     // Anti aliasing
     sf::ContextSettings settings;
     settings.antialiasingLevel = 8;
-    // Window object
-    sf::RenderWindow window( sf::VideoMode(1920, 1080), "Topforce",sf::Style::Titlebar | sf::Style::Close, settings);
 
-    game_mode selected_mode;
+    // Window object
+    sf::Image window_icon;
+    window_icon.loadFromFile("assets/images/Topforce_icon.png");
+    sf::RenderWindow window( sf::VideoMode(1920, 1080), "Topforce",sf::Style::Titlebar | sf::Style::Close, settings);
+    window.setIcon(512, 512, window_icon.getPixelsPtr());
+
+    game_modes selected_mode;
 
     tf::gui::main_menu menu(window);
     selected_mode = menu.run();
@@ -25,6 +29,13 @@ int main(){
         window.clear(sf::Color::Black);
         level1.draw(window);
         window.display();
+
+        sf::Event event;
+        while (window.pollEvent(event)) {
+            if (event.type == sf::Event::Closed) {
+                window.close();
+            }
+        }
     }
     TF_INFO("Terminating application!");
     return 0;
