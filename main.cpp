@@ -1,5 +1,6 @@
 #include "topforce.hpp"
 #include "gui/main_menu.hpp"
+#include "character/character.hpp"
 
 int main(){
     // Setup logger
@@ -18,6 +19,21 @@ int main(){
     selected_mode = menu.run();
 
     TF_INFO("Chosen game mode: {}",int(selected_mode));
+    tf::character::character player1;
+    sf::Event event;
+    while (window.isOpen()) {
+        window.clear();
+
+        // Draw items
+        player1.draw(window);
+        window.display();
+
+        while (window.pollEvent(event)) {
+            if (event.type == sf::Event::Closed) {
+                window.close();
+            }
+        }
+    }
 
     window.close();
     TF_INFO("Terminating application!");
