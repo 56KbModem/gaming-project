@@ -23,11 +23,13 @@
 #include "log.hpp"
 
 // Global enum classes
-enum class game_modes {
-    None,
-    Team_Deathmatch,
-    Search_and_Destroy,
-    Free_For_All
-};
+namespace tf {
+    enum class game_modes {
+        None,
+        Team_Deathmatch,
+        Search_and_Destroy,
+        Free_For_All
+    };
+}
 
 #endif //TOPFORCE_HEADERS_HPP

@@ -6,20 +6,27 @@
 #define TOPFORCE_MAP_LOADER_HPP
 
 #include "../topforce.hpp"
+#include "../abstracts/ScreenObject.hpp"
 #include <tmxlite/Map.hpp>
 #include "SFMLOrthogonalLayer.hpp"
 
-namespace tf{namespace level{
-    class map_loader {
+namespace tf { namespace level {
+class MapGraphics : public tf::ScreenObject {
     private:
         tmx::Map map;
         std::unique_ptr<MapLayer> ground;
         std::unique_ptr<MapLayer> decorations;
         std::unique_ptr<MapLayer> intersectables;
+
+        enum Layers {
+            Ground,
+            Decorations,
+            Intersectable
+        };
     public:
-        map_loader(const std::string & map_name);
-        void draw(sf::RenderWindow & window);
-        sf::FloatRect get_bounds(void);
+        MapGraphics(const std::string & map_name, sf::RenderWindow& window);
+        void draw() const override;
+        sf::FloatRect get_bounds();
     };
 
 }}
