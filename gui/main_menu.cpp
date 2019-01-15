@@ -96,12 +96,15 @@ namespace tf{namespace gui{
                             switch(play.get_pressed_item()){
                                 case 0:
                                     //Team Deatmatch
+                                    menu_sound.stop();
                                     return game_mode::Team_Deathmatch;
                                 case 1:
                                     //Search & Destroy
+                                    menu_sound.stop();
                                     return game_mode::Search_and_Destroy;
                                 case 2:
                                     //Free For All
+                                    menu_sound.stop();
                                     return game_mode::Free_For_All;
                                 case 3:
                                     //Back
@@ -140,6 +143,7 @@ namespace tf{namespace gui{
                     }
                 }
             }
+            menu_sound.stop();
             return game_mode::None;
         }
 }}

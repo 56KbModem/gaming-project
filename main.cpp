@@ -1,9 +1,6 @@
 #include "topforce.hpp"
 #include "gui/main_menu.hpp"
-
-#include <tmxlite/Map.hpp>
-#include "level/SFMLOrthogonalLayer.hpp"
-
+#include "level/map_loader.hpp"
 int main(){
     // Setup logger
     tf::log::init();
@@ -21,25 +18,12 @@ int main(){
     selected_mode = menu.run();
     TF_INFO("Chosen game mode: {}",int(selected_mode));
 
-    // Load level test
-    tmx::Map map;
-    map.load("assets/levels/level1.tmx");
-
-    MapLayer layerZero(map, 0);
-    MapLayer layerOne(map, 1);
-
+    tf::level::map_loader level1("FiringRange.tmx");
+    
     while (window.isOpen())
     {
-        sf::Event event;
-        while (window.pollEvent(event))
-        {
-            if (event.type == sf::Event::Closed)
-                window.close();
-        }
-
         window.clear(sf::Color::Black);
-        window.draw(layerZero);
-        window.draw(layerOne);
+        level1.draw(window);
         window.display();
     }
     TF_INFO("Terminating application!");
