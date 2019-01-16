@@ -8,6 +8,7 @@
 // Standard library includes
 #include <iostream>
 #include <functional>
+#include <cstdint>
 
 #include <string>
 #include <sstream>

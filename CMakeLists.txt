@@ -4,7 +4,7 @@ project(Topforce)
 set(CMAKE_CXX_STANDARD 17)
 
 #Set extra flags
-set(GCC_COVERAGE_COMPILE_FLAGS "-Wall -Wextra")
+set(GCC_COVERAGE_COMPILE_FLAGS "-Wall")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GCC_COVERAGE_COMPILE_FLAGS}")
 
 if (CMAKE_BUILD_TYPE MATCHES Debug)
@@ -26,7 +26,13 @@ include_directories(vendor/spdlog/include)
 link_directories(vendor/spdlog/include)
 
 #Add cource and header files
-add_executable(Topforce main.cpp topforce.hpp gui/menu.hpp gui/main_menu.cpp gui/main_menu.hpp log.cpp log.hpp networking/topForceServer.cpp networking/topForceServer.hpp)
+if (CMAKE_BUILD_TYPE MATCHES Debug)
+    add_executable(Topforce main.cpp topforce.hpp gui/menu.hpp gui/main_menu.cpp gui/main_menu.hpp log.cpp log.hpp)
+endif()
+
+if (CMAKE_BUILD_TYPE MATCHES Server)
+    add_executable(Topforce networking/main.cpp networking/topForceServer.hpp networking/topForceServer.cpp log.cpp log.hpp)
+endif()
 
 #Link library's
 target_link_libraries(Topforce sfml-graphics sfml-audio sfml-network)

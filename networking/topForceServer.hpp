@@ -5,17 +5,34 @@
 #ifndef TOPFORCE_TOPFORCESERVER_HPP
 #define TOPFORCE_TOPFORCESERVER_HPP
 
-#include <SFML/Network.hpp>
-#include <cstdint>
+#include "../topforce.hpp"
 
-class topForceServer {
+class topforce_server {
 private:
-    uint8_t data_buffer[1500]; // 1500 byte buffer
-    sf::TcpListener my_listener;
-    std::vector<sf::TcpSocket, 8> clients;
+    char data_buffer[128]; // 1500 byte buffer
+    std::size_t received;       // how many bytes have we received?
+
+    uint16_t my_portnumber;
+    sf::UdpSocket my_socket;
+
+    sf::IpAddress remote_address;
+    uint16_t remote_port;
+
 
 public:
-    
+    topforce_server(uint16_t &portnumber):
+        my_portnumber(portnumber)
+    {
+        if (my_socket.bind(my_portnumber) != sf::Socket::Done){
+            TF_ERROR("Could not bind server to port: {}", my_portnumber);
+        }
+        else{
+            TF_INFO("Game Server bound to port: {}", my_portnumber);
+        }
+    }
+
+    void listen();
+    char * get_data();
 
 };
 
