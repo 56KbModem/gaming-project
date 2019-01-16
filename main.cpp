@@ -11,11 +11,14 @@ int main(){
     sf::ContextSettings settings;
     settings.antialiasingLevel = 8;
 
-    // Window object
+    // ---- Window settings ----
     sf::Image window_icon;
     window_icon.loadFromFile("assets/images/Topforce_icon.png");
     sf::RenderWindow window( sf::VideoMode(1920, 1080), "Topforce",sf::Style::Titlebar | sf::Style::Close, settings);
+    window.setVerticalSyncEnabled(true);
+    window.setFramerateLimit(60);
     window.setIcon(512, 512, window_icon.getPixelsPtr());
+    // ---- END window settings ----
 
     tf::game_modes selected_mode;
 
