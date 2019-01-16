@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="144" height="112" tilewidth="32" tileheight="32" infinite="0" nextlayerid="11" nextobjectid="15">
+<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="144" height="112" tilewidth="32" tileheight="32" infinite="0" nextlayerid="11" nextobjectid="31">
  <tileset firstgid="1" source="../images/tilemap/Tilemap.tsx"/>
  <layer id="5" name="Grond" width="144" height="112" visible="0">
   <data encoding="csv">
@@ -349,7 +349,8 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup id="10" name="Objects">
+ <objectgroup id="10" name="Objects" offsetx="1" offsety="-1">
   <object id="13" x="864" y="736" width="31" height="96"/>
+  <object id="15" x="832" y="671" width="382" height="63"/>
  </objectgroup>
 </map>
