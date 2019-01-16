@@ -63,7 +63,9 @@ int main(){
         player1.draw();
         window.draw(cursor);
         window.display();
-        level1.check_collision(player1);
+        if (level1.check_collision(player1)) {
+            TF_INFO("collision detected");
+        }
         sf::Event event;
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed) {

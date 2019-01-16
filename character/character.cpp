@@ -59,7 +59,7 @@ namespace tf {
         mySprite.setRotation(rotation);
     }
 
-    sf::Vector2f character::get_position() {
-        return mySprite.getPosition();
+    sf::FloatRect character::get_bounds() {
+        return mySprite.getGlobalBounds();
     }
 }

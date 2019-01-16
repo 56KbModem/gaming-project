@@ -26,7 +26,7 @@ public:
 
     void move(sf::View &view) override;
 
-    sf::Vector2f get_position();
+    sf::FloatRect get_bounds();
 };
 
 }
