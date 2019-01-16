@@ -3,23 +3,17 @@
 //
 #include "client.hpp"
 
-clientConnect::clientConnect(std::string &ip, int port) {
-    status = socket.connect(ip,port);
-    if (status != sf::Socket::Done){
-        TF_ERROR("Client connection to server fail.");
+clientConnect::clientConnect(sf::IpAddress ip, const unsigned short &port):
+    recipient(ip),
+    port(port)
+    {
+        if (socket.bind(port) != sf::Socket::Done){
+            TF_WARN("Failt to connect to server");
+        }
     }
-}
-
-std::string clientConnect::GetRemoteIp() {
-    return socket.getRemoteAddress();
-}
-
-std::String clientConnect::getRemotePort(){
-    return socket.getRemotePort();
-}
 
 void clientConnect::send(char &message[100]){
-    if (socket.send(message,100) != sf::socket::Done){
-        TF_WARN("Failt to send data to server");
+    if (socket.send(message,100,ip,port)!=sf::Socket::Done){
+        TF_WARN("Sending failt");
     }
 }

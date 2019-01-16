@@ -8,13 +8,12 @@
 
 class clientConnect{
 private:
-    sf::TcpSocket socket;
-    sf::Socket::Status status;
+    sf::IpAddress ip;
+    unsigned short &port;
+    sf::UdpSocket socket;
 public:
-    clientConnect(std::string &ip, int port);
-    std::string GetRemoteIp();
-    std::String getRemotePort();
-    void send(char &message[100]);
+    clientConnect(sf::IpAddress ip, const unsigned short &port);
+    send(char &message[100]);
 
 };
 
