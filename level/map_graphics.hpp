@@ -18,9 +18,10 @@ class map_graphics : public tf::screen_object {
         std::unique_ptr<MapLayer> ground;
         std::unique_ptr<MapLayer> decorations;
         std::unique_ptr<MapLayer> intersectables;
-        std::unique_ptr<MapLayer> dingen;
-        std::vector<sf::FloatRect> bounds;
-
+        std::vector<sf::FloatRect> hitboxes;
+#if DEBUG
+        std::vector<sf::RectangleShape> hitbox_visuals;
+#endif
         enum Layers {
             Ground,
             Decorations,
