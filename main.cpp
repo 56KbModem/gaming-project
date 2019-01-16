@@ -2,11 +2,11 @@
 #include "gui/main_menu.hpp"
 #include "character/character.hpp"
 #include "level/map_graphics.hpp"
-
 int main(){
     // Setup logger
     tf::log::init();
-    TF_WARN("Initialized log!");
+    TF_WARN("TopForce logger initialized!");
+    NETWORK_WARN("Network logger initialized!");
 
     // Anti aliasing
     sf::ContextSettings settings;
@@ -21,22 +21,46 @@ int main(){
     window.setIcon(512, 512, window_icon.getPixelsPtr());
     // ---- END window settings ----
 
-    tf::game_modes selected_mode;
+    // --- Cursor ----
+    window.setMouseCursorVisible(false);
+    sf::Texture texture;
+    texture.loadFromFile("assets/images/crosshair.png");
+    sf::Sprite cursor(texture);
+    cursor.setScale(0.5f,0.5f);
+    // --- END Cursor ----
 
+    // ---- Main menu ----
+    tf::game_modes selected_mode;
     tf::gui::main_menu menu(window);
-    selected_mode = menu.run();
+    selected_mode = menu.run(); // selected_mode indicates which game mode needs to be called
+#if DEBUG
     TF_INFO("Chosen game mode: {}",int(selected_mode));
+#endif
+    // --- END Main menu ----
+
+    // ---- SELECTED GAME MODE SHOULD BE LOADED HERE ----
+    //
+    //
+
+    // ----- TEST CODE -----
     tf::character player1(window);
     tf::level::map_graphics level1("FiringRange.tmx", window);
     sf::View view;
     view.setSize(1920.f, 1080.f);
+
     while (window.isOpen())
     {
         window.clear(sf::Color::Black);
         window.setView(view);
+        //Cursor position calculation
+        sf::Vector2i position = sf::Mouse::getPosition(window);
+        sf::Vector2f worldPos = window.mapPixelToCoords(position);
+        cursor.setPosition(worldPos);
+        // Draw objects
         level1.draw();
         player1.move(view);
         player1.draw();
+        window.draw(cursor);
         window.display();
 
         sf::Event event;
@@ -46,6 +70,7 @@ int main(){
             }
         }
     }
+    // ---- END TEST CODE -----
     TF_INFO("Terminating application!");
     return 0;
 }
