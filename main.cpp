@@ -1,6 +1,6 @@
 #include "topforce.hpp"
 #include "gui/main_menu.hpp"
-#include "level/MapGraphics.hpp"
+#include "level/map_graphics.hpp"
 
 int main(){
     // Setup logger
@@ -26,7 +26,7 @@ int main(){
     selected_mode = menu.run();
     TF_INFO("Chosen game mode: {}",int(selected_mode));
 
-    tf::level::MapGraphics level1("FiringRange.tmx", window);
+    tf::level::map_graphics level1("FiringRange.tmx", window);
     
     while (window.isOpen())
     {

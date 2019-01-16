@@ -6,12 +6,12 @@
 #define TOPFORCE_MAP_LOADER_HPP
 
 #include "../topforce.hpp"
-#include "../abstracts/ScreenObject.hpp"
+#include "../abstracts/screen_object.hpp"
 #include <tmxlite/Map.hpp>
 #include "SFMLOrthogonalLayer.hpp"
 
 namespace tf { namespace level {
-class MapGraphics : public tf::ScreenObject {
+class map_graphics : public tf::screen_object {
     private:
         tmx::Map map;
         std::unique_ptr<MapLayer> ground;
@@ -24,9 +24,9 @@ class MapGraphics : public tf::ScreenObject {
             Intersectable
         };
     public:
-        MapGraphics(const std::string & map_name, sf::RenderWindow& window);
+        map_graphics(const std::string & map_name, sf::RenderWindow& window);
         void draw() const override;
-        sf::FloatRect get_bounds();
+        sf::FloatRect get_global_bounds();
     };
 
 }}

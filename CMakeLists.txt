@@ -29,7 +29,7 @@ if(UNIX)
     link_directories(vendor/spdlog/include lib/macos/)
 endif(UNIX)
 #Add cource and header files
-add_executable(Topforce main.cpp topforce.hpp gui/menu.hpp gui/main_menu.cpp gui/main_menu.hpp log.cpp log.hpp level/MapGraphics.cpp level/MapGraphics.hpp abstracts/ScreenObject.hpp abstracts/ScreenObject.cpp)
+add_executable(Topforce main.cpp topforce.hpp gui/menu.hpp gui/main_menu.cpp gui/main_menu.hpp log.cpp log.hpp level/map_graphics.cpp level/map_graphics.hpp abstracts/screen_object.hpp abstracts/screen_object.cpp)
 
 #Link library's
 target_link_libraries(Topforce sfml-graphics sfml-audio sfml-network tmxlite)

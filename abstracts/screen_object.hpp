@@ -8,11 +8,11 @@
 #include "../topforce.hpp"
 
 namespace tf {
-    class ScreenObject {
+    class screen_object {
     protected:
         sf::RenderWindow& window;
     public:
-        ScreenObject(sf::RenderWindow& window);
+        screen_object(sf::RenderWindow& window);
         virtual void draw() const = 0;
     };
 }
