@@ -9,6 +9,7 @@
 #include "../abstracts/screen_object.hpp"
 #include <tmxlite/Map.hpp>
 #include "SFMLOrthogonalLayer.hpp"
+#include "../character/character.hpp"
 
 namespace tf { namespace level {
 class map_graphics : public tf::screen_object {
@@ -26,7 +27,7 @@ class map_graphics : public tf::screen_object {
     public:
         map_graphics(const std::string & map_name, sf::RenderWindow& window);
         void draw() const override;
-        sf::FloatRect get_global_bounds();
+        bool check_collision(tf::character & character);
     };
 
 }}

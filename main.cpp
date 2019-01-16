@@ -2,6 +2,7 @@
 #include "gui/main_menu.hpp"
 #include "character/character.hpp"
 #include "level/map_graphics.hpp"
+#include "abstracts/screen_object.hpp"
 int main(){
     // Setup logger
     tf::log::init();
@@ -62,7 +63,7 @@ int main(){
         player1.draw();
         window.draw(cursor);
         window.display();
-
+        level1.check_collision(player1);
         sf::Event event;
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed) {

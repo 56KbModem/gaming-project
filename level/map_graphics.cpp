@@ -24,7 +24,19 @@ namespace tf{namespace level{
         window.draw(*intersectables);
     }
 
-    sf::FloatRect map_graphics::get_global_bounds() {
-        return intersectables->getGlobalBounds();
+    bool map_graphics::check_collision(tf::character &character) {
+        auto & layers = map.getLayers();
+        for(auto & layer : layers){
+            if(layer->getType() == tmx::Layer::Type::Object){
+                for(auto& object : layer->getLayerAs<tmx::ObjectGroup>().getObjects()){
+                    if(layer->getName() == "Intersectable"){
+                        auto pos = object.getPosition();
+                        if(pos.x == character.get_position().x){
+                            TF_INFO("Object colided!");
+                        }
+                    }
+                }
+            }
+        }
     }
 }}

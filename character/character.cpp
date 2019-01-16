@@ -25,7 +25,6 @@ namespace tf {
     }
 
     void character::move(sf::View &view) {
-        TF_INFO("X:{} Y:{}",mySprite.getPosition().x, mySprite.getPosition().y);
         auto currentPosition = mySprite.getPosition();
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) {
             mySprite.setTexture(reloading);
@@ -58,5 +57,9 @@ namespace tf {
         float dy = curPos.y - worldPos.y;
         float rotation = float((atan2(dy, dx)) * 180 / PI) + 180;
         mySprite.setRotation(rotation);
+    }
+
+    sf::Vector2f character::get_position() {
+        return mySprite.getPosition();
     }
 }

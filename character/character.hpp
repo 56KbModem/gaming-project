@@ -25,6 +25,8 @@ public:
     void draw() const override;
 
     void move(sf::View &view) override;
+
+    sf::Vector2f get_position();
 };
 
 }

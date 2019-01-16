@@ -15,6 +15,7 @@ namespace tf {
         screen_object(sf::RenderWindow& window);
         virtual void draw() const = 0;
     };
+    bool intersects(sf::Shape& shape, sf::Shape& other);
 }
 
 #endif //TOPFORCE_SCREENOBJECT_HPP
