@@ -12,25 +12,23 @@ namespace tf{
         char data_buffer[1500]; // 1500 byte buffer
         std::size_t received;       // how many bytes have we received?
 
-        uint16_t my_portnumber;
-        sf::UdpSocket my_socket;
+        uint16_t my_portnumber;     // port on which to bind the server
+        sf::SocketSelector selector;
 
-        std::vector<sf::IpAddress> players;
+        std::vector<sf::UdpSocket> players; // stores socket for players
         uint16_t remote_port;
+        sf::IpAddress remote_host
+
+
+
 
 
     public:
         topforce_server(uint16_t &portnumber):
                 my_portnumber(portnumber)
-        {
-            if (my_socket.bind(my_portnumber) != sf::Socket::Done){
-                NETWORK_ERROR("Could not bind server to port: {}", my_portnumber);
-            }
-            else{
-                NETWORK_INFO("Game Server bound to port: {}", my_portnumber);
-            }
-        }
+        {}
 
+        void connect_client();
         void recv();
         void send(char *message);
         char * get_data();

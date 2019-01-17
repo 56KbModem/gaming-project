@@ -13,7 +13,6 @@ int main(){
 
     while(1){
         current_server.recv();
-        sf::sleep(sf::milliseconds(200));
         std::cout << "received: " << current_server.get_data() << "\nsize: " << current_server.get_data_size() << '\n';
         if (std::string(current_server.get_data()) == "HELLO"){
             current_server.send("HELLO BACK");
