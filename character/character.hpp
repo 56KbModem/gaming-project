@@ -18,6 +18,9 @@ private:
     sf::SoundBuffer selection_buffer;
     sf::Sound weapon_sound;
     sf::Clock shoot_clock;
+#if DEBUG
+    sf::RectangleShape hitbox;
+#endif
 public:
     character(sf::RenderWindow &window, sf::View & view);
 
