@@ -1,11 +1,13 @@
 #include "topForceServer.hpp"
+#include "Network_Client.hpp"
 
 namespace tf{
     void topforce_server::connect_client() {
-        sf::UdpSocket new_socket;
-        if(new_socket.bind(my_portnumber) == sf::Socket::Done){
-            players.push_back(new_socket);
-            selector.add(new_socket);
+        network_client client;
+        //sf::UdpSocket new_socket;
+        if(client.bind(my_portnumber) == sf::Socket::Done){
+            players.push_back(client);
+            selector.add(client);
         }
     }
 
@@ -13,11 +15,10 @@ namespace tf{
         if (selector.wait(sf::seconds(10.f))){
             for (auto &player : players){
                 if (selector.isReady(player)){
-                    if (player.receive(data_buffer, 2, received, remote_host, remote_port) == sf::Socket::Done) {
-                        for (auto &other_players : players){
-                            if (other_players != player){
-                                player
-                            }
+                    if (player.receive() == sf::Socket::Done) {
+                        for (auto &other_player : players){
+                            if (other_player != player){
+                                other_player.send(player.get_buf());
                         }
                     }
                     else{

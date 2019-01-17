@@ -2,8 +2,10 @@
 // Created by ramon on 17-1-2019.
 //
 #include "Network_Client.hpp"
+network_client::network_client(){}
 
-network_client::network_client(const int &port){
+
+network_client::bind(const int &port){
     if(new_socket.bind(port) != sf::Socket::Done){
         NETWORK_ERROR("Failed to bind port");
     }
@@ -28,4 +30,7 @@ tf::network_packet network_client::received(){
     else{
         NETWORK_ERROR("Error receiving packet");
     }
+}
+tf::network_packet network_client::get_buf(){
+    return data_buffer;
 }
