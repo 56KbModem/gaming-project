@@ -1,6 +1,3 @@
-//
-// Created by crisv on 15-1-2019.
-//
 #include "../abstracts/moveable_screen_object.hpp"
 
 #ifndef TOPFORCE_CHARACTER_HPP
@@ -8,6 +5,7 @@
 
 #define PLAYER "assets/images/soldier1_machine.png"
 #define RELOAD "assets/images/soldier1_reload.png"
+#define WEAPONG3 "assets/sounds/weap_g3_slst_2.wav"
 #define PI 3.14159265
 
 namespace tf{
@@ -16,21 +14,21 @@ private:
     sf::Sprite mySprite;
     sf::Texture stationary;
     sf::Texture reloading;
-
-    void lookAtMouse(sf::View &view);
-
+    sf::View & view;
+    sf::SoundBuffer selection_buffer;
+    sf::Sound weapon_sound;
+    sf::Clock shoot_clock;
 public:
-    character(sf::RenderWindow &window);
+    character(sf::RenderWindow &window, sf::View & view);
 
     void draw() const override;
-
-    void move(sf::View &view) override;
-
-    sf::FloatRect get_bounds();
+    void move(const sf::Vector2f & position) override;
+    void setTexture(const std::string & texture);
+    void shoot();
+    void lookAtMouse();
+    sf::Vector2f getPosition();
 };
 
 }
-
-
 
 #endif //TOPFORCE_CHARACTER_HPP

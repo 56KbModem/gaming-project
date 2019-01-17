@@ -44,12 +44,20 @@ int main(){
     //
 
     // ----- TEST CODE -----
-    tf::character player1(window);
-    tf::level::map_graphics firing_range("FiringRange.tmx", window);
-    
     sf::View view;
+    tf::character player1(window, view);
+    tf::level::map_graphics firing_range("FiringRange.tmx", window);
     view.setSize(1920.f, 1080.f);
+    sf::Vector2f currentPosition;
 
+    action Actions[] = {action([](){return true;}, [&](){currentPosition = player1.getPosition();} ),
+                        action(sf::Keyboard::W, [&](){player1.setTexture("RELOADING"); player1.move( sf::Vector2f{ 0.0f, -5.0f } );}),
+                        action(sf::Keyboard::A, [&](){player1.setTexture("RELOADING"); player1.move( sf::Vector2f{ -5.0f, 0.0f } );}),
+                        action(sf::Keyboard::S, [&](){player1.setTexture("RELOADING"); player1.move( sf::Vector2f{ 0.0f, 5.0f } ); }),
+                        action(sf::Keyboard::D, [&](){player1.setTexture("RELOADING"); player1.move( sf::Vector2f{ 5.0f, 0.0f } ); }),
+                        action(sf::Mouse::Left, [&](){if(currentPosition == player1.getPosition()){ player1.shoot();}}),
+                        action([&](){return currentPosition == player1.getPosition();}, [&](){player1.setTexture("STATIONARY");})
+    };
     while (window.isOpen())
     {
         window.clear(sf::Color::Black);
@@ -60,8 +68,11 @@ int main(){
         cursor.setPosition(worldPos);
         // Draw objects
         firing_range.draw();
-        player1.move(view);
         player1.draw();
+        player1.lookAtMouse();
+        for (auto & action : Actions){
+            action();
+        }
         window.draw(cursor);
         window.display();
         if (firing_range.intersects(player1)) {

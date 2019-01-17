@@ -19,6 +19,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Network.hpp>
 #include <SFML/Audio.hpp>
+#include <SFML/System.hpp>
 
 // Logger include
 #include "log.hpp"

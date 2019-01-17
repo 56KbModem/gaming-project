@@ -20,7 +20,7 @@ if (WIN32)
 endif (WIN32)
 
 #Find SFML packages
-find_package(SFML 2.5 COMPONENTS graphics audio network REQUIRED)
+find_package(SFML 2.5 COMPONENTS graphics audio network system REQUIRED)
 
 #Add library's
 include_directories(vendor/spdlog/include vendor/tmxlite/include)
@@ -33,4 +33,4 @@ add_executable(Topforce main.cpp topforce.hpp gui/menu.hpp gui/main_menu.cpp gui
 
 
 #Link library's
-target_link_libraries(Topforce sfml-graphics sfml-audio sfml-network tmxlite)
+target_link_libraries(Topforce sfml-graphics sfml-audio sfml-network sfml-system tmxlite)
