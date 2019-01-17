@@ -7,6 +7,7 @@
 
 // Standard library includes
 #include <iostream>
+#include <algorithm>
 #include <functional>
 #include <memory>
 

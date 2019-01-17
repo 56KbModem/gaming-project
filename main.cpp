@@ -45,7 +45,8 @@ int main(){
 
     // ----- TEST CODE -----
     tf::character player1(window);
-    tf::level::map_graphics level1("FiringRange.tmx", window);
+    tf::level::map_graphics firing_range("FiringRange.tmx", window);
+    
     sf::View view;
     view.setSize(1920.f, 1080.f);
 
@@ -58,12 +59,12 @@ int main(){
         sf::Vector2f worldPos = window.mapPixelToCoords(position);
         cursor.setPosition(worldPos);
         // Draw objects
-        level1.draw();
+        firing_range.draw();
         player1.move(view);
         player1.draw();
         window.draw(cursor);
         window.display();
-        if (level1.check_collision(player1)) {
+        if (firing_range.intersects(player1)) {
             TF_INFO("collision detected");
         }
         sf::Event event;

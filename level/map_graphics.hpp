@@ -15,22 +15,17 @@ namespace tf { namespace level {
 class map_graphics : public tf::screen_object {
     private:
         tmx::Map map;
-        std::unique_ptr<MapLayer> ground;
-        std::unique_ptr<MapLayer> decorations;
-        std::unique_ptr<MapLayer> intersectables;
+        std::vector<std::unique_ptr<MapLayer>> layers;
         std::vector<sf::FloatRect> hitboxes;
 #if DEBUG
         std::vector<sf::RectangleShape> hitbox_visuals;
 #endif
-        enum Layers {
-            Ground,
-            Decorations,
-            Intersectable
-        };
+        void set_hitboxes(const std::vector<tmx::Object>& objects);
+        void parse_map_layers();
     public:
-        map_graphics(const std::string & map_name, sf::RenderWindow& window);
+        map_graphics(const std::string &map_name, sf::RenderWindow &window);
         void draw() const override;
-        bool check_collision(tf::character & character);
+        bool intersects(tf::character &character);
     };
 
 }}
