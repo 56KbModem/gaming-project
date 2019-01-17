@@ -26,20 +26,31 @@ int main(){
     tf::gui::main_menu menu(window);
     selected_mode = menu.run();
     TF_INFO("Chosen game mode: {}",int(selected_mode));
-    tf::character player1(window);
-    tf::level::map_graphics level1("FiringRange.tmx", window);
     sf::View view;
+    tf::character player1(window, view);
+    tf::level::map_graphics level1("FiringRange.tmx", window);
     view.setSize(1920.f, 1080.f);
+    sf::Vector2f currentPosition;
+
+    action Actions[] = {action([](){return true;}, [&](){currentPosition = player1.getPosition();} ),
+                        action(sf::Keyboard::W, [&](){player1.setTexture("RELOADING"); player1.move( sf::Vector2f{ 0.0f, -5.0f } );}),
+                        action(sf::Keyboard::A, [&](){player1.setTexture("RELOADING"); player1.move( sf::Vector2f{ -5.0f, 0.0f } );}),
+                        action(sf::Keyboard::S, [&](){player1.setTexture("RELOADING"); player1.move( sf::Vector2f{ 0.0f, 5.0f } ); }),
+                        action(sf::Keyboard::D, [&](){player1.setTexture("RELOADING"); player1.move( sf::Vector2f{ 5.0f, 0.0f } ); }),
+                        action([&](){return currentPosition == player1.getPosition();}, [&](){player1.setTexture("STATIONARY");})
+    };
+    sf::Event event;
     while (window.isOpen())
     {
         window.clear(sf::Color::Black);
         window.setView(view);
         level1.draw();
-        player1.move(view);
         player1.draw();
+        player1.lookAtMouse();
+        for (auto & action : Actions){
+            action();
+        }
         window.display();
-
-        sf::Event event;
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed) {
                 window.close();

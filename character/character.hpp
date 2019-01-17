@@ -1,6 +1,3 @@
-//
-// Created by crisv on 15-1-2019.
-//
 #include "../abstracts/moveable_screen_object.hpp"
 
 #ifndef TOPFORCE_CHARACTER_HPP
@@ -16,19 +13,19 @@ private:
     sf::Sprite mySprite;
     sf::Texture stationary;
     sf::Texture reloading;
-
-    void lookAtMouse(sf::View &view);
-
+    sf::View & view;
 public:
-    character(sf::RenderWindow &window);
+    character(sf::RenderWindow &window, sf::View & view);
 
     void draw() const override;
+    void move(const sf::Vector2f & position) override;
 
-    void move(sf::View &view) override;
+    void lookAtMouse();
+    //void move(sf::View &view) override;
+    void setTexture(const std::string & texture);
+    sf::Vector2f getPosition();
 };
 
 }
-
-
 
 #endif //TOPFORCE_CHARACTER_HPP
