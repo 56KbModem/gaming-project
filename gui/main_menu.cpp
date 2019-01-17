@@ -19,7 +19,6 @@ namespace tf{namespace gui{
             }
             selection_music.setBuffer(selection_buffer);
         }
-
         game_modes main_menu::run() {
             menu main(window.getSize(),std::array<std::string,3>{"Play", "Settings", "Quit"});
             menu play(window.getSize(),std::array<std::string,4>{"Team Deatmatch", "Search & Destroy", "Free For All", "Back"});

@@ -2,11 +2,11 @@
 #include "gui/main_menu.hpp"
 #include "character/character.hpp"
 #include "level/map_graphics.hpp"
-
 int main(){
     // Setup logger
     tf::log::init();
-    TF_WARN("Initialized log!");
+    TF_WARN("TopForce logger initialized!");
+    NETWORK_WARN("Network logger initialized!");
 
     // Anti aliasing
     sf::ContextSettings settings;
@@ -21,11 +21,28 @@ int main(){
     window.setIcon(512, 512, window_icon.getPixelsPtr());
     // ---- END window settings ----
 
-    tf::game_modes selected_mode;
+    // --- Cursor ----
+    window.setMouseCursorVisible(false);
+    sf::Texture texture;
+    texture.loadFromFile("assets/images/crosshair.png");
+    sf::Sprite cursor(texture);
+    cursor.setScale(0.5f,0.5f);
+    // --- END Cursor ----
 
+    // ---- Main menu ----
+    tf::game_modes selected_mode;
     tf::gui::main_menu menu(window);
-    selected_mode = menu.run();
+    selected_mode = menu.run(); // selected_mode indicates which game mode needs to be called
+#if DEBUG
     TF_INFO("Chosen game mode: {}",int(selected_mode));
+#endif
+    // --- END Main menu ----
+
+    // ---- SELECTED GAME MODE SHOULD BE LOADED HERE ----
+    //
+    //
+
+    // ----- TEST CODE -----
     sf::View view;
     tf::character player1(window, view);
     tf::level::map_graphics level1("FiringRange.tmx", window);
@@ -40,16 +57,23 @@ int main(){
                         action([&](){return currentPosition == player1.getPosition();}, [&](){player1.setTexture("STATIONARY");})
     };
     sf::Event event;
+
     while (window.isOpen())
     {
         window.clear(sf::Color::Black);
         window.setView(view);
+        //Cursor position calculation
+        sf::Vector2i position = sf::Mouse::getPosition(window);
+        sf::Vector2f worldPos = window.mapPixelToCoords(position);
+        cursor.setPosition(worldPos);
+        // Draw objects
         level1.draw();
         player1.draw();
         player1.lookAtMouse();
         for (auto & action : Actions){
             action();
         }
+        window.draw(cursor);
         window.display();
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed) {
@@ -57,6 +81,7 @@ int main(){
             }
         }
     }
+    // ---- END TEST CODE -----
     TF_INFO("Terminating application!");
     return 0;
 }
