@@ -15,7 +15,7 @@ namespace tf{
         uint16_t my_portnumber;
         sf::UdpSocket my_socket;
 
-        sf::IpAddress remote_address;
+        std::vector<sf::IpAddress> players;
         uint16_t remote_port;
 
 
@@ -24,10 +24,10 @@ namespace tf{
                 my_portnumber(portnumber)
         {
             if (my_socket.bind(my_portnumber) != sf::Socket::Done){
-                //TF_ERROR("Could not bind server to port: {}", my_portnumber);
+                NETWORK_ERROR("Could not bind server to port: {}", my_portnumber);
             }
             else{
-                //TF_INFO("Game Server bound to port: {}", my_portnumber);
+                NETWORK_INFO("Game Server bound to port: {}", my_portnumber);
             }
         }
 

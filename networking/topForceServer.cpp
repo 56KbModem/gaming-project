@@ -3,18 +3,20 @@
 namespace tf{
     void topforce_server::recv() {
         if (my_socket.receive(data_buffer, 2, received, remote_address, remote_port) != sf::Socket::Done){
-            TF_WARN("Cannot receive data on socket!");
+            NETWORK_WARN("Cannot receive data on socket!");
         }
 
         if (received > 1500){
-            TF_ERROR("Size of packet too big: {} bytes", received);
+            NETWORK_ERROR("Size of packet too big: {} bytes", received);
         }
 
     }
 
     void topforce_server::send(char *message){
-        if (my_socket.send(message, 3, remote_address, remote_port) != sf::Socket::Done){
-            TF_WARN("Something went wrong while sending data: {}", message);
+        for (player : players) {
+            if (my_socket.send(message, 3, player, remote_port) != sf::Socket::Done) {
+                NETWORK_WARN("Something went wrong while sending data: {}", message);
+            }
         }
     }
 

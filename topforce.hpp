@@ -31,6 +31,14 @@ namespace tf {
         Search_and_Destroy,
         Free_For_All
     };
+
+    struct network_packet {
+        float x;
+        float y;
+        float rotation;
+        uint8_t firing;
+        char * nickname[32];
+    };
 }
 
 #endif //TOPFORCE_HEADERS_HPP
