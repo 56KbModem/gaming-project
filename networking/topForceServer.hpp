@@ -24,14 +24,14 @@ namespace tf{
                 my_portnumber(portnumber)
         {
             if (my_socket.bind(my_portnumber) != sf::Socket::Done){
-                TF_ERROR("Could not bind server to port: {}", my_portnumber);
+                //TF_ERROR("Could not bind server to port: {}", my_portnumber);
             }
             else{
-                TF_INFO("Game Server bound to port: {}", my_portnumber);
+                //TF_INFO("Game Server bound to port: {}", my_portnumber);
             }
         }
 
-        void listen();
+        void recv();
         void send(char *message);
         char * get_data();
         std::size_t get_data_size();

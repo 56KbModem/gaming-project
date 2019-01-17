@@ -16,18 +16,21 @@ if (WIN32)
     set(CMAKE_EXE_LINKER_FLAGS "-static")
     set(SFML_DIR "C:/SFML-2.5.1/lib/cmake/SFML")
     set(SFML_STATIC_LIBRARIES TRUE)
+    link_directories(vendor/spdlog/include lib/windows/)
 endif (WIN32)
 
 #Find SFML packages
 find_package(SFML 2.5 COMPONENTS graphics audio network REQUIRED)
 
-#Add spdlog library
-include_directories(vendor/spdlog/include)
-link_directories(vendor/spdlog/include)
+#Add library's
+include_directories(vendor/spdlog/include vendor/tmxlite/include)
 
+if(UNIX)
+    link_directories(vendor/spdlog/include lib/macos/)
+endif(UNIX)
 #Add cource and header files
 if (CMAKE_BUILD_TYPE MATCHES Debug)
-    add_executable(Topforce main.cpp topforce.hpp gui/menu.hpp gui/main_menu.cpp gui/main_menu.hpp log.cpp log.hpp networking/client.hpp networking/client.cpp)
+    add_executable(Topforce main.cpp topforce.hpp gui/menu.hpp gui/main_menu.cpp gui/main_menu.hpp log.cpp log.hpp level/map_graphics.cpp level/map_graphics.hpp abstracts/screen_object.hpp abstracts/screen_object.cpp character/character.hpp character/character.cpp abstracts/moveable_screen_object.cpp abstracts/moveable_screen_object.hpp networking/client.hpp networking/client.cpp)
 endif()
 
 if (CMAKE_BUILD_TYPE MATCHES Server)
@@ -35,4 +38,4 @@ if (CMAKE_BUILD_TYPE MATCHES Server)
 endif()
 
 #Link library's
-target_link_libraries(Topforce sfml-graphics sfml-audio sfml-network)
+target_link_libraries(Topforce sfml-graphics sfml-audio sfml-network tmxlite)

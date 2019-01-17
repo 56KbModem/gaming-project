@@ -3,7 +3,6 @@
 //
 
 #include "main_menu.hpp"
-
 #define MENU_SOUND "assets/sounds/menu_sound.wav"
 #define SELECT_SOUND "assets/sounds/ui_select.wav"
 
@@ -20,8 +19,7 @@ namespace tf{namespace gui{
             }
             selection_music.setBuffer(selection_buffer);
         }
-
-        game_mode main_menu::run() {
+        game_modes main_menu::run() {
             menu main(window.getSize(),std::array<std::string,3>{"Play", "Settings", "Quit"});
             menu play(window.getSize(),std::array<std::string,4>{"Team Deatmatch", "Search & Destroy", "Free For All", "Back"});
             menu settings(window.getSize(),std::array<std::string,3>{"Music", "FX", "Back"});
@@ -97,13 +95,16 @@ namespace tf{namespace gui{
                             switch(play.get_pressed_item()){
                                 case 0:
                                     //Team Deatmatch
-                                    return game_mode::Team_Deathmatch;
+                                    menu_sound.stop();
+                                    return game_modes::Team_Deathmatch;
                                 case 1:
                                     //Search & Destroy
-                                    return game_mode::Search_and_Destroy;
+                                    menu_sound.stop();
+                                    return game_modes::Search_and_Destroy;
                                 case 2:
                                     //Free For All
-                                    return game_mode::Free_For_All;
+                                    menu_sound.stop();
+                                    return game_modes::Free_For_All;
                                 case 3:
                                     //Back
                                     active_menu = menus::main;
@@ -141,6 +142,7 @@ namespace tf{namespace gui{
                     }
                 }
             }
-            return game_mode::None;
+            menu_sound.stop();
+            return game_modes::None;
         }
 }}

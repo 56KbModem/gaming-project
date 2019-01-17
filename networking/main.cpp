@@ -12,16 +12,16 @@ int main(){
     tf::topforce_server current_server(server_port); // run server on port 31337
 
     while(1){
-        current_server.listen();
+        current_server.recv();
         sf::sleep(sf::milliseconds(200));
         std::cout << "received: " << current_server.get_data() << "\nsize: " << current_server.get_data_size() << '\n';
-        if( strncmp(current_server.get_data(), "HELLO", 80)){
-            current_server.send("Hello there!");
+        if (std::string(current_server.get_data()) == "HELLO"){
+            current_server.send("HELLO BACK");
         }
-        else if(strncmp(current_server.get_data(), "STOP", 80)){
-            current_server.send("Goodbye!");
-            break;
+        else{
+            current_server.send("ABC");
         }
+
     }
 
     TF_INFO("Topforce server shutting down!...");

@@ -25,7 +25,7 @@ namespace tf{
             menus active_menu;
         public:
             main_menu(sf::RenderWindow & window);
-            game_mode run();
+            game_modes run();
         };
     }
 }

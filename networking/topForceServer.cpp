@@ -1,8 +1,8 @@
 #include "topForceServer.hpp"
 
 namespace tf{
-    void topforce_server::listen() {
-        if (my_socket.receive(data_buffer, 100, received, remote_address, remote_port) != sf::Socket::Done){
+    void topforce_server::recv() {
+        if (my_socket.receive(data_buffer, 2, received, remote_address, remote_port) != sf::Socket::Done){
             TF_WARN("Cannot receive data on socket!");
         }
 
@@ -13,7 +13,7 @@ namespace tf{
     }
 
     void topforce_server::send(char *message){
-        if (my_socket.send(message, 100, remote_address, remote_port) != sf::Socket::Done){
+        if (my_socket.send(message, 3, remote_address, remote_port) != sf::Socket::Done){
             TF_WARN("Something went wrong while sending data: {}", message);
         }
     }
