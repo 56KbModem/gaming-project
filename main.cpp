@@ -53,7 +53,7 @@ int main(){
         //Cursor position calculation
         sf::Vector2i position = sf::Mouse::getPosition(window);
         sf::Vector2f worldPos = window.mapPixelToCoords(position);
-        window.set_cursor_sprite(worldPos);
+        window.set_sprite_pos(worldPos);
         // Draw objects
         firing_range.draw();
         player1.draw();
@@ -74,7 +74,7 @@ int main(){
         }
     }
     // ---- END TEST CODE -----
-    
+
 #if DEBUG
     TF_INFO("Terminating application!");
 #endif

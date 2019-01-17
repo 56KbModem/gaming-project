@@ -25,7 +25,7 @@ namespace tf {
         cursor.setScale(0.5f,0.5f);
     }
 
-    void topforce_window::set_cursor_sprite(const sf::Vector2f &pos) {
+    void topforce_window::set_sprite_pos(const sf::Vector2f &pos) {
         cursor.setPosition(pos);
     }
 

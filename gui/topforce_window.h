@@ -17,7 +17,7 @@ public:
     topforce_window();
     void set_window_icon(const std::string &filename);
     void set_cursor_icon(const std::string &filename);
-    void set_cursor_sprite(const sf::Vector2f &pos);
+    void set_sprite_pos(const sf::Vector2f &pos);
     sf::Sprite get_cursor_sprite();
 };
 }
