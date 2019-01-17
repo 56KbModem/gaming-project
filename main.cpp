@@ -54,6 +54,7 @@ int main(){
                         action(sf::Keyboard::A, [&](){player1.setTexture("RELOADING"); player1.move( sf::Vector2f{ -5.0f, 0.0f } );}),
                         action(sf::Keyboard::S, [&](){player1.setTexture("RELOADING"); player1.move( sf::Vector2f{ 0.0f, 5.0f } ); }),
                         action(sf::Keyboard::D, [&](){player1.setTexture("RELOADING"); player1.move( sf::Vector2f{ 5.0f, 0.0f } ); }),
+                        action(sf::Mouse::Left, [&](){if(currentPosition == player1.getPosition()){ player1.shoot();}}),
                         action([&](){return currentPosition == player1.getPosition();}, [&](){player1.setTexture("STATIONARY");})
     };
     sf::Event event;
