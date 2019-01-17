@@ -76,7 +76,7 @@ int main(){
         window.draw(cursor);
         window.display();
         if (firing_range.intersects(player1)) {
-            TF_INFO("collision detected");
+            //Some code here
         }
         sf::Event event;
         while (window.pollEvent(event)) {

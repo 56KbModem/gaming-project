@@ -56,8 +56,11 @@
         float rotation = float((atan2(dy, dx)) * 180 / PI) + 180;
         mySprite.setRotation(rotation);
     }
+    sf::FloatRect character::get_bounds() {
+        return mySprite.getGlobalBounds();
+    }
+
     sf::Vector2f character::getPosition(){
             return mySprite.getPosition();
     }
-
 }

@@ -26,6 +26,7 @@ public:
     void setTexture(const std::string & texture);
     void shoot();
     void lookAtMouse();
+    sf::FloatRect get_bounds();
     sf::Vector2f getPosition();
 };
 
