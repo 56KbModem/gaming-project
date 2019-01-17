@@ -3,41 +3,29 @@
 #include "character/character.hpp"
 #include "level/map_graphics.hpp"
 #include "abstracts/screen_object.hpp"
+#include "gui/topforce_window.h"
+
 int main(){
     // Setup logger
     tf::log::init();
+#if DEBUG
     TF_WARN("TopForce logger initialized!");
     NETWORK_WARN("Network logger initialized!");
+#endif
 
-    // Anti aliasing
-    sf::ContextSettings settings;
-    settings.antialiasingLevel = 8;
-
-    // ---- Window settings ----
-    sf::Image window_icon;
-    window_icon.loadFromFile("assets/images/Topforce_icon.png");
-    sf::RenderWindow window( sf::VideoMode(1920, 1080), "Topforce",sf::Style::Titlebar | sf::Style::Close, settings);
-    window.setVerticalSyncEnabled(true);
-    window.setFramerateLimit(60);
-    window.setIcon(512, 512, window_icon.getPixelsPtr());
-    // ---- END window settings ----
-
-    // --- Cursor ----
-    window.setMouseCursorVisible(false);
-    sf::Texture texture;
-    texture.loadFromFile("assets/images/crosshair.png");
-    sf::Sprite cursor(texture);
-    cursor.setScale(0.5f,0.5f);
-    // --- END Cursor ----
+    tf::topforce_window window; // customized window
+    window.set_window_icon("Topforce_icon.png");
+    window.set_cursor_icon("crosshair.png");
 
     // ---- Main menu ----
     tf::game_modes selected_mode;
     tf::gui::main_menu menu(window);
     selected_mode = menu.run(); // selected_mode indicates which game mode needs to be called
+
 #if DEBUG
     TF_INFO("Chosen game mode: {}",int(selected_mode));
 #endif
-    // --- END Main menu ----
+
 
     // ---- SELECTED GAME MODE SHOULD BE LOADED HERE ----
     //
@@ -65,7 +53,7 @@ int main(){
         //Cursor position calculation
         sf::Vector2i position = sf::Mouse::getPosition(window);
         sf::Vector2f worldPos = window.mapPixelToCoords(position);
-        cursor.setPosition(worldPos);
+        window.set_cursor_sprite(worldPos);
         // Draw objects
         firing_range.draw();
         player1.draw();
@@ -73,7 +61,7 @@ int main(){
         for (auto & action : Actions){
             action();
         }
-        window.draw(cursor);
+        window.draw(window.get_cursor_sprite());
         window.display();
         if (firing_range.intersects(player1)) {
             //Some code here
@@ -86,6 +74,9 @@ int main(){
         }
     }
     // ---- END TEST CODE -----
+    
+#if DEBUG
     TF_INFO("Terminating application!");
+#endif
     return 0;
 }
