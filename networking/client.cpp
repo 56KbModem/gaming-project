@@ -3,17 +3,30 @@
 //
 #include "client.hpp"
 
-clientConnect::clientConnect(sf::IpAddress ip, const unsigned short &port):
-    recipient(ip),
+clientConnect::clientConnect(sf::IpAddress ip, unsigned short port):
+    ip(ip),
     port(port)
     {
         if (socket.bind(port) != sf::Socket::Done){
-            TF_WARN("Failt to connect to server");
+            TF_WARN("Failed to connect to server");
         }
     }
 
-void clientConnect::send(char &message[100]){
+void clientConnect::send(char *message){
     if (socket.send(message,100,ip,port)!=sf::Socket::Done){
-        TF_WARN("Sending failt");
+        TF_WARN("Sending failed");
     }
+}
+
+char* clientConnect::receive(){
+    if (socket.receive(receive_buffer,100, received_size, ip, port)!= sf::Socket::Done){
+        TF_WARN("Failed to receive data from server");
+    }
+    else {
+        return receive_buffer;
+    }
+}
+
+char* clientConnect::getBuffer() {
+    return receive_buffer;
 }

@@ -9,11 +9,15 @@
 class clientConnect{
 private:
     sf::IpAddress ip;
-    unsigned short &port;
+    unsigned short port;
     sf::UdpSocket socket;
+    char receive_buffer[1500];
+    std::size_t received_size;
 public:
-    clientConnect(sf::IpAddress ip, const unsigned short &port);
-    send(char &message[100]);
+    clientConnect(sf::IpAddress ip, unsigned short port);
+    void send(char *message);
+    char* receive();
+    char* getBuffer();
 
 };
 

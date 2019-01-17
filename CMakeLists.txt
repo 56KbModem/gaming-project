@@ -27,7 +27,7 @@ link_directories(vendor/spdlog/include)
 
 #Add cource and header files
 if (CMAKE_BUILD_TYPE MATCHES Debug)
-    add_executable(Topforce main.cpp topforce.hpp gui/menu.hpp gui/main_menu.cpp gui/main_menu.hpp log.cpp log.hpp)
+    add_executable(Topforce main.cpp topforce.hpp gui/menu.hpp gui/main_menu.cpp gui/main_menu.hpp log.cpp log.hpp networking/client.hpp networking/client.cpp)
 endif()
 
 if (CMAKE_BUILD_TYPE MATCHES Server)

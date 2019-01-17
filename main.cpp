@@ -1,5 +1,6 @@
 #include "topforce.hpp"
 #include "gui/main_menu.hpp"
+#include "networking/client.hpp"
 
 int main(){
     // Setup logger
@@ -16,9 +17,17 @@ int main(){
 
     tf::gui::main_menu menu(window);
     selected_mode = menu.run();
-
+    char mes[100]= "HELLO";
     TF_INFO("Chosen game mode: {}",int(selected_mode));
+    window.close();
+    auto connection = clientConnect(sf::IpAddress("145.89.97.172"), 31337);
+    while (true) {
+        connection.send(mes);
+        TF_INFO("sending to nick");
 
+        //connection.send(connection.receive());
+        TF_INFO("received: ",connection.receive()," and sending back");
+    }
     window.close();
     TF_INFO("Terminating application!");
     return 0;
