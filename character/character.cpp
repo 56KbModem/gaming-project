@@ -41,7 +41,7 @@
             mySprite.move(position);
             hitbox.setPosition(mySprite.getPosition().x -25, mySprite.getPosition().y - 25);
             for(auto & hitbox : levelHitboxes){
-                if(hitbox.intersects(get_bounds())){
+                if(hitbox.intersects(getBounds())){
                     mySprite.move(-position);
                 }
             }
@@ -73,7 +73,7 @@
         float rotation = float((atan2(dy, dx)) * 180 / PI) + 180;
         mySprite.setRotation(rotation);
     }
-    sf::FloatRect character::get_bounds() {
+    sf::FloatRect character::getBounds() {
             return hitbox.getGlobalBounds();
     }
 

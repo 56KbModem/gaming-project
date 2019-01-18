@@ -63,7 +63,7 @@ void map_graphics::draw() const {
 
 bool map_graphics::intersects(tf::character &character) {
     for (const auto &hitbox : hitboxes) {
-        if (hitbox.intersects(character.get_bounds())) {
+        if (hitbox.intersects(character.getBounds())) {
             return true;
         }
     }
