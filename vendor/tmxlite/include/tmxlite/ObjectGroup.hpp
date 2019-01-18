@@ -33,7 +33,6 @@ source distribution.
 #include <tmxlite/Object.hpp>
 
 #include <vector>
-
 namespace tmx
 {
     /*!

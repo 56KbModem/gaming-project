@@ -147,7 +147,7 @@ ctime
 -
 Windows.h
 -
-android/log.h
+android/Log.h
 -
 
 /Users/nathanhoekstra/Downloads/tmxlite-master/tmxlite/src/FreeFuncs.cpp

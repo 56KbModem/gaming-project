@@ -5,13 +5,13 @@
 #ifndef TOPFORCE_MOVEABLE_SCREEN_OBJECT_HPP
 #define TOPFORCE_MOVEABLE_SCREEN_OBJECT_HPP
 
-#include "screen_object.hpp"
+#include "ScreenObject.hpp"
 
 namespace tf{
-class moveable_screen_object : public screen_object {
+class MoveableScreenObject : public ScreenObject {
 public:
-    moveable_screen_object(sf::RenderWindow & window);
-    virtual void move(sf::View &view) = 0;
+    MoveableScreenObject(sf::RenderWindow & window);
+    virtual void move(const sf::Vector2f & position) = 0;
 };
 }
 

@@ -1,42 +1,31 @@
 #include "topforce.hpp"
-#include "gui/main_menu.hpp"
-#include "character/character.hpp"
-#include "level/map_graphics.hpp"
+#include "gui/MainMenu.hpp"
+#include "character/Character.hpp"
+#include "level/MapGraphics.hpp"
+#include "abstracts/ScreenObject.hpp"
+#include "gui/TopforceWindow.hpp"
+
 int main(){
     // Setup logger
-    tf::log::init();
+    tf::Log::init();
+#if DEBUG
     TF_WARN("TopForce logger initialized!");
     NETWORK_WARN("Network logger initialized!");
-
-    // Anti aliasing
-    sf::ContextSettings settings;
-    settings.antialiasingLevel = 8;
-
-    // ---- Window settings ----
-    sf::Image window_icon;
-    window_icon.loadFromFile("assets/images/Topforce_icon.png");
-    sf::RenderWindow window( sf::VideoMode(1920, 1080), "Topforce",sf::Style::Titlebar | sf::Style::Close, settings);
-    window.setVerticalSyncEnabled(true);
-    window.setFramerateLimit(60);
-    window.setIcon(512, 512, window_icon.getPixelsPtr());
-    // ---- END window settings ----
-
-    // --- Cursor ----
-    window.setMouseCursorVisible(false);
-    sf::Texture texture;
-    texture.loadFromFile("assets/images/crosshair.png");
-    sf::Sprite cursor(texture);
-    cursor.setScale(0.5f,0.5f);
-    // --- END Cursor ----
-
-    // ---- Main menu ----
-    tf::game_modes selected_mode;
-    tf::gui::main_menu menu(window);
-    selected_mode = menu.run(); // selected_mode indicates which game mode needs to be called
-#if DEBUG
-    TF_INFO("Chosen game mode: {}",int(selected_mode));
 #endif
-    // --- END Main menu ----
+
+    tf::TopforceWindow window; // customized window
+    window.setWindowIcon("Topforce_icon.png");
+    window.setCursorIcon("crosshair.png");
+
+    // ---- Main Menu ----
+    tf::GameModes selected_mode;
+    tf::gui::MainMenu menu(window);
+    selected_mode = menu.run(); // selected_mode indicates which game mode needs to be called
+
+#if DEBUG
+    TF_INFO("Chosen game mode: {}", int(selected_mode));
+#endif
+
 
     // ---- SELECTED GAME MODE SHOULD BE LOADED HERE ----
     //
@@ -44,20 +33,19 @@ int main(){
 
     // ----- TEST CODE -----
     sf::View view;
-    tf::character player1(window, view);
-    tf::level::map_graphics level1("FiringRange.tmx", window);
+    tf::level::MapGraphics firing_range("FiringRange.tmx", window);
+    tf::Character player1(window, view, firing_range.getHitboxes());
     view.setSize(1920.f, 1080.f);
     sf::Vector2f currentPosition;
 
-    action Actions[] = {action([](){return true;}, [&](){currentPosition = player1.getPosition();} ),
-                        action(sf::Keyboard::W, [&](){player1.setTexture("RELOADING"); player1.move( sf::Vector2f{ 0.0f, -5.0f } );}),
-                        action(sf::Keyboard::A, [&](){player1.setTexture("RELOADING"); player1.move( sf::Vector2f{ -5.0f, 0.0f } );}),
-                        action(sf::Keyboard::S, [&](){player1.setTexture("RELOADING"); player1.move( sf::Vector2f{ 0.0f, 5.0f } ); }),
-                        action(sf::Keyboard::D, [&](){player1.setTexture("RELOADING"); player1.move( sf::Vector2f{ 5.0f, 0.0f } ); }),
-                        action([&](){return currentPosition == player1.getPosition();}, [&](){player1.setTexture("STATIONARY");})
+    Action actions[] = {Action([](){return true;}, [&](){currentPosition = player1.getPosition();} ),
+                        Action(sf::Keyboard::W, [&](){player1.setTexture("RELOADING"); player1.move( sf::Vector2f{ 0.0f, -5.0f } );}),
+                        Action(sf::Keyboard::A, [&](){player1.setTexture("RELOADING"); player1.move( sf::Vector2f{ -5.0f, 0.0f } );}),
+                        Action(sf::Keyboard::S, [&](){player1.setTexture("RELOADING"); player1.move( sf::Vector2f{ 0.0f, 5.0f } ); }),
+                        Action(sf::Keyboard::D, [&](){player1.setTexture("RELOADING"); player1.move( sf::Vector2f{ 5.0f, 0.0f } ); }),
+                        Action(sf::Mouse::Left, [&](){if(currentPosition == player1.getPosition()){ player1.shoot();}}),
+                        Action([&](){return currentPosition == player1.getPosition();}, [&](){player1.setTexture("STATIONARY");})
     };
-    sf::Event event;
-
     while (window.isOpen())
     {
         window.clear(sf::Color::Black);
@@ -65,16 +53,20 @@ int main(){
         //Cursor position calculation
         sf::Vector2i position = sf::Mouse::getPosition(window);
         sf::Vector2f worldPos = window.mapPixelToCoords(position);
-        cursor.setPosition(worldPos);
+        window.setSpritePosition(worldPos);
         // Draw objects
-        level1.draw();
+        firing_range.draw();
         player1.draw();
         player1.lookAtMouse();
-        for (auto & action : Actions){
+        for (auto & action : actions){
             action();
         }
-        window.draw(cursor);
+        window.draw(window.getCursorSprite());
         window.display();
+        if (firing_range.intersects(player1)) {
+            //Some code here
+        }
+        sf::Event event;
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed) {
                 window.close();
@@ -82,6 +74,9 @@ int main(){
         }
     }
     // ---- END TEST CODE -----
+
+#if DEBUG
     TF_INFO("Terminating application!");
+#endif
     return 0;
 }

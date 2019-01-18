@@ -7,6 +7,7 @@
 
 // Standard library includes
 #include <iostream>
+#include <algorithm>
 #include <functional>
 #include <cstdint>
 #include <memory>
@@ -19,13 +20,14 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Network.hpp>
 #include <SFML/Audio.hpp>
+#include <SFML/System.hpp>
 
 // Logger include
-#include "log.hpp"
+#include "Log.hpp"
 
 // Global enum classes
 namespace tf {
-    enum class game_modes {
+    enum class GameModes {
         None,
         Team_Deathmatch,
         Search_and_Destroy,
