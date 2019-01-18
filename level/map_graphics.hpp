@@ -26,6 +26,7 @@ class map_graphics : public tf::screen_object {
         map_graphics(const std::string &map_name, sf::RenderWindow &window);
         void draw() const override;
         bool intersects(tf::character &character);
+        std::vector<sf::FloatRect> get_hitboxes();
     };
 
 }}

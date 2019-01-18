@@ -2,9 +2,11 @@
 #include "character.hpp"
 
     namespace tf {
-        character::character(sf::RenderWindow &window, sf::View & view):
+        character::character(sf::RenderWindow &window, sf::View & view, const std::vector<sf::FloatRect> & levelHitboxes):
                 moveable_screen_object(window),
-                view(view)
+                view(view),
+                levelHitboxes(levelHitboxes)
+
         {
         if (!stationary.loadFromFile(PLAYER)) {
             TF_ERROR("Failed to load png file {}", PLAYER);
@@ -21,6 +23,8 @@
         view.setCenter(mySprite.getPosition());
         sf::FloatRect bounds = mySprite.getGlobalBounds();
         mySprite.setOrigin(bounds.width / 2, bounds.height / 2);
+        hitbox.setSize({55.0f, 55.0f});
+        hitbox.setFillColor(sf::Color(0,0,0,0));
 #if DEBUG
         hitbox.setFillColor(sf::Color(255,0,0,100));
 #endif
@@ -34,12 +38,14 @@
     }
 
     void character::move(const sf::Vector2f & position) {
-        mySprite.move(position);
-        view.setCenter(mySprite.getPosition());
-#if DEBUG
-        hitbox.setSize(sf::Vector2f(mySprite.getGlobalBounds().width,mySprite.getGlobalBounds().height));
-        hitbox.setPosition(mySprite.getGlobalBounds().left,mySprite.getGlobalBounds().top);
-#endif
+            mySprite.move(position);
+            hitbox.setPosition(mySprite.getPosition().x -25, mySprite.getPosition().y - 25);
+            for(auto & hitbox : levelHitboxes){
+                if(hitbox.intersects(get_bounds())){
+                    mySprite.move(-position);
+                }
+            }
+            view.setCenter(mySprite.getPosition());
     }
 
     void character::setTexture(const std::string & texture){
@@ -68,7 +74,7 @@
         mySprite.setRotation(rotation);
     }
     sf::FloatRect character::get_bounds() {
-        return mySprite.getGlobalBounds();
+            return hitbox.getGlobalBounds();
     }
 
     sf::Vector2f character::getPosition(){

@@ -18,11 +18,10 @@ private:
     sf::SoundBuffer selection_buffer;
     sf::Sound weapon_sound;
     sf::Clock shoot_clock;
-#if DEBUG
+    std::vector<sf::FloatRect> levelHitboxes;
     sf::RectangleShape hitbox;
-#endif
 public:
-    character(sf::RenderWindow &window, sf::View & view);
+    character(sf::RenderWindow &window, sf::View & view, const std::vector<sf::FloatRect> & levelHitboxes);
 
     void draw() const override;
     void move(const sf::Vector2f & position) override;

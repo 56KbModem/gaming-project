@@ -3,6 +3,7 @@
 #include "character/character.hpp"
 #include "level/map_graphics.hpp"
 #include "abstracts/screen_object.hpp"
+
 int main(){
     // Setup logger
     tf::log::init();
@@ -45,8 +46,8 @@ int main(){
 
     // ----- TEST CODE -----
     sf::View view;
-    tf::character player1(window, view);
     tf::level::map_graphics firing_range("FiringRange.tmx", window);
+    tf::character player1(window, view, firing_range.get_hitboxes());
     view.setSize(1920.f, 1080.f);
     sf::Vector2f currentPosition;
 

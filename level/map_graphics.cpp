@@ -69,4 +69,8 @@ bool map_graphics::intersects(tf::character &character) {
     }
     return false;
 }
+
+std::vector<sf::FloatRect> map_graphics::get_hitboxes(){
+    return hitboxes;
+}
 }}
