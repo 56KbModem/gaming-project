@@ -5,19 +5,22 @@
 #ifndef TOPFORCE_CLIENT_HPP
 #define TOPFORCE_CLIENT_HPP
 #include "../topforce.hpp"
+#include <fstream>
+#include <algorithm>
+#include <string>
+#include <stdlib.h>
 
 class clientConnect{
 private:
-    sf::IpAddress ip;
+    sf::IpAddress my_ip;
+    sf::IpAddress server_ip;
     unsigned short port;
     sf::UdpSocket socket;
-    char receive_buffer[1500];
-    std::size_t received_size;
+    tf::network_packet receivedPacket;
 public:
     clientConnect(sf::IpAddress ip, unsigned short port);
-    void send(char *message);
-    char* receive();
-    char* getBuffer();
+    void send(tf::network_packet);
+    void receive();
 
 };
 
