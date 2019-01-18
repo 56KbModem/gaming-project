@@ -49,19 +49,19 @@
     }
 
     void Character::setTexture(const std::string & texture){
-        if(texture == "RELOADING"){
-            mySprite.setTexture(reloading);
+        if(texture == "RELOADING" && mySprite.getTexture() != &reloading){
+            mySprite.setTexture(reloading, true);
         }
-        if(texture == "STATIONARY"){
-            mySprite.setTexture(stationary);
+        if(texture == "STATIONARY" && mySprite.getTexture() != &stationary){
+            mySprite.setTexture(stationary, true);
         }
     }
 
     void Character::shoot(){
-            if(shoot_clock.getElapsedTime().asMilliseconds() > 100){
-                weapon_sound.play();
-                shoot_clock.restart();
-            }
+        if(shoot_clock.getElapsedTime().asMilliseconds() > 100){
+            weapon_sound.play();
+            shoot_clock.restart();
+        }
     }
 
     void Character::lookAtMouse() {
