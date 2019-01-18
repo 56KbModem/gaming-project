@@ -15,9 +15,9 @@ private:
     sf::Texture stationary;
     sf::Texture reloading;
     sf::View & view;
-    sf::SoundBuffer selection_buffer;
-    sf::Sound weapon_sound;
-    sf::Clock shoot_clock;
+    sf::SoundBuffer selectionBuffer;
+    sf::Sound weaponSound;
+    sf::Clock shootClock;
     std::vector<sf::FloatRect> levelHitboxes;
     sf::RectangleShape hitbox;
 public:
