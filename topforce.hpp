@@ -22,11 +22,11 @@
 #include <SFML/System.hpp>
 
 // Logger include
-#include "log.hpp"
+#include "Log.hpp"
 
 // Global enum classes
 namespace tf {
-    enum class game_modes {
+    enum class GameModes {
         None,
         Team_Deathmatch,
         Search_and_Destroy,

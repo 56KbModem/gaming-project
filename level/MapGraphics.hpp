@@ -6,27 +6,27 @@
 #define TOPFORCE_MAP_LOADER_HPP
 
 #include "../topforce.hpp"
-#include "../abstracts/screen_object.hpp"
+#include "../abstracts/ScreenObject.hpp"
 #include <tmxlite/Map.hpp>
 #include "SFMLOrthogonalLayer.hpp"
-#include "../character/character.hpp"
+#include "../character/Character.hpp"
 
 namespace tf { namespace level {
-class map_graphics : public tf::screen_object {
+class MapGraphics : public tf::ScreenObject {
     private:
         tmx::Map map;
         std::vector<std::unique_ptr<MapLayer>> layers;
         std::vector<sf::FloatRect> hitboxes;
 #if DEBUG
-        std::vector<sf::RectangleShape> hitbox_visuals;
+        std::vector<sf::RectangleShape> hitboxVisuals;
 #endif
-        void set_hitboxes(const std::vector<tmx::Object>& objects);
-        void parse_map_layers();
+        void setHitboxes(const std::vector<tmx::Object> &objects);
+        void parseMapLayers();
     public:
-        map_graphics(const std::string &map_name, sf::RenderWindow &window);
+        MapGraphics(const std::string &mapName, sf::RenderWindow &window);
         void draw() const override;
-        bool intersects(tf::character &character);
-        std::vector<sf::FloatRect> get_hitboxes();
+        bool intersects(tf::Character &character);
+        std::vector<sf::FloatRect> getHitboxes();
     };
 
 }}

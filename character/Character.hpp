@@ -1,4 +1,4 @@
-#include "../abstracts/moveable_screen_object.hpp"
+#include "../abstracts/MoveableScreenObject.hpp"
 
 #ifndef TOPFORCE_CHARACTER_HPP
 #define TOPFORCE_CHARACTER_HPP
@@ -9,7 +9,7 @@
 #define PI 3.14159265
 
 namespace tf{
-class character: public tf::moveable_screen_object {
+class Character: public tf::MoveableScreenObject {
 private:
     sf::Sprite mySprite;
     sf::Texture stationary;
@@ -21,7 +21,7 @@ private:
     std::vector<sf::FloatRect> levelHitboxes;
     sf::RectangleShape hitbox;
 public:
-    character(sf::RenderWindow &window, sf::View & view, const std::vector<sf::FloatRect> & levelHitboxes);
+    Character(sf::RenderWindow &window, sf::View & view, const std::vector<sf::FloatRect> & levelHitboxes);
 
     void draw() const override;
     void move(const sf::Vector2f & position) override;

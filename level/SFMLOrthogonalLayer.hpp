@@ -129,8 +129,8 @@ private:
             {
                 if(ts->getImagePath().empty())
                 {
-                    //tmx::Logger::log("This example does not support Collection of Images tilesets", tmx::Logger::Type::Info);
-                    //tmx::Logger::log("Chunks using " + ts->getName() + " will not be created", tmx::Logger::Type::Info);
+                    //tmx::Logger::Log("This example does not support Collection of Images tilesets", tmx::Logger::Type::Info);
+                    //tmx::Logger::Log("Chunks using " + ts->getName() + " will not be created", tmx::Logger::Type::Info);
                     continue;
                 }
 

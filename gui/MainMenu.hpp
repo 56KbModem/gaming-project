@@ -6,26 +6,26 @@
 #define TOPFORCE_TEST_MENU_HPP
 
 #include "../topforce.hpp"
-#include "menu.hpp"
-#include "../action.hpp"
+#include "Menu.hpp"
+#include "../Action.hpp"
 
 namespace tf{
     namespace gui{
-        class main_menu {
+        class MainMenu {
         private:
             sf::RenderWindow & window;
-            sf::Music menu_sound;
+            sf::Music menuSound;
             sf::SoundBuffer selection_buffer;
-            sf::Sound selection_music;
-            enum class menus {
+            sf::Sound selectionMusic;
+            enum class Menus {
                 main,
                 play,
                 settings,
             };
-            menus active_menu;
+            Menus activeMenu;
         public:
-            main_menu(sf::RenderWindow & window);
-            game_modes run();
+            MainMenu(sf::RenderWindow & window);
+            GameModes run();
         };
     }
 }

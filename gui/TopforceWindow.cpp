@@ -2,9 +2,9 @@
 // Created by marcd on 17-1-2019.
 //
 
-#include "topforce_window.h"
+#include "TopforceWindow.hpp"
 namespace tf {
-    topforce_window::topforce_window()
+    TopforceWindow::TopforceWindow()
     {
         sf::ContextSettings settings;
         settings.antialiasingLevel = 8;
@@ -13,23 +13,23 @@ namespace tf {
         sf::RenderWindow::setFramerateLimit(60);
     }
 
-    void topforce_window::set_window_icon(const std::string &filename) {
+    void TopforceWindow::setWindowIcon(const std::string &filename) {
         image.loadFromFile(IMAGE_FOLDER + filename);
         sf::RenderWindow::setIcon(512, 512, image.getPixelsPtr());
     }
 
-    void topforce_window::set_cursor_icon(const std::string &filename) {
+    void TopforceWindow::setCursorIcon(const std::string &filename) {
         sf::RenderWindow::setMouseCursorVisible(false);
-        cursor_texture.loadFromFile(IMAGE_FOLDER + filename);
-        cursor = sf::Sprite(cursor_texture);
+        cursorTexture.loadFromFile(IMAGE_FOLDER + filename);
+        cursor = sf::Sprite(cursorTexture);
         cursor.setScale(0.5f,0.5f);
     }
 
-    void topforce_window::set_sprite_pos(const sf::Vector2f &pos) {
+    void TopforceWindow::setSpritePosition(const sf::Vector2f &pos) {
         cursor.setPosition(pos);
     }
 
-    sf::Sprite topforce_window::get_cursor_sprite() {
+    sf::Sprite TopforceWindow::getCursorSprite() {
         return cursor;
     }
 }

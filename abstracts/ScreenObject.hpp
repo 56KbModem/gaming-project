@@ -8,11 +8,11 @@
 #include "../topforce.hpp"
 
 namespace tf {
-    class screen_object {
+    class ScreenObject {
     protected:
         sf::RenderWindow& window;
     public:
-        screen_object(sf::RenderWindow& window);
+        ScreenObject(sf::RenderWindow& window);
         virtual void draw() const = 0;
     };
     bool intersects(sf::Shape& shape, sf::Shape& other);
