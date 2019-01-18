@@ -11,9 +11,13 @@ int main(){
     uint16_t server_port = 31337;
     tf::topforce_server current_server(server_port); // run server on port 31337
 
+    for (int i=0; i < 4; ++i) {
+        current_server.connect_client();
+    }
+
     while(1){
-        current_server.recv();
-        std::cout << "received: " << current_server.get_data() << "\nsize: " << current_server.get_data_size() << '\n';
+        current_server.run_server();
+        std::cout << "received: " << current_server.get_data() << "\nsize: " << current_server << '\n';
         if (std::string(current_server.get_data()) == "HELLO"){
             current_server.send("HELLO BACK");
         }

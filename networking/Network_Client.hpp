@@ -7,17 +7,16 @@
 #include "../topforce.hpp"
 
 namespace tf {
-class network_client: public sf::socket {
+class network_client: public sf::UdpSocket {
     private:
-        sf::IpAddress client_ip;
-        uint18_t client_port;
-        std::size_t received;
+        tf::network_packet current_data;
     public:
         network_client();
         uint8_t get_ip();
         uint8_t get_port();
-        void send(tf::network_packet &packet);
-        tf::network_packet received();
+        void send(tf::network_packet packet);
+        sf::Socket::Status received();
+        tf::network_packet get_data();
     };
 }
 #endif //TOPFORCE_NETWERK_CLIENT_HPP
