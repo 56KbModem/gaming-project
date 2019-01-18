@@ -1,6 +1,5 @@
 #include "topForceServer.hpp"
 #include "Network_Client.hpp"
-
 namespace tf{
     void topforce_server::connect_client() {
         network_client client;

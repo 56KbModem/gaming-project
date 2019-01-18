@@ -17,20 +17,24 @@ uint8_t network_client::get_port(){
     return client_port;
 }
 
-void network_client::send(tf::network_packet &packet){
-    if (socket.send(packet ,52,client_ip,client_port)!=sf::Socket::Done){
-        NETWORK_ERROR("Failed to send packet");
+void network_client::send(tf::network_packet &raw_package){
+    sf::Packet raw_package;
+    raw_package << packet.ip_sender << packet.x <<packet.y <<packet.rotation <<packet.firing <<packet.nickname;
+    if (socket.send(raw_package)){
+        NETWORK_INFO("package send");
     }
 }
 
 tf::network_packet network_client::received(){
-    if (sock.receive(data_buffer, 52, received, client_ip, client_port) == sf::Socket::Done){
-        return data_buffer;
-    }
-    else{
-        NETWORK_ERROR("Error receiving packet");
-    }
-}
-tf::network_packet network_client::get_buf(){
-    return data_buffer;
+   sf::Packet raw_packet;
+   sock.receive(raw_packet);
+   tf::network_packet packet;
+   if( raw_packet >> packet.ip_sender >> packet.x >>packet.y >>packet.rotation >>packet.firing >>packet.nickname ){
+       NETWORK_INFO("Received package");
+       return packet;
+   }
+   else{
+       NETWORK_INFO("No package received");
+   }
+
 }
