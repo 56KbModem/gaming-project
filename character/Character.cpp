@@ -14,10 +14,6 @@
         if (!reloading.loadFromFile(RELOAD)) {
             TF_ERROR("Failed to load png file {}", RELOAD);
         }
-        if(!selectionBuffer.loadFromFile(WEAPONG3)){
-            TF_ERROR("Failed to load audio file {}", WEAPONG3);
-        }
-        weaponSound.setBuffer(selectionBuffer);
         mySprite.setTexture(stationary);
         mySprite.setPosition(1700.0, 375.0);
         view.setCenter(mySprite.getPosition());
@@ -58,10 +54,7 @@
     }
 
     void Character::shoot(){
-        if(shootClock.getElapsedTime().asMilliseconds() > 100){
-            weaponSound.play();
-            shootClock.restart();
-        }
+            myWeapon.shoot();
     }
 
     void Character::lookAtMouse() {

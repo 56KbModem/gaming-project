@@ -1,4 +1,5 @@
 #include "../abstracts/MoveableScreenObject.hpp"
+#include "weapon.hpp"
 
 #ifndef TOPFORCE_CHARACTER_HPP
 #define TOPFORCE_CHARACTER_HPP
@@ -15,11 +16,9 @@ private:
     sf::Texture stationary;
     sf::Texture reloading;
     sf::View & view;
-    sf::SoundBuffer selectionBuffer;
-    sf::Sound weaponSound;
-    sf::Clock shootClock;
     std::vector<sf::FloatRect> levelHitboxes;
     sf::RectangleShape hitbox;
+    tf::Weapon myWeapon;
 public:
     Character(sf::RenderWindow &window, sf::View & view, const std::vector<sf::FloatRect> & levelHitboxes);
 
