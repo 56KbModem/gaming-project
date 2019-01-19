@@ -12,6 +12,7 @@ client::client(const unsigned short &myPort, sf::IpAddress &serverIp, const unsi
         serverPort(serverPort)
 {
     socket.bind(myPort);
+    NETWORK_INFO("Client created");
 }
 
 

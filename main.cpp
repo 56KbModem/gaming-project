@@ -4,7 +4,7 @@
 #include "level/MapGraphics.hpp"
 #include "abstracts/ScreenObject.hpp"
 #include "gui/TopforceWindow.hpp"
-
+#include "networking/client1.hpp"
 int main(){
     // Setup logger
     tf::Log::init();
@@ -12,6 +12,8 @@ int main(){
     TF_WARN("TopForce logger initialized!");
     NETWORK_WARN("Network logger initialized!");
 #endif
+    sf::IpAddress ip="127.0.0.1";
+    client my_client(53000,ip,53000 );
 
     tf::TopforceWindow window; // customized window
     window.setWindowIcon("Topforce_icon.png");

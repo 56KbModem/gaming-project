@@ -5,7 +5,7 @@
 #ifndef TOPFORCE_SERVER1_HPP
 #define TOPFORCE_SERVER1_HPP
 
-#include <iostream>
+
 #include <set>
 #include <algorithm>
 #include "../topforce.hpp"
