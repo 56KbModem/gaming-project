@@ -2,7 +2,7 @@
 // Created by ramon on 19-1-2019.
 //
 
-#include "client.hpp"
+#include "client1.hpp"
 
 
 
@@ -24,15 +24,18 @@ sf::Socket::Status client::receive() {
     }
     if (rawPacket >> lastReceived.x >> lastReceived.y >> lastReceived.rotation >> lastReceived.firing) {
         //data extraxted
+        NETWORK_INFO("packet extracted succesfully");
         return sf::Socket::Done;
     }
+    NETWORK_INFO("No package received");
     return sf::Socket::Error;
 
 }
 
-sf::Socket::Status client::send(network_packet &packet) {
+sf::Socket::Status client::send(tf::network_packet &packet) {
     sf::Packet rawPacket;
     if (rawPacket << lastReceived.x << lastReceived.y << lastReceived.rotation << lastReceived.firing) {
+        NETWORK_INFO("Packet build succesfully"); 
         return (socket.send(rawPacket, serverIp, serverPort));
     }
     else {

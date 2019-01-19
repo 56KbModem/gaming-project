@@ -4,7 +4,7 @@
 
 #ifndef TOPFORCE_CLIENT1_HPP
 #define TOPFORCE_CLIENT1_HPP
-
+#include "../topforce.hpp"
 class client
 {
     const unsigned short myPort;
@@ -17,7 +17,7 @@ class client
 public:
     client(const unsigned short &myPort,sf::IpAddress &serverIp, const unsigned short &serverPort );
     sf::Socket::Status receive();
-    sf::Socket::Status send(network_packet &packet);
+    sf::Socket::Status send(tf::network_packet &packet);
     tf::network_packet getLastPacket();
 };
 
