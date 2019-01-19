@@ -14,7 +14,6 @@ int main(){
     for (int i=0; i < 4; ++i) {
         current_server.connect_client();
     }
-
     while(1){
         current_server.run_server();
         std::cout << "received: " << current_server.get_data() << "\nsize: " << current_server << '\n';

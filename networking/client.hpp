@@ -12,14 +12,14 @@
 
 class clientConnect{
 private:
-    sf::IpAddress my_ip;
+    std::array<char,15> my_ip;
     sf::IpAddress server_ip;
     unsigned short port;
     sf::UdpSocket socket;
     tf::network_packet receivedPacket;
 public:
     clientConnect(sf::IpAddress ip, unsigned short port);
-    void send(tf::network_packet);
+    void send(tf::network_packet packet);
     void receive();
 
 };

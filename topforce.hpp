@@ -35,7 +35,7 @@ namespace tf {
     };
 
     struct network_packet {
-        sf::IpAddress ip_sender;
+        std::array<char,15> ip_sender;
         float x;
         float y;
         float rotation;
