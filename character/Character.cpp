@@ -5,7 +5,8 @@
         Character::Character(sf::RenderWindow &window, sf::View & view, const std::vector<sf::FloatRect> & levelHitboxes):
                 MoveableScreenObject(window),
                 view(view),
-                levelHitboxes(levelHitboxes)
+                levelHitboxes(levelHitboxes),
+                myWeapon(window)
 
         {
         if (!stationary.loadFromFile(PLAYER)) {
@@ -54,7 +55,7 @@
     }
 
     void Character::shoot(){
-            myWeapon.shoot();
+            myWeapon.shoot(mySprite.getPosition(), mySprite.getRotation());
     }
 
     void Character::lookAtMouse() {
@@ -66,6 +67,7 @@
         float rotation = float((atan2(dy, dx)) * 180 / PI) + 180;
         mySprite.setRotation(rotation);
     }
+
     sf::FloatRect Character::getBounds() {
             return hitbox.getGlobalBounds();
     }
@@ -73,4 +75,9 @@
     sf::Vector2f Character::getPosition(){
             return mySprite.getPosition();
     }
+
+    float Character::getRotation() {
+            return mySprite.getRotation();
+    }
+
 }

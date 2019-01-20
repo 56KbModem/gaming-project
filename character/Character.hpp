@@ -1,5 +1,5 @@
 #include "../abstracts/MoveableScreenObject.hpp"
-#include "weapon.hpp"
+#include "Weapon.hpp"
 
 #ifndef TOPFORCE_CHARACTER_HPP
 #define TOPFORCE_CHARACTER_HPP
@@ -29,6 +29,7 @@ public:
     void lookAtMouse();
     sf::FloatRect getBounds();
     sf::Vector2f getPosition();
+    float getRotation();
 };
 
 }

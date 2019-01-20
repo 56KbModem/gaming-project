@@ -11,9 +11,12 @@ private:
     sf::SoundBuffer selectionBuffer;
     sf::Sound weaponSound;
     sf::Clock shootClock;
+    sf::RectangleShape shootLine;
+    sf::RenderWindow window;
 public:
-    Weapon();
-    void shoot();
+    Weapon(sf::RenderWindow &window);
+    void shoot(const sf::Vector2f & position, const float & rotation);
+    void drawShootLine(const sf::Vector2f & position, const float & rotation);
 
 
 
