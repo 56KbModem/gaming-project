@@ -18,11 +18,13 @@ class server
     sf::Packet rawPacket;
     sf::IpAddress lastIp;
     unsigned short lastPort;
+    sf::Time currentTime;
 
 public:
     server(unsigned short serverPort);
     sf::Socket::Status serverReceive();
-    sf::Socket::Status serverSend();
+    sf::Socket::Status playerSend();
+    sf::Socket::Status timeSend();
     void run();
 
 };

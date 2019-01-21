@@ -12,14 +12,15 @@ class client
     sf::IpAddress serverIp;
     unsigned short serverPort;
     sf::UdpSocket socket;
-    tf::network_packet lastReceived;
+    tf::playerPacket lastReceived;
+    tf::timePacket timeReceived;
 
 
 public:
     client(const unsigned short &myPort,sf::IpAddress &serverIp, const unsigned short &serverPort );
     sf::Socket::Status receive();
-    sf::Socket::Status send(const tf::network_packet &packet);
-    tf::network_packet getLastPacket();
+    sf::Socket::Status send(const tf::playerPacket &packet);
+    tf::playerPacket getLastPacket();
 };
 
 

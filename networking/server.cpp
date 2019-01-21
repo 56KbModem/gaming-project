@@ -27,7 +27,7 @@ sf::Socket::Status server::serverReceive()
     return sf::Socket::Done; 
 }
 
-sf::Socket::Status server::serverSend() {
+sf::Socket::Status server::playerSend() {
     NETWORK_INFO("Server send function");
     std::for_each(clientIps.begin(), clientIps.end(), [&](sf::IpAddress client){
         if (client != lastIp) {
@@ -40,10 +40,21 @@ sf::Socket::Status server::serverSend() {
     return sf::Socket::Done;
 }
 
+sf::Socket::Status server::timeSend(){
+
+    NETWORK_INFO("Server send function");
+    std::for_each(clientIps.begin(), clientIps.end(), [&](sf::IpAddress client){
+       if(socket.send(rawPacket, client, lastPort) != sf::Socket::Done){
+            NETWORK_ERROR("Sending failed");
+            return sf::Socket::Error;
+       }
+    });
+}
+
 void server::run() {
     NETWORK_INFO("Server running");
     while (true) {
         serverReceive();
-        serverSend();
+        playerSend();
     }
 }
