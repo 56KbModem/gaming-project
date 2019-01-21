@@ -1,54 +1,49 @@
 //
-// Created by ramon on 15-1-2019.
+// Created by ramon on 19-1-2019.
 //
+
 #include "client.hpp"
 
-clientConnect::clientConnect(sf::IpAddress server_ip, unsigned short port):
-    server_ip(server_ip),
-    port(port)
-    {
-        if (socket.bind(port) != sf::Socket::Done){
-            TF_WARN("Failed to connect to server");
-        }
-
-#ifdef _WIN32
-
-    system("netsh interface ip show config name = \"Wi-Fi\" | findstr \"Ip Address\" >ip.txt");
-
-#elif __APPLE__
-    system("ifconfig en0 | grep inet | awk '{print $2'>ip.txt");
+client::client(const unsigned short &myPort, sf::IpAddress &serverIp, const unsigned short &serverPort):
+        myPort(myPort),
+        serverIp(serverIp),
+        serverPort(serverPort)
+{
+    socket.bind(myPort);
+    NETWORK_INFO("Client created");
 }
-#endif
-    std::string tmp;
-    std::ifstream input;
-    input.open("ip.txt");
-    if (input.is_open()){
-        input>>tmp;
+
+
+sf::Socket::Status client::receive() {
+    sf::Packet rawPacket;
+    sf::IpAddress tmpIp;
+    unsigned short tmpPort;
+    if (socket.receive(rawPacket,tmpIp,tmpPort)!=sf::Socket::Done){
+        return sf::Socket::NotReady;
     }
-    std::string ip;
-    std::for_each(tmp.begin(), tmp.end(), [&ip](char &c) {if (!isalpha(c)&&c !=' ' &&c !=':') { ip += c; }});
-    my_ip=ip;
+    if (rawPacket >> lastReceived.x >> lastReceived.y >> lastReceived.rotation >> lastReceived.firing) {
+        //data extraxted
+        NETWORK_INFO("packet extracted succesfully");
+        return sf::Socket::Done;
+    }
+    NETWORK_INFO("No package received");
+    return sf::Socket::Error;
+
 }
 
+sf::Socket::Status client::send(tf::network_packet &packet) {
+    sf::Packet rawPacket;
+    if (rawPacket << packet.x << packet.y << packet.rotation << packet.firing) {
 
-void clientConnect::send(tf::network_packet packet){
-    sf::Packet raw_package;
-    raw_package <<my_ip << packet.x <<packet.y <<packet.rotation <<packet.firing <<packet.nickname;
-    if (socket.send(raw_package,server_ip, port)){
-        NETWORK_INFO("package send");
+        NETWORK_INFO("Packet build succesfully");
+        return (socket.send(rawPacket, serverIp, serverPort));
+    }
+    else {
+        NETWORK_ERROR("Failed to build packet");
+        return sf::Socket::Error;
     }
 }
 
-void clientConnect::receive(){
-     sf::Packet raw_packet;
-     socket.receive(raw_packet,server_ip,port);
-     tf::network_packet packet;
-     if( raw_packet >> receivedPacket.ip_sender >> receivedPacket.x >>receivedPacket.y >>receivedPacket.rotation >>receivedPacket.firing >>receivedPacket.nickname ){
-         NETWORK_INFO("Received package");
-     }
-     else{
-         NETWORK_INFO("No package received");
-     }
-
- }
-
+tf::network_packet client::getLastPacket() {
+    return lastReceived;
+}

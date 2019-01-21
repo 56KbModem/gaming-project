@@ -1,28 +1,26 @@
 //
-// Created by ramon on 15-1-2019.
+// Created by ramon on 19-1-2019.
 //
 
-#ifndef TOPFORCE_CLIENT_HPP
-#define TOPFORCE_CLIENT_HPP
+#ifndef TOPFORCE_CLIENT1_HPP
+#define TOPFORCE_CLIENT1_HPP
 #include "../topforce.hpp"
-#include <fstream>
-#include <algorithm>
-#include <string>
-#include <stdlib.h>
-
-class clientConnect{
-private:
-    std::array<char,15> my_ip;
-    sf::IpAddress server_ip;
-    unsigned short port;
+//#include <iostream>
+class client
+{
+    const unsigned short myPort;
+    sf::IpAddress serverIp;
+    unsigned short serverPort;
     sf::UdpSocket socket;
-    tf::network_packet receivedPacket;
-public:
-    clientConnect(sf::IpAddress ip, unsigned short port);
-    void send(tf::network_packet packet);
-    void receive();
+    tf::network_packet lastReceived;
 
+
+public:
+    client(const unsigned short &myPort,sf::IpAddress &serverIp, const unsigned short &serverPort );
+    sf::Socket::Status receive();
+    sf::Socket::Status send(tf::network_packet &packet);
+    tf::network_packet getLastPacket();
 };
 
 
-#endif //TOPFORCE_CLIENT_HPP
+#endif //TOPFORCE_CLIENT1_HPP

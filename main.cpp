@@ -4,7 +4,7 @@
 #include "level/MapGraphics.hpp"
 #include "abstracts/ScreenObject.hpp"
 #include "gui/TopforceWindow.hpp"
-#include "networking/client1.hpp"
+#include "networking/client.hpp"
 int main(){
     // Setup logger
     tf::Log::init();
@@ -13,13 +13,13 @@ int main(){
     NETWORK_WARN("Network logger initialized!");
 #endif
     sf::IpAddress ip="145.89.87.237";
-    tf::network_packet packet{1,2,3,4};
+    tf::network_packet packet{2,2,3,4};
 
     client my_client(53000,ip,53000 );
 
     while(true) {
         my_client.send(packet);
-       // my_client.receive();
+        //my_client.receive();
         sf::sleep(sf::seconds(1));
     }
     tf::TopforceWindow window; // customized window

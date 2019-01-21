@@ -30,11 +30,11 @@ if(UNIX)
 endif(UNIX)
 #Add cource and header files
 if (CMAKE_BUILD_TYPE MATCHES Debug)
-    add_executable(Topforce main.cpp topforce.hpp gui/Menu.hpp gui/MainMenu.cpp gui/MainMenu.hpp Log.cpp Log.hpp level/MapGraphics.cpp level/MapGraphics.hpp abstracts/ScreenObject.hpp abstracts/ScreenObject.cpp character/Character.hpp character/Character.cpp abstracts/MoveableScreenObject.cpp abstracts/MoveableScreenObject.hpp gui/TopforceWindow.cpp gui/TopforceWindow.hpp networking/client1.hpp networking/client1.cpp)
+    add_executable(Topforce main.cpp topforce.hpp gui/Menu.hpp gui/MainMenu.cpp gui/MainMenu.hpp Log.cpp Log.hpp level/MapGraphics.cpp level/MapGraphics.hpp abstracts/ScreenObject.hpp abstracts/ScreenObject.cpp character/Character.hpp character/Character.cpp abstracts/MoveableScreenObject.cpp abstracts/MoveableScreenObject.hpp gui/TopforceWindow.cpp gui/TopforceWindow.hpp networking/client.hpp networking/client.cpp)
 endif()
 
 if (CMAKE_BUILD_TYPE MATCHES Server)
-    add_executable(Topforce networking/main.cpp networking/server1.hpp networking/server1.cpp log.cpp log.hpp)
+    add_executable(Topforce networking/main.cpp networking/server.hpp networking/server.cpp log.cpp log.hpp)
 endif()
 
 #Link library's
