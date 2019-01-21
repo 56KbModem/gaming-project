@@ -58,10 +58,10 @@ int main(){
         firing_range.draw();
         player1.draw();
         player1.lookAtMouse();
+        window.draw(window.getCursorSprite());
         for (auto & action : actions){
             action();
         }
-        window.draw(window.getCursorSprite());
         window.display();
         if (firing_range.intersects(player1)) {
             //Some code here
