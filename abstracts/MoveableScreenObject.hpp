@@ -11,7 +11,7 @@ namespace tf{
 class MoveableScreenObject : public ScreenObject {
 public:
     MoveableScreenObject(sf::RenderWindow & window);
-    virtual void move(const sf::Vector2f & position) = 0;
+    virtual void update() = 0;
 };
 }
 

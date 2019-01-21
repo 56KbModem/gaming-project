@@ -1,4 +1,6 @@
 #include "../abstracts/MoveableScreenObject.hpp"
+#include "Weapon.hpp"
+#include "../Action.hpp"
 
 #ifndef TOPFORCE_CHARACTER_HPP
 #define TOPFORCE_CHARACTER_HPP
@@ -15,21 +17,33 @@ private:
     sf::Texture stationary;
     sf::Texture reloading;
     sf::View & view;
-    sf::SoundBuffer selectionBuffer;
-    sf::Sound weaponSound;
-    sf::Clock shootClock;
     std::vector<sf::FloatRect> levelHitboxes;
     sf::RectangleShape hitbox;
+    tf::Weapon myWeapon;
+    sf::Vector2f currentPosition;
+    Action actions[7] = {Action([](){return true;}, [&](){currentPosition = getPosition(); lookAtMouse();} ),
+                        Action(sf::Keyboard::W, [&](){setTexture("RELOADING"); move( sf::Vector2f{ 0.0f, -5.0f } );}),
+                        Action(sf::Keyboard::A, [&](){setTexture("RELOADING"); move( sf::Vector2f{ -5.0f, 0.0f } );}),
+                        Action(sf::Keyboard::S, [&](){setTexture("RELOADING"); move( sf::Vector2f{ 0.0f, 5.0f } ); }),
+                        Action(sf::Keyboard::D, [&](){setTexture("RELOADING"); move( sf::Vector2f{ 5.0f, 0.0f } ); }),
+                        Action(sf::Mouse::Left, [&](){if(currentPosition == getPosition()){ shoot();}}),
+                        Action([&](){return currentPosition == getPosition();}, [&](){setTexture("STATIONARY");})
+    };
 public:
     Character(sf::RenderWindow &window, sf::View & view, const std::vector<sf::FloatRect> & levelHitboxes);
 
     void draw() const override;
-    void move(const sf::Vector2f & position) override;
+    void move(const sf::Vector2f & position);
+    void update() override;
+
     void setTexture(const std::string & texture);
     void shoot();
     void lookAtMouse();
     sf::FloatRect getBounds();
     sf::Vector2f getPosition();
+    void setPosition(sf::Vector2f & position);
+    float getRotation();
+    void setRotation(float & rotation);
 };
 
 }

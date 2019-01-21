@@ -2,10 +2,11 @@
 #include "Character.hpp"
 
 namespace tf {
-    Character::Character(sf::RenderWindow &window, sf::View & view, const std::vector<sf::FloatRect> & levelHitboxes):
-        MoveableScreenObject(window),
-        view(view),
-        levelHitboxes(levelHitboxes)
+Character::Character(sf::RenderWindow &window, sf::View & view, const std::vector<sf::FloatRect> & levelHitboxes):
+    MoveableScreenObject(window),
+    view(view),
+    levelHitboxes(levelHitboxes),
+    myWeapon(window, levelHitboxes)
     {
     if (!stationary.loadFromFile(PLAYER)) {
         TF_ERROR("Failed to load png file {}", PLAYER);
@@ -13,10 +14,6 @@ namespace tf {
     if (!reloading.loadFromFile(RELOAD)) {
         TF_ERROR("Failed to load png file {}", RELOAD);
     }
-    if(!selectionBuffer.loadFromFile(WEAPONG3)){
-        TF_ERROR("Failed to load audio file {}", WEAPONG3);
-    }
-    weaponSound.setBuffer(selectionBuffer);
     mySprite.setTexture(stationary);
     mySprite.setPosition(1700.0, 375.0);
     view.setCenter(mySprite.getPosition());
@@ -35,7 +32,6 @@ void Character::draw() const {
     window.draw(hitbox);
 #endif
 }
-
 void Character::move(const sf::Vector2f & position) {
     mySprite.move(position);
     hitbox.setPosition(mySprite.getPosition().x -25, mySprite.getPosition().y - 25);
@@ -47,6 +43,12 @@ void Character::move(const sf::Vector2f & position) {
     view.setCenter(mySprite.getPosition());
 }
 
+void Character::update(){
+    for(auto & action : actions) {
+        action();
+    }
+}
+
 void Character::setTexture(const std::string & texture){
     if(texture == "RELOADING" && mySprite.getTexture() != &reloading){
         mySprite.setTexture(reloading, true);
@@ -55,12 +57,8 @@ void Character::setTexture(const std::string & texture){
         mySprite.setTexture(stationary, true);
     }
 }
-
 void Character::shoot(){
-    if(shootClock.getElapsedTime().asMilliseconds() > 100){
-        weaponSound.play();
-        shootClock.restart();
-    }
+    myWeapon.shoot(mySprite.getPosition());
 }
 
 void Character::lookAtMouse() {
@@ -72,11 +70,24 @@ void Character::lookAtMouse() {
     float rotation = float((atan2(dy, dx)) * 180 / PI) + 180;
     mySprite.setRotation(rotation);
 }
+
 sf::FloatRect Character::getBounds() {
     return hitbox.getGlobalBounds();
 }
 
 sf::Vector2f Character::getPosition(){
     return mySprite.getPosition();
+}
+
+void Character::setPosition(sf::Vector2f & position){
+    mySprite.setPosition(position);
+}
+
+float Character::getRotation(){
+    return mySprite.getRotation();
+}
+
+void Character::setRotation(float & rotation){
+    mySprite.setRotation(rotation);
 }
 } // End namespace tf

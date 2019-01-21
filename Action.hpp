@@ -33,7 +33,7 @@ public:
         work(work){}
         
     void operator()(){
-        if (condition != nullptr && condition()) {
+        if (condition == nullptr || condition()) {
             work();
         }
     }
