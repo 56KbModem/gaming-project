@@ -25,7 +25,9 @@ sf::Socket::Status Client::receive() {
     }
     if (rawPacket >> lastReceived.header) {
         //data extraxted
+#if DEBUG
         NETWORK_INFO("packet extracted succesfully");
+#endif
 
         if (lastReceived.header == "player"){
             rawPacket >>lastReceived.playerName >> lastReceived.position.x >> lastReceived.position.y >> lastReceived.rotation >> lastReceived.walking >> lastReceived.firing >>lastReceived.PlayerId;
@@ -45,10 +47,13 @@ sf::Socket::Status Client::receive() {
 
 sf::Socket::Status Client::send(const tf::playerPacket &packet) {
     sf::Packet rawPacket;
+#if DEBUG
     NETWORK_INFO("Sending: {} {}", packet.position.x, packet.position.y);
+#endif
     if (rawPacket << "player" << packet.playerName <<packet.position.x << packet.position.y << packet.rotation << packet.walking << packet.firing <<packet.PlayerId) {
-
+#if DEBUG
         NETWORK_INFO("Packet build succesfully");
+#endif
         return (socket.send(rawPacket, serverIp, serverPort));
     }
     else {
