@@ -18,7 +18,7 @@
 namespace tf{ namespace gamemode{
     class FreeForAll : public GameMode {
     private:
-
+        
     public:
         FreeForAll(tf::TopforceWindow & window, const std::string & mapName);
         void run() override;
