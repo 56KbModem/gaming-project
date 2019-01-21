@@ -14,8 +14,8 @@ namespace tf{ namespace gamemode{
     }
     void FreeForAll::run() {
         // DEBUG STUFF
-        packet.PlayerId = 1;
-        packet.playerName = "DebugPlayer1";
+        packet.PlayerId = 2;
+        packet.playerName = "DebugPlayer2";
         // ---- Free-For-All gameloop ----
         while (window.isOpen())
         {

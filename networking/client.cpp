@@ -29,19 +29,23 @@ sf::Socket::Status Client::receive() {
 
         if (lastReceived.header == "player"){
             rawPacket >>lastReceived.playerName >> lastReceived.position.x >> lastReceived.position.y >> lastReceived.rotation >> lastReceived.walking >> lastReceived.firing >>lastReceived.PlayerId;
+           // std::cout<<"Player: ", lastReceived.playerName, "pos: ",lastReceived.position.x ,lastReceived.position.y <<"/n";
+           return sf::Socket::Done;
         }
         else if( lastReceived.header == "time"){
             rawPacket >> timeReceived.minutes >> timeReceived.seconds;
+            return sf::Socket::Done;
         }
     }
 
-    NETWORK_INFO("No package received");
+   // NETWORK_INFO("No package received");
     return sf::Socket::Error;
 
 }
 
 sf::Socket::Status Client::send(const tf::playerPacket &packet) {
     sf::Packet rawPacket;
+    NETWORK_INFO("Sending: ", packet.position.x, packet.position.x);
     if (rawPacket << "player" << packet.playerName <<packet.position.x << packet.position.y << packet.rotation << packet.walking << packet.firing <<packet.PlayerId) {
 
         NETWORK_INFO("Packet build succesfully");
