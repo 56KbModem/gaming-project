@@ -31,7 +31,7 @@ sf::Socket::Status client::receive() {
 
 }
 
-sf::Socket::Status client::send(tf::network_packet &packet) {
+sf::Socket::Status client::send(const tf::network_packet &packet) {
     sf::Packet rawPacket;
     if (rawPacket << packet.x << packet.y << packet.rotation << packet.firing) {
 
