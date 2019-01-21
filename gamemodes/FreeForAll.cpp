@@ -8,7 +8,8 @@ namespace tf{ namespace gamemode{
     FreeForAll::FreeForAll(tf::TopforceWindow & window, const std::string & mapName, sf::IpAddress & serverIp):
         GameMode(window, mapName),
         client(53000,serverIp,53000),
-        enemy(window,view,level.getHitboxes())
+        enemy01(window,view,level.getHitboxes()),
+        enemy02(window,view,level.getHitboxes())
     {
         view.setSize(1920.f, 1080.f);
     }
@@ -31,14 +32,19 @@ namespace tf{ namespace gamemode{
             window.setSpritePosition(worldPos);
 
             // Set enemy position
-            enemy.setPosition(serverPacket.position);
-            enemy.setRotation(serverPacket.rotation);
-
+            if(serverPacket.PlayerId == 1){
+                enemy01.setPosition(serverPacket.position);
+                enemy01.setRotation(serverPacket.rotation);
+            }else if(serverPacket.PlayerId == 2){
+                enemy02.setPosition(serverPacket.position);
+                enemy02.setRotation(serverPacket.rotation);
+            }
             // Draw objects
             level.draw();
             ownPlayer.update();
             ownPlayer.draw();
-            enemy.draw();
+            enemy01.draw();
+            enemy02.draw();
             window.draw(window.getCursorSprite());
             window.display();
 

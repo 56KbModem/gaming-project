@@ -45,7 +45,7 @@ sf::Socket::Status Client::receive() {
 
 sf::Socket::Status Client::send(const tf::playerPacket &packet) {
     sf::Packet rawPacket;
-    NETWORK_INFO("Sending: ", packet.position.x, packet.position.x);
+    NETWORK_INFO("Sending: {} {}", packet.position.x, packet.position.y);
     if (rawPacket << "player" << packet.playerName <<packet.position.x << packet.position.y << packet.rotation << packet.walking << packet.firing <<packet.PlayerId) {
 
         NETWORK_INFO("Packet build succesfully");

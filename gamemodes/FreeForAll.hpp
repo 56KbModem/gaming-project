@@ -23,8 +23,8 @@ namespace tf{ namespace gamemode{
         tf::playerPacket packet;
         tf::playerPacket serverPacket;
 
-        tf::Character enemy;
-
+        tf::Character enemy01;
+        tf::Character enemy02;
     public:
         FreeForAll(tf::TopforceWindow & window, const std::string & mapName, sf::IpAddress & serverIp);
         void run() override;
