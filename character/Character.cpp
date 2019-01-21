@@ -58,6 +58,10 @@ namespace tf {
         }
     }
     void Character::shoot(const float & rotation){
+#if DEBUG
+        TF_INFO("player pos X: {} player Y: {}", mySprite.getPosition().x, mySprite.getPosition().y);
+#endif
+
         myWeapon.shoot(mySprite.getPosition(), mySprite.getRotation());
     }
 

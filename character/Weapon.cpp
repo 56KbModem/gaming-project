@@ -8,14 +8,14 @@ namespace tf {
     Weapon::Weapon(sf::RenderWindow & window, const std::vector<sf::FloatRect> & levelHitboxes):
     window(window),
     levelHitboxes(levelHitboxes),
-    bulletHit(sf::Vector2f(10, 10))
+    bulletHit(sf::Vector2f(25, 25))
     {
 
     if (!selectionBuffer.loadFromFile(WEAPONG3)) {
         TF_ERROR("Failed to load audio file {}", WEAPONG3);
     }
     sf::FloatRect bounds = bulletHit.getGlobalBounds();
-    bulletHit.setOrigin(bounds.width /2, bounds.height /2);
+    bulletHit.setOrigin(bounds.width / 2, bounds.height /2);
     bulletHit.setFillColor(sf::Color::Cyan);
     weaponSound.setBuffer(selectionBuffer);
 }
@@ -35,22 +35,31 @@ void Weapon::drawShootLine(const sf::Vector2f &position, const float & rotation)
     shootLine[1] = sf::Vertex(sf::Vector2f(worldPos.x + 30, worldPos.y + 30));
     bulletHit.setPosition(position);
     sf::FloatRect bounds = bulletHit.getGlobalBounds();
-    for(auto & hitbox : levelHitboxes) {
-        if (hitbox.intersects(bounds)) {
-            TF_INFO("object hit!");
-        } else {
-            moveBullet(rotation);
-            bounds = bulletHit.getGlobalBounds();
+    bool hit = 0;
+    while(!hit) {
+        moveBullet(rotation);
+        bounds = bulletHit.getGlobalBounds();
+        for (auto &hitbox : levelHitboxes){
+            if (hitbox.intersects(bounds)){
+#if DEBUG
+                TF_INFO("object hit!");
+#endif
+                hit = 1;
+                break;
+            }
         }
+        window.draw(bulletHit);
+        window.display();
     }
-
     window.draw(bulletHit);
     window.draw(shootLine, 2, sf::Lines);
 }
 
 void Weapon::moveBullet(const float & rotation){
-    std::cout << "position bullet: " << bulletHit.getPosition().x << ' ' << bulletHit.getPosition().y << '\n';
-    bulletHit.move(cos(rotation * PI /180) * -3, sin(rotation * PI / 180 * -3));
-    }
+#if DEBUG
+    TF_INFO("bullet pos X: {} pos Y: {}", bulletHit.getPosition().x, bulletHit.getPosition().y);
+#endif
+    bulletHit.move(cos((rotation + 180) * (PI / 180)) *- 10, (sin((rotation + 180) * (PI / 180)) *- 10));
+}
 
 }
