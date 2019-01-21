@@ -5,8 +5,9 @@
 #include "Weapon.hpp"
 
 namespace tf {
-    Weapon::Weapon(sf::RenderWindow &window):
-    window(window)
+    Weapon::Weapon(sf::RenderWindow & window, const std::vector<sf::FloatRect> & levelHitboxes):
+    window(window),
+    levelHitboxes(levelHitboxes)
     {
 
     if (!selectionBuffer.loadFromFile(WEAPONG3)) {
@@ -24,12 +25,8 @@ void Weapon::shoot(const sf::Vector2f & position){
 }
 
 void Weapon::drawShootLine(const sf::Vector2f &position) {
-#if DEBUG
-        TF_INFO("Drawing shooting line. ");
-#endif
         sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
         sf::Vector2f worldPos = window.mapPixelToCoords(mousePosition);
-
         shootLine[0] = sf::Vertex(sf::Vector2f(position.x, position.y));
         shootLine[1] = sf::Vertex(sf::Vector2f(worldPos.x + 30, worldPos.y + 30));
         window.draw(shootLine, 2, sf::Lines);

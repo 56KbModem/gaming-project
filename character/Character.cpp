@@ -6,7 +6,7 @@ Character::Character(sf::RenderWindow &window, sf::View & view, const std::vecto
         MoveableScreenObject(window),
         view(view),
         levelHitboxes(levelHitboxes),
-        myWeapon(window)
+        myWeapon(window, levelHitboxes)
 
     {
     if (!stationary.loadFromFile(PLAYER)) {
@@ -15,7 +15,6 @@ Character::Character(sf::RenderWindow &window, sf::View & view, const std::vecto
     if (!reloading.loadFromFile(RELOAD)) {
         TF_ERROR("Failed to load png file {}", RELOAD);
     }
-
     mySprite.setTexture(stationary);
     mySprite.setPosition(1700.0, 375.0);
     view.setCenter(mySprite.getPosition());
@@ -44,6 +43,13 @@ void Character::move(const sf::Vector2f & position) {
         }
     }
     view.setCenter(mySprite.getPosition());
+}
+
+void Character::update(){
+    for(auto & action : actions){
+        action();
+    }
+
 }
 
 void Character::setTexture(const std::string & texture){
@@ -78,8 +84,16 @@ sf::Vector2f Character::getPosition(){
     return mySprite.getPosition();
 }
 
-float Character::getRotation() {
+void Character::setPosition(sf::Vector2f & position){
+    mySprite.setPosition(position);
+}
+
+float Character::getRotation(){
     return mySprite.getRotation();
+}
+
+void Character::setRotation(float & rotation){
+    mySprite.setRotation(rotation);
 }
 
 }

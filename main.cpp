@@ -36,16 +36,7 @@ int main(){
     tf::level::MapGraphics firing_range("FiringRange.tmx", window);
     tf::Character player1(window, view, firing_range.getHitboxes());
     view.setSize(1920.f, 1080.f);
-    sf::Vector2f currentPosition;
 
-    Action actions[] = {Action([](){return true;}, [&](){currentPosition = player1.getPosition();} ),
-                        Action(sf::Keyboard::W, [&](){player1.setTexture("RELOADING"); player1.move( sf::Vector2f{ 0.0f, -5.0f } );}),
-                        Action(sf::Keyboard::A, [&](){player1.setTexture("RELOADING"); player1.move( sf::Vector2f{ -5.0f, 0.0f } );}),
-                        Action(sf::Keyboard::S, [&](){player1.setTexture("RELOADING"); player1.move( sf::Vector2f{ 0.0f, 5.0f } ); }),
-                        Action(sf::Keyboard::D, [&](){player1.setTexture("RELOADING"); player1.move( sf::Vector2f{ 5.0f, 0.0f } ); }),
-                        Action(sf::Mouse::Left, [&](){if(currentPosition == player1.getPosition()){ player1.shoot();}}),
-                        Action([&](){return currentPosition == player1.getPosition();}, [&](){player1.setTexture("STATIONARY");})
-    };
     while (window.isOpen())
     {
         window.clear(sf::Color::Black);
@@ -56,16 +47,11 @@ int main(){
         window.setSpritePosition(worldPos);
         // Draw objects
         firing_range.draw();
+        player1.update();
         player1.draw();
-        player1.lookAtMouse();
         window.draw(window.getCursorSprite());
-        for (auto & action : actions){
-            action();
-        }
         window.display();
-        if (firing_range.intersects(player1)) {
-            //Some code here
-        }
+
         sf::Event event;
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed) {

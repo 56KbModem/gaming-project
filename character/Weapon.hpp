@@ -12,10 +12,10 @@ private:
     sf::Sound weaponSound;
     sf::Clock shootClock;
     sf::Vertex shootLine[2];
-    std::vector<sf::FloatRect> levelHitboxes;
     sf::RenderWindow & window;
+    std::vector<sf::FloatRect> levelHitboxes;
 public:
-    Weapon(sf::RenderWindow &window);
+    Weapon(sf::RenderWindow &window, const std::vector<sf::FloatRect> & levelHitboxes);
     void shoot(const sf::Vector2f & position);
     void drawShootLine(const sf::Vector2f & position);
 
