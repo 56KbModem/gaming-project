@@ -28,10 +28,12 @@ public:
             work(work)
     {}
 
-
-
+    Action(std::function<void()> work, std::function<bool()> condition = nullptr):
+        condition(condition),
+        work(work){}
+        
     void operator()(){
-        if( condition() ){
+        if (condition == nullptr || condition()) {
             work();
         }
     }
