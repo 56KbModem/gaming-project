@@ -33,7 +33,8 @@ sf::Socket::Status client::receive() {
 
 sf::Socket::Status client::send(tf::network_packet &packet) {
     sf::Packet rawPacket;
-    if (rawPacket << lastReceived.x << lastReceived.y << lastReceived.rotation << lastReceived.firing) {
+    if (rawPacket << packet.x << packet.y << packet.rotation << packet.firing) {
+
         NETWORK_INFO("Packet build succesfully");
         return (socket.send(rawPacket, serverIp, serverPort));
     }

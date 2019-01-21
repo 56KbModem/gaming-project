@@ -36,10 +36,10 @@ namespace tf {
 
     struct network_packet {
 
-        float x;
-        float y;
-        float rotation;
-        uint8_t firing;
+        int x;
+        int y;
+        int rotation;
+        int firing;
 
     };
 }

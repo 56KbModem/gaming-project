@@ -5,6 +5,7 @@
 #ifndef TOPFORCE_CLIENT1_HPP
 #define TOPFORCE_CLIENT1_HPP
 #include "../topforce.hpp"
+//#include <iostream>
 class client
 {
     const unsigned short myPort;

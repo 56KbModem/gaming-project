@@ -12,15 +12,16 @@ int main(){
     TF_WARN("TopForce logger initialized!");
     NETWORK_WARN("Network logger initialized!");
 #endif
-    sf::IpAddress ip="127.0.0.1";
-    tf::network_packet packet;
-    packet.x=1.0;
-    packet.y=2.0;
-    packet.rotation=8.0;
-    packet.firing=0;
-    client my_client(53000,ip,53000 );
-    my_client.send(packet);
+    sf::IpAddress ip="145.89.87.237";
+    tf::network_packet packet{1,2,3,4};
 
+    client my_client(53000,ip,53000 );
+
+    while(true) {
+        my_client.send(packet);
+       // my_client.receive();
+        sf::sleep(sf::seconds(1));
+    }
     tf::TopforceWindow window; // customized window
     window.setWindowIcon("Topforce_icon.png");
     window.setCursorIcon("crosshair.png");
