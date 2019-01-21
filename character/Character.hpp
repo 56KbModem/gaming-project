@@ -21,7 +21,7 @@ private:
     sf::RectangleShape hitbox;
     tf::Weapon myWeapon;
     sf::Vector2f currentPosition;
-    Action actions[7] = {Action([](){return true;}, [&](){currentPosition = getPosition(); lookAtMouse();} ),
+    Action actions[7] = {Action([&](){currentPosition = getPosition(); lookAtMouse();} ),
                         Action(sf::Keyboard::W, [&](){setTexture("RELOADING"); move( sf::Vector2f{ 0.0f, -5.0f } );}),
                         Action(sf::Keyboard::A, [&](){setTexture("RELOADING"); move( sf::Vector2f{ -5.0f, 0.0f } );}),
                         Action(sf::Keyboard::S, [&](){setTexture("RELOADING"); move( sf::Vector2f{ 0.0f, 5.0f } ); }),
