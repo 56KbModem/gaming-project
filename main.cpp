@@ -22,6 +22,7 @@ int main(){
 #if DEBUG
     TF_INFO("Chosen game mode: {}", int(selectedMode));
 #endif
+
     switch(selectedMode){
         case tf::GameModes::Free_For_All:{
             tf::gamemode::FreeForAll freeForAll(window,"NukeTown.tmx");
