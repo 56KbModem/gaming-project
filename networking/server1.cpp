@@ -24,6 +24,7 @@ sf::Socket::Status server::serverReceive()
     }
     NETWORK_INFO("Received data");
     clientIps.insert(lastIp);
+    return sf::Socket::Done; 
 }
 
 sf::Socket::Status server::serverSend() {

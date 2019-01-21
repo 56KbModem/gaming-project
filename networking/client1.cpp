@@ -4,8 +4,6 @@
 
 #include "client1.hpp"
 
-
-
 client::client(const unsigned short &myPort, sf::IpAddress &serverIp, const unsigned short &serverPort):
         myPort(myPort),
         serverIp(serverIp),
@@ -40,6 +38,7 @@ sf::Socket::Status client::send(tf::network_packet &packet) {
         return (socket.send(rawPacket, serverIp, serverPort));
     }
     else {
+        NETWORK_ERROR("Failed to build packet");
         return sf::Socket::Error;
     }
 }

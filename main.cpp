@@ -13,7 +13,13 @@ int main(){
     NETWORK_WARN("Network logger initialized!");
 #endif
     sf::IpAddress ip="127.0.0.1";
+    tf::network_packet packet;
+    packet.x=1.0;
+    packet.y=2.0;
+    packet.rotation=8.0;
+    packet.firing=0;
     client my_client(53000,ip,53000 );
+    my_client.send(packet);
 
     tf::TopforceWindow window; // customized window
     window.setWindowIcon("Topforce_icon.png");
