@@ -34,14 +34,20 @@ namespace tf {
         Free_For_All
     };
 
-    struct network_packet {
-
-        int x;
-        int y;
-        int rotation;
-        int firing;
-
+    struct playerPacket {
+        std::string header;
+        sf::Vector2f position;
+        float rotation;
+        bool walking;
+        bool firing;
     };
+
+    struct timePacket {
+        std::string header;
+        int minutes;
+        int seconds;
+    };
+
 }
 
 #endif //TOPFORCE_HEADERS_HPP
