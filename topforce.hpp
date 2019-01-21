@@ -37,10 +37,12 @@ namespace tf {
 
     struct playerPacket {
         std::string header;
+        std::string playerName;
         sf::Vector2f position;
         float rotation;
         bool walking;
         bool firing;
+        int PlayerId;
     };
 
     struct timePacket {

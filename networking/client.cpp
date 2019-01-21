@@ -10,6 +10,7 @@ client::client(const unsigned short &myPort, sf::IpAddress &serverIp, const unsi
         serverPort(serverPort)
 {
     socket.bind(myPort);
+    socket.setBlocking(0);
     NETWORK_INFO("Client created");
 }
 
@@ -26,7 +27,7 @@ sf::Socket::Status client::receive() {
         NETWORK_INFO("packet extracted succesfully");
 
         if (lastReceived.header == "player"){
-            rawPacket >> lastReceived.position.x >> lastReceived.position.y >> lastReceived.rotation >> lastReceived.walking >> lastReceived.firing;
+            rawPacket >>lastReceived.playerName >> lastReceived.position.x >> lastReceived.position.y >> lastReceived.rotation >> lastReceived.walking >> lastReceived.firing >>lastReceived.PlayerId;
         }
         else if( lastReceived.header == "time"){
             rawPacket >> timeReceived.minutes >> timeReceived.seconds;
@@ -40,7 +41,7 @@ sf::Socket::Status client::receive() {
 
 sf::Socket::Status client::send(const tf::playerPacket &packet) {
     sf::Packet rawPacket;
-    if (rawPacket << "player" << packet.position.x << packet.position.y << packet.rotation << packet.walking << packet.firing) {
+    if (rawPacket << "player" << packet.playerName <<packet.position.x << packet.position.y << packet.rotation << packet.walking << packet.firing <<packet.PlayerId) {
 
         NETWORK_INFO("Packet build succesfully");
         return (socket.send(rawPacket, serverIp, serverPort));
@@ -51,6 +52,6 @@ sf::Socket::Status client::send(const tf::playerPacket &packet) {
     }
 }
 
-tf::network_packet client::getLastPacket() {
+tf::playerPacket client::getLastPacket() {
     return lastReceived;
 }
