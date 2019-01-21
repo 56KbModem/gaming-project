@@ -6,9 +6,12 @@
 
 namespace tf{ namespace gamemode{
     FreeForAll::FreeForAll(tf::TopforceWindow & window, const std::string & mapName):
-        GameMode(window, mapName)
+        GameMode(window, mapName),
+        hud(window, view)
     {
-        view.setSize(1920.f, 1080.f);
+        mSObjects.push_back(&hud);
+        mSObjects.push_back(&ownPlayer);
+        sObjects.push_back(&level);
     }
     void FreeForAll::run() {
         // ---- Free-For-All gameloop ----
@@ -16,14 +19,22 @@ namespace tf{ namespace gamemode{
         {
             window.clear(sf::Color::Black);
             window.setView(view);
+
             //Cursor position calculation
             sf::Vector2i position = sf::Mouse::getPosition(window);
             sf::Vector2f worldPos = window.mapPixelToCoords(position);
             window.setSpritePosition(worldPos);
+
             // Draw objects
-            level.draw();
-            ownPlayer.update();
-            ownPlayer.draw();
+            for (const auto& obj : sObjects) {
+                obj->draw();
+            }
+
+            for (const auto& obj : mSObjects) {
+                obj->draw();
+                obj->update();
+            }
+
             window.draw(window.getCursorSprite());
             window.display();
             sf::Event event;

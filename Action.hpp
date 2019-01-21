@@ -30,7 +30,8 @@ public:
 
     Action(std::function<void()> work, std::function<bool()> condition = nullptr):
         condition(condition),
-        work(work){}
+        work(work)
+    {}
         
     void operator()(){
         if (condition == nullptr || condition()) {
