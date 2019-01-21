@@ -5,27 +5,47 @@
 #include "FreeForAll.hpp"
 
 namespace tf{ namespace gamemode{
-    FreeForAll::FreeForAll(tf::TopforceWindow & window, const std::string & mapName):
-        GameMode(window, mapName)
+    FreeForAll::FreeForAll(tf::TopforceWindow & window, const std::string & mapName, sf::IpAddress & serverIp):
+        GameMode(window, mapName),
+        client(53000,serverIp,53000),
+        enemy(window,view,level.getHitboxes())
     {
         view.setSize(1920.f, 1080.f);
     }
     void FreeForAll::run() {
+        // DEBUG STUFF
+        packet.PlayerId = 1;
+        packet.playerName = "DebugPlayer1";
         // ---- Free-For-All gameloop ----
         while (window.isOpen())
         {
+            // Recieve server packets
+            if(client.receive() == sf::Socket::Done){
+                serverPacket = client.getLastPacket();
+            }
             window.clear(sf::Color::Black);
             window.setView(view);
             //Cursor position calculation
             sf::Vector2i position = sf::Mouse::getPosition(window);
             sf::Vector2f worldPos = window.mapPixelToCoords(position);
             window.setSpritePosition(worldPos);
+
+            // Set enemy position
+            enemy.setPosition(serverPacket.position);
+            enemy.setRotation(serverPacket.rotation);
+
             // Draw objects
             level.draw();
             ownPlayer.update();
             ownPlayer.draw();
+            enemy.draw();
             window.draw(window.getCursorSprite());
             window.display();
+
+            // Send own position to server
+            packet.rotation = ownPlayer.getRotation();
+            packet.position = ownPlayer.getPosition();
+            client.send(packet);
             sf::Event event;
             while (window.pollEvent(event)) {
                 if (event.type == sf::Event::Closed) {

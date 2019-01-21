@@ -14,13 +14,19 @@
 #include "../character/Character.hpp"
 #include "../Action.hpp"
 #include "../abstracts/GameMode.hpp"
+#include "../networking/Client.hpp"
 
 namespace tf{ namespace gamemode{
     class FreeForAll : public GameMode {
     private:
-        
+        tf::network::Client client;
+        tf::playerPacket packet;
+        tf::playerPacket serverPacket;
+
+        tf::Character enemy;
+
     public:
-        FreeForAll(tf::TopforceWindow & window, const std::string & mapName);
+        FreeForAll(tf::TopforceWindow & window, const std::string & mapName, sf::IpAddress & serverIp);
         void run() override;
     };
 }}

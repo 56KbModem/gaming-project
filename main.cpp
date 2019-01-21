@@ -14,6 +14,10 @@ int main(){
     window.setWindowIcon("Topforce_icon.png");
     window.setCursorIcon("crosshair.png");
 
+    // Server IP
+    sf::IpAddress serverIp("145.89.98.232");
+
+
     // ---- Main Menu ----
     tf::GameModes selectedMode;
     tf::gui::MainMenu menu(window);
@@ -25,7 +29,7 @@ int main(){
 
     switch(selectedMode){
         case tf::GameModes::Free_For_All:{
-            tf::gamemode::FreeForAll freeForAll(window,"NukeTown.tmx");
+            tf::gamemode::FreeForAll freeForAll(window,"NukeTown.tmx", serverIp);
             freeForAll.run();
             break;
         }

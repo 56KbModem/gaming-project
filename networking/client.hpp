@@ -6,7 +6,9 @@
 #define TOPFORCE_CLIENT1_HPP
 #include "../topforce.hpp"
 //#include <iostream>
-class client
+
+namespace tf { namespace network{
+class Client
 {
     const unsigned short myPort;
     sf::IpAddress serverIp;
@@ -17,11 +19,13 @@ class client
 
 
 public:
-    client(const unsigned short &myPort,sf::IpAddress &serverIp, const unsigned short &serverPort );
+    Client(const unsigned short &myPort,sf::IpAddress &serverIp, const unsigned short &serverPort );
     sf::Socket::Status receive();
     sf::Socket::Status send(const tf::playerPacket &packet);
     tf::playerPacket getLastPacket();
 };
+}}
+
 
 
 #endif //TOPFORCE_CLIENT1_HPP

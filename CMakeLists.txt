@@ -30,7 +30,7 @@ if(UNIX)
 endif(UNIX)
 #Add cource and header files
 if (CMAKE_BUILD_TYPE MATCHES Debug)
-    add_executable(Topforce main.cpp topforce.hpp gui/Menu.hpp gui/MainMenu.cpp gui/MainMenu.hpp Log.cpp Log.hpp level/MapGraphics.cpp level/MapGraphics.hpp abstracts/ScreenObject.hpp abstracts/ScreenObject.cpp character/Character.hpp character/Character.cpp abstracts/MoveableScreenObject.cpp abstracts/MoveableScreenObject.hpp gui/TopforceWindow.cpp gui/TopforceWindow.hpp character/Weapon.cpp character/Weapon.hpp gamemodes/FreeForAll.cpp gamemodes/FreeForAll.hpp abstracts/GameMode.cpp abstracts/GameMode.hpp networking/client.hpp networking/client.cpp)
+    add_executable(Topforce main.cpp topforce.hpp gui/Menu.hpp gui/MainMenu.cpp gui/MainMenu.hpp Log.cpp Log.hpp level/MapGraphics.cpp level/MapGraphics.hpp abstracts/ScreenObject.hpp abstracts/ScreenObject.cpp character/Character.hpp character/Character.cpp abstracts/MoveableScreenObject.cpp abstracts/MoveableScreenObject.hpp gui/TopforceWindow.cpp gui/TopforceWindow.hpp character/Weapon.cpp character/Weapon.hpp gamemodes/FreeForAll.cpp gamemodes/FreeForAll.hpp abstracts/GameMode.cpp abstracts/GameMode.hpp networking/Client.hpp networking/Client.cpp)
 endif()
 
 if (CMAKE_BUILD_TYPE MATCHES Server)

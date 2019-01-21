@@ -2,9 +2,10 @@
 // Created by ramon on 19-1-2019.
 //
 
-#include "client.hpp"
+#include "Client.hpp"
 
-client::client(const unsigned short &myPort, sf::IpAddress &serverIp, const unsigned short &serverPort):
+namespace tf {namespace network{
+Client::Client(const unsigned short &myPort, sf::IpAddress &serverIp, const unsigned short &serverPort):
         myPort(myPort),
         serverIp(serverIp),
         serverPort(serverPort)
@@ -15,7 +16,7 @@ client::client(const unsigned short &myPort, sf::IpAddress &serverIp, const unsi
 }
 
 
-sf::Socket::Status client::receive() {
+sf::Socket::Status Client::receive() {
     sf::Packet rawPacket;
     sf::IpAddress tmpIp;
     unsigned short tmpPort;
@@ -39,7 +40,7 @@ sf::Socket::Status client::receive() {
 
 }
 
-sf::Socket::Status client::send(const tf::playerPacket &packet) {
+sf::Socket::Status Client::send(const tf::playerPacket &packet) {
     sf::Packet rawPacket;
     if (rawPacket << "player" << packet.playerName <<packet.position.x << packet.position.y << packet.rotation << packet.walking << packet.firing <<packet.PlayerId) {
 
@@ -52,6 +53,7 @@ sf::Socket::Status client::send(const tf::playerPacket &packet) {
     }
 }
 
-tf::playerPacket client::getLastPacket() {
+tf::playerPacket Client::getLastPacket() {
     return lastReceived;
-}
+}  
+}}
