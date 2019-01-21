@@ -57,8 +57,8 @@ namespace tf {
             mySprite.setTexture(stationary, true);
         }
     }
-    void Character::shoot(){
-        myWeapon.shoot(mySprite.getPosition());
+    void Character::shoot(const float & rotation){
+        myWeapon.shoot(mySprite.getPosition(), mySprite.getRotation());
     }
 
     void Character::lookAtMouse() {

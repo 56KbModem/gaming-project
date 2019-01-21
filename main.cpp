@@ -25,7 +25,7 @@ int main(){
 
     switch(selectedMode){
         case tf::GameModes::Free_For_All:{
-            tf::gamemode::FreeForAll freeForAll(window,"NukeTown.tmx");
+            tf::gamemode::FreeForAll freeForAll(window,"FiringRange.tmx");
             freeForAll.run();
             break;
         }

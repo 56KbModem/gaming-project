@@ -26,7 +26,7 @@ private:
                         Action(sf::Keyboard::A, [&](){setTexture("RELOADING"); move( sf::Vector2f{ -5.0f, 0.0f } );}),
                         Action(sf::Keyboard::S, [&](){setTexture("RELOADING"); move( sf::Vector2f{ 0.0f, 5.0f } ); }),
                         Action(sf::Keyboard::D, [&](){setTexture("RELOADING"); move( sf::Vector2f{ 5.0f, 0.0f } ); }),
-                        Action(sf::Mouse::Left, [&](){if(currentPosition == getPosition()){ shoot();}}),
+                        Action(sf::Mouse::Left, [&](){if(currentPosition == getPosition()){ shoot(getRotation());}}),
                         Action([&](){return currentPosition == getPosition();}, [&](){setTexture("STATIONARY");})
     };
 public:
@@ -37,7 +37,7 @@ public:
     void update() override;
 
     void setTexture(const std::string & texture);
-    void shoot();
+    void shoot(const float & rotation);
     void lookAtMouse();
     sf::FloatRect getBounds();
     sf::Vector2f getPosition();

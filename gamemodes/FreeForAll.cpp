@@ -19,7 +19,7 @@ namespace tf{ namespace gamemode{
             Action(sf::Keyboard::A, [&](){ownPlayer.setTexture("RELOADING"); ownPlayer.move( sf::Vector2f{ -5.0f, 0.0f } );}),
             Action(sf::Keyboard::S, [&](){ownPlayer.setTexture("RELOADING"); ownPlayer.move( sf::Vector2f{ 0.0f, 5.0f } ); }),
             Action(sf::Keyboard::D, [&](){ownPlayer.setTexture("RELOADING"); ownPlayer.move( sf::Vector2f{ 5.0f, 0.0f } ); }),
-            Action(sf::Mouse::Left, [&](){if(currentPosition == ownPlayer.getPosition()){ ownPlayer.shoot();}}),
+            Action(sf::Mouse::Left, [&](){if(currentPosition == ownPlayer.getPosition()){ ownPlayer.shoot(ownPlayer.getRotation());}}),
             Action([&](){return currentPosition == ownPlayer.getPosition();}, [&](){ownPlayer.setTexture("STATIONARY");})
         };
 
