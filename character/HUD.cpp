@@ -7,7 +7,7 @@
 namespace tf {
 HUD::HUD(sf::RenderWindow &window, sf::View& view) :
     MoveableScreenObject(window),
-    currentAmmo(90),
+    currentAmmo(30),
     totalAmmo(90),
     currentHealth(100),
     clipSize(30),
@@ -18,6 +18,7 @@ HUD::HUD(sf::RenderWindow &window, sf::View& view) :
         }
         configText();
     }
+
 
 void HUD::updateText() {
     ammoText.setString("Ammo: " + std::to_string(currentAmmo) + '/' + std::to_string(totalAmmo));
@@ -59,7 +60,6 @@ void HUD::draw() const {
 void HUD::update() {
     checkAmmo();
     updateText();
-    reload();
 
     // position
     sf::Vector2f viewCenter = view.getCenter();
@@ -73,30 +73,24 @@ void HUD::decreaseHealth(const int &amount) {
 }
 
 void HUD::decreaseAmmo(const int &amount) {
-    if (!outOfAmmo()) {
+    if (currentAmmo >= 0) {
         currentAmmo -= amount;
     }
 }
 
 void HUD::reload() {
     /*return if all ammo equals 0 or if current magazine is already full*/
-    if (currentAmmo == clipSize) { return; }
-    if (totalAmmo == 0) {
-        if (currentAmmo == 0) { return; }
+    if (currentAmmo != clipSize) {
+        if (totalAmmo != 0) {
+            int needed = clipSize - currentAmmo;
+            if (needed < totalAmmo) {
+                totalAmmo -= needed;
+                currentAmmo += needed;
+            } else {
+                currentAmmo += totalAmmo;
+                totalAmmo = 0;
+            }
+        }
     }
-
-    int needed = clipSize - currentAmmo;
-    if (needed < totalAmmo) {
-        totalAmmo -= needed;
-        currentAmmo += needed;
-    }
-    else {
-        currentAmmo += totalAmmo;
-        totalAmmo = 0;
-    }
-}
-
-bool HUD::outOfAmmo() {
-    return totalAmmo == 0 && currentAmmo == 0;
 }
 } // namespace tf

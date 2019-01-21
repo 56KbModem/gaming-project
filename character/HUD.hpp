@@ -32,7 +32,6 @@ public:
 
     void decreaseAmmo(const int& amount);
     void decreaseHealth(const int& amount);
-    bool outOfAmmo();
     void reload();
 };
 } // namespace tf
