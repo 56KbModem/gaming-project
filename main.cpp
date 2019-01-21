@@ -15,16 +15,16 @@ int main(){
     window.setCursorIcon("crosshair.png");
 
     // ---- Main Menu ----
-    tf::GameModes selected_mode;
+    tf::GameModes selectedMode;
     tf::gui::MainMenu menu(window);
-    selected_mode = menu.run(); // selected_mode indicates which game mode needs to be called
+    selectedMode = menu.run(); // selected_mode indicates which game mode needs to be called
 
 #if DEBUG
-    TF_INFO("Chosen game mode: {}", int(selected_mode));
+    TF_INFO("Chosen game mode: {}", int(selectedMode));
 #endif
-    switch(selected_mode){
+    switch(selectedMode){
         case tf::GameModes::Free_For_All:{
-            tf::gamemode::FreeForAll freeForAll(window,"FiringRange.tmx");
+            tf::gamemode::FreeForAll freeForAll(window,"NukeTown.tmx");
             freeForAll.run();
             break;
         }

@@ -6,9 +6,7 @@
 
 namespace tf{ namespace gamemode{
     FreeForAll::FreeForAll(tf::TopforceWindow & window, const std::string & mapName):
-    window(window),
-    level(mapName, window),
-    ownPlayer(window,view,level.getHitboxes())
+        GameMode(window, mapName)
     {
         view.setSize(1920.f, 1080.f);
     }

@@ -5,21 +5,23 @@
 #ifndef TOPFORCE_FREEFORALL_HPP
 #define TOPFORCE_FREEFORALL_HPP
 
+
+#include "../abstracts/GameMode.hpp"
+
 #include "../topforce.hpp"
 #include "../gui/TopforceWindow.hpp"
 #include "../level/MapGraphics.hpp"
 #include "../character/Character.hpp"
 #include "../Action.hpp"
+#include "../abstracts/GameMode.hpp"
+
 namespace tf{ namespace gamemode{
-    class FreeForAll {
+    class FreeForAll : public GameMode {
     private:
-        tf::TopforceWindow & window;
-        tf::level::MapGraphics level;
-        sf::View view;
-        tf::Character ownPlayer;
+
     public:
         FreeForAll(tf::TopforceWindow & window, const std::string & mapName);
-        void run();
+        void run() override;
     };
 }}
 
