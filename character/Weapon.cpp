@@ -8,7 +8,7 @@ namespace tf {
     Weapon::Weapon(sf::RenderWindow & window, const std::vector<sf::FloatRect> & levelHitboxes):
     window(window),
     levelHitboxes(levelHitboxes),
-    bulletHit(sf::Vector2f(25, 25))
+    bulletHit(sf::Vector2f(10, 10))
     {
 
     if (!selectionBuffer.loadFromFile(WEAPONG3)) {
@@ -29,12 +29,8 @@ void Weapon::shoot(const sf::Vector2f & position, const float & rotation){
 }
 
 void Weapon::drawShootLine(const sf::Vector2f &position, const float & rotation) {
-    sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
-    sf::Vector2f worldPos = window.mapPixelToCoords(mousePosition);
     shootLine[0] = sf::Vertex(sf::Vector2f(position.x, position.y));
-    shootLine[1] = sf::Vertex(sf::Vector2f(worldPos.x + 30, worldPos.y + 30));
     bulletHit.setPosition(position);
-    sf::FloatRect bounds = bulletHit.getGlobalBounds();
     bool hit = 0;
     while(!hit) {
         moveBullet(rotation);
@@ -48,9 +44,8 @@ void Weapon::drawShootLine(const sf::Vector2f &position, const float & rotation)
                 break;
             }
         }
-        window.draw(bulletHit);
-        window.display();
     }
+    shootLine[1] = sf::Vertex(bulletHit.getPosition());
     window.draw(bulletHit);
     window.draw(shootLine, 2, sf::Lines);
 }
@@ -59,7 +54,7 @@ void Weapon::moveBullet(const float & rotation){
 #if DEBUG
     TF_INFO("bullet pos X: {} pos Y: {}", bulletHit.getPosition().x, bulletHit.getPosition().y);
 #endif
-    bulletHit.move(cos((rotation + 180) * (PI / 180)) *- 10, (sin((rotation + 180) * (PI / 180)) *- 10));
+    bulletHit.move(cos((rotation + 180) * (PI / 180)) *- 15, (sin((rotation + 180) * (PI / 180)) *- 15));
 }
 
 }

@@ -19,7 +19,7 @@ namespace tf {
     }
 
     void TopforceWindow::setCursorIcon(const std::string &filename) {
-        sf::RenderWindow::setMouseCursorVisible(false);
+        sf::RenderWindow::setMouseCursorVisible(true);
         cursorTexture.loadFromFile(IMAGE_FOLDER + filename);
         cursor = sf::Sprite(cursorTexture);
         cursor.setScale(0.5f,0.5f);

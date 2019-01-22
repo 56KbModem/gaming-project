@@ -16,6 +16,7 @@ private:
     sf::RenderWindow & window;
     std::vector<sf::FloatRect> levelHitboxes;
     sf::RectangleShape bulletHit;
+    sf::FloatRect bounds;
 public:
     Weapon(sf::RenderWindow &window, const std::vector<sf::FloatRect> & levelHitboxes);
     void shoot(const sf::Vector2f & position, const float & rotation);
