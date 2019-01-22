@@ -17,7 +17,7 @@ namespace tf{ namespace gamemode{
     }
     void FreeForAll::run() {
         // DEBUG STUFF
-        packet.PlayerId = 1;
+        packet.PlayerId = 2;
         packet.playerName = "DebugPlayer1";
        // sf::Thread thread(client.receive());
         // ---- Free-For-All gameloop ----
@@ -37,7 +37,7 @@ namespace tf{ namespace gamemode{
             window.setSpritePosition(worldPos);
 
             // Set enemy position
-            if(serverPacket.PlayerId == 2){
+            if(serverPacket.PlayerId == 1){
                 enemy01.setPosition(serverPacket.position);
                 enemy01.setRotation(serverPacket.rotation);
             }else if(serverPacket.PlayerId == 3){
@@ -65,8 +65,10 @@ namespace tf{ namespace gamemode{
     }
 
     void FreeForAll::send(){
-        packet.rotation = ownPlayer.getRotation();
-        packet.position = ownPlayer.getPosition();
-        client.send(packet);
+        while(true) {
+            packet.rotation = ownPlayer.getRotation();
+            packet.position = ownPlayer.getPosition();
+            client.send(packet);
+        }
     }
 }}
