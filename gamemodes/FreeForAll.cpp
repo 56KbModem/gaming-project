@@ -17,13 +17,16 @@ namespace tf{ namespace gamemode{
         // DEBUG STUFF
         packet.PlayerId = 1;
         packet.playerName = "DebugPlayer1";
+       // sf::Thread thread(client.receive());
         // ---- Free-For-All gameloop ----
+
         while (window.isOpen())
         {
+
             // Recieve server packets
-            if(client.receive() == sf::Socket::Done){
-                serverPacket = client.getLastPacket();
-            }
+           // if(client.receive() == sf::Socket::Done){
+           serverPacket = client.getLastPacket();
+           // }
             window.clear(sf::Color::Black);
             window.setView(view);
             //Cursor position calculation

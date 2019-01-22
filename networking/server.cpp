@@ -4,7 +4,7 @@
 server::server(unsigned short serverPort)
 {
     socket.bind(serverPort);
-    socket.setBlocking(1);
+    socket.setBlocking(0);
     NETWORK_INFO("port binded");
 
 }

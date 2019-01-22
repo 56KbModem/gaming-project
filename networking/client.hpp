@@ -16,6 +16,7 @@ class Client
     sf::UdpSocket socket;
     tf::playerPacket lastReceived;
     tf::timePacket timeReceived;
+    std::thread thread;
 
 
 public:
@@ -23,6 +24,7 @@ public:
     sf::Socket::Status receive();
     sf::Socket::Status send(const tf::playerPacket &packet);
     tf::playerPacket getLastPacket();
+   // void threadReceive();
 };
 }}
 
