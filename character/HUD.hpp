@@ -23,7 +23,7 @@ private:
     sf::Text timeLeft;
 
     void configText();
-    void checkHealth();
+    void checkHUD();
     void updateText();
 public:
     HUD(sf::RenderWindow& window, sf::View& view);
