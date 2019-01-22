@@ -16,7 +16,6 @@ private:
     const int clipSize;
     sf::Font font;
     sf::View& view;
-    sf::Clock visibleClock, transparentClock;
 
     sf::Text ammoText;
     sf::Text healthText;
