@@ -10,20 +10,16 @@ namespace tf {
     levelHitboxes(levelHitboxes),
     bulletHit(sf::Vector2f(10, 10))
     {
-
-    if (!selectionBuffer.loadFromFile(WEAPONG3)) {
-        TF_ERROR("Failed to load audio file {}", WEAPONG3);
-    }
     sf::FloatRect bounds = bulletHit.getGlobalBounds();
     bulletHit.setOrigin(bounds.width / 2, bounds.height /2);
     bulletHit.setFillColor(sf::Color::Cyan);
-    weaponSound.setBuffer(selectionBuffer);
+    soundManager.setWeapon("weap_g3.wav");
 }
 
 void Weapon::shoot(const sf::Vector2f & position, const float & rotation, tf::HUD & hud){
     if(shootClock.getElapsedTime().asMilliseconds() > 100){
         hud.decreaseAmmo(1);
-        weaponSound.play();
+        soundManager.fireWeapon();
         drawShootLine(position, rotation);
         shootClock.restart();
     }

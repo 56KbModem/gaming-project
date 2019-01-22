@@ -2,6 +2,7 @@
 #include "gui/MainMenu.hpp"
 #include "gui/TopforceWindow.hpp"
 #include "gamemodes/FreeForAll.hpp"
+#include "SoundManager.hpp"
 
 int main(){
     // Setup logger

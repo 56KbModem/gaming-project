@@ -3,30 +3,20 @@
 //
 
 #include "MainMenu.hpp"
-#define MENU_SOUND "assets/sounds/menu_sound.wav"
-#define SELECT_SOUND "assets/sounds/ui_select.wav"
 
 namespace tf{namespace gui{
 MainMenu::MainMenu(sf::RenderWindow & window):
         window(window),
         activeMenu(Menus::main)
 {
-    if(!menuSound.openFromFile(MENU_SOUND)){
-        TF_ERROR("Failed to load audio file {}", MENU_SOUND);
-    }
-    if(!selection_buffer.loadFromFile(SELECT_SOUND)){
-        TF_ERROR("Failed to load audio file {}", SELECT_SOUND);
-    }
-    selectionMusic.setBuffer(selection_buffer);
 }
 GameModes MainMenu::run() {
+    auto & soundManager = tf::SoundManager::getInstance();
     Menu main(window.getSize(),std::array<std::string,3>{"Play", "Settings", "Quit"});
     Menu play(window.getSize(),std::array<std::string,4>{"Team Deatmatch", "Search & Destroy", "Free For All", "Back"});
     Menu settings(window.getSize(),std::array<std::string,3>{"Music", "FX", "Back"});
     // Play main MainMenu sound
-    menuSound.play();
-    // Keep playing sound
-    menuSound.setLoop(true);
+    soundManager.menuSound(true);
     // Set Action list
     Action actions[] = {
             Action( sf::Keyboard::Up,
@@ -71,7 +61,7 @@ GameModes MainMenu::run() {
 
         // ----- Menu logic -----
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Return)){
-            selectionMusic.play();
+            soundManager.uiSelect();
             switch(activeMenu){
                 case Menus::main:
                     switch(main.getPressedItem()){
@@ -95,15 +85,15 @@ GameModes MainMenu::run() {
                     switch(play.getPressedItem()){
                         case 0:
                             //Team Deatmatch
-                            menuSound.stop();
+                            soundManager.stopMenuSound();
                             return GameModes::Team_Deathmatch;
                         case 1:
                             //Search & Destroy
-                            menuSound.stop();
+                            soundManager.stopMenuSound();
                             return GameModes::Search_and_Destroy;
                         case 2:
                             //Free For All
-                            menuSound.stop();
+                            soundManager.stopMenuSound();
                             return GameModes::Free_For_All;
                         case 3:
                             //Back
@@ -142,7 +132,7 @@ GameModes MainMenu::run() {
             }
         }
     }
-    menuSound.stop();
+    soundManager.stopMenuSound();
     return GameModes::None;
 }
 }}
