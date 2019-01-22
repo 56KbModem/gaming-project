@@ -10,12 +10,18 @@
 
 #define BACKGROUND "assets/images/MainMenuBackground.jpg"
 #define FONT "assets/fonts/BankGothicMediumBT.ttf"
-#define HOVER_SOUND "assets/sounds/ui_hover.wav"
 
 #include "../topforce.hpp"
 
 template<size_t items>
 class Menu {
+private:
+    int selectedItemIndex;
+    sf::Texture backgroundTexture;
+    sf::Sprite background;
+    sf::Font font;
+    sf::Text textItems[items];
+    tf::SoundManager & soundManager = tf::SoundManager::getInstance();
 public:
     Menu(const sf::Vector2u & windowSize, const std::array<std::string,items> & menuItems){
         if(!backgroundTexture.loadFromFile(BACKGROUND)){
@@ -24,15 +30,10 @@ public:
         if(!font.loadFromFile(FONT)){
             TF_ERROR("Failed to load audio file {}", FONT);
         }
-        if(!selectionBuff.loadFromFile(HOVER_SOUND)){
-            TF_ERROR("Failed to load audio file {}", HOVER_SOUND);
-        }
         //Load and set position of background
         background.setTexture(backgroundTexture);
         background.setPosition(0,0);
 
-        // Load selection buffer
-        selectionSound.setBuffer(selectionBuff);
         // Keep track on wich index we are
         int index = 0;
         // Set parameters to every MainMenu item
@@ -59,7 +60,7 @@ public:
         if(selectedItemIndex - 1 >= 0){
             textItems[selectedItemIndex].setFillColor(UNSELECTED_COLOR);
             selectedItemIndex--;
-            selectionSound.play();
+            soundManager.uiHover();
             textItems[selectedItemIndex].setFillColor(SELECTED_COLOR);
         }
     }
@@ -67,7 +68,7 @@ public:
         if(selectedItemIndex + 1 < int(items)){
             textItems[selectedItemIndex].setFillColor(UNSELECTED_COLOR);
             selectedItemIndex++;
-            selectionSound.play();
+            soundManager.uiHover();
             textItems[selectedItemIndex].setFillColor(SELECTED_COLOR);
         }
     }
@@ -79,15 +80,6 @@ public:
         selectedItemIndex = 0;
         textItems[0].setFillColor(SELECTED_COLOR);
     }
-
-private:
-    int selectedItemIndex;
-    sf::Texture backgroundTexture;
-    sf::Sprite background;
-    sf::Font font;
-    sf::Text textItems[items];
-    sf::SoundBuffer selectionBuff;
-    sf::Sound selectionSound;
 };
 
 

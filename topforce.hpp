@@ -21,8 +21,9 @@
 #include <SFML/Audio.hpp>
 #include <SFML/System.hpp>
 
-// Logger include
+// TopForce includes
 #include "Log.hpp"
+#include "SoundManager.hpp"
 
 // Global enum classes
 namespace tf {

@@ -14,9 +14,6 @@ namespace tf{
         class MainMenu {
         private:
             sf::RenderWindow & window;
-            sf::Music menuSound;
-            sf::SoundBuffer selection_buffer;
-            sf::Sound selectionMusic;
             enum class Menus {
                 main,
                 play,
