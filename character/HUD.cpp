@@ -70,9 +70,7 @@ void HUD::decreaseHealth(const int &amount) {
 }
 
 void HUD::decreaseAmmo(const int &amount) {
-    if (currentAmmo >= 0) {
-        currentAmmo -= amount;
-    }
+    currentAmmo -= amount;
 }
 
 void HUD::reload() {
@@ -88,5 +86,9 @@ void HUD::reload() {
             }
         }
     }
+}
+
+bool HUD::hasAmmo(){
+    return currentAmmo > 0;
 }
 } // namespace tf

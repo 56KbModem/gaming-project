@@ -6,7 +6,8 @@ Character::Character(sf::RenderWindow &window, sf::View & view, const std::vecto
     MoveableScreenObject(window),
     view(view),
     levelHitboxes(levelHitboxes),
-    myWeapon(window, levelHitboxes)
+    myWeapon(window, levelHitboxes),
+    hud(window, view)
 {
     if (!stationary.loadFromFile(PLAYER)) {
         TF_ERROR("Failed to load png file {}", PLAYER);
@@ -27,6 +28,7 @@ Character::Character(sf::RenderWindow &window, sf::View & view, const std::vecto
 }
 
 void Character::draw() const {
+    hud.draw();
     window.draw(mySprite);
 #if DEBUG
     window.draw(hitbox);
@@ -47,6 +49,7 @@ void Character::update(){
     for(auto & action : actions) {
         action();
     }
+    hud.update();
 }
 
 void Character::setTexture(const std::string & texture){
@@ -57,8 +60,9 @@ void Character::setTexture(const std::string & texture){
         mySprite.setTexture(stationary, true);
     }
 }
-void Character::shoot(){
-    myWeapon.shoot(mySprite.getPosition());
+
+void Character::shoot(const float & rotation){
+    myWeapon.shoot(mySprite.getPosition(), mySprite.getRotation(), hud);
 }
 
 void Character::lookAtMouse() {

@@ -6,11 +6,9 @@
 
 namespace tf{ namespace gamemode{
     FreeForAll::FreeForAll(tf::TopforceWindow & window, const std::string & mapName):
-        GameMode(window, mapName),
-        hud(window, view)
+        GameMode(window, mapName)
     {
         mSObjects.push_back(&ownPlayer);
-        mSObjects.push_back(&hud);
         sObjects.push_back(&level);
     }
     void FreeForAll::run() {
