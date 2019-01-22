@@ -2,6 +2,7 @@
 #include "gui/MainMenu.hpp"
 #include "gui/TopforceWindow.hpp"
 #include "gamemodes/FreeForAll.hpp"
+
 int main(){
     // Setup logger
     tf::Log::init();
@@ -18,6 +19,8 @@ int main(){
     tf::GameModes selectedMode;
     tf::gui::MainMenu menu(window);
     selectedMode = menu.run(); // selected_mode indicates which game mode needs to be called
+
+
 
 #if DEBUG
     TF_INFO("Chosen game mode: {}", int(selectedMode));

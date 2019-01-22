@@ -20,8 +20,9 @@ namespace tf {
     weaponSound.setBuffer(selectionBuffer);
 }
 
-void Weapon::shoot(const sf::Vector2f & position, const float & rotation){
+void Weapon::shoot(const sf::Vector2f & position, const float & rotation, tf::HUD & hud){
     if(shootClock.getElapsedTime().asMilliseconds() > 100){
+        hud.decreaseAmmo(1);
         weaponSound.play();
         drawShootLine(position, rotation);
         shootClock.restart();

@@ -1,4 +1,5 @@
 #include "../topforce.hpp"
+#include "../character/HUD.hpp"
 
 #ifndef TOPFORCE_WEAPON_HPP
 #define TOPFORCE_WEAPON_HPP
@@ -19,7 +20,7 @@ private:
     sf::FloatRect bounds;
 public:
     Weapon(sf::RenderWindow &window, const std::vector<sf::FloatRect> & levelHitboxes);
-    void shoot(const sf::Vector2f & position, const float & rotation);
+    void shoot(const sf::Vector2f & position, const float & rotation, tf::HUD & hud);
     void drawShootLine(const sf::Vector2f & position, const float & rotation);
     void moveBullet(const float & rotation);
 

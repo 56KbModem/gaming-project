@@ -18,7 +18,8 @@
 namespace tf{ namespace gamemode{
     class FreeForAll : public GameMode {
     private:
-        
+        std::vector<MoveableScreenObject*> mSObjects;
+        std::vector<ScreenObject*> sObjects;
     public:
         FreeForAll(tf::TopforceWindow & window, const std::string & mapName);
         void run() override;
