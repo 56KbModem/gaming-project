@@ -65,10 +65,17 @@ namespace tf{ namespace gamemode{
     }
 
     void FreeForAll::send(){
+        sf::Clock clock;
+        clock.restart();
         while(true) {
             packet.rotation = ownPlayer.getRotation();
             packet.position = ownPlayer.getPosition();
-            client.send(packet);
+            if (clock.getElapsedTime().asMilliseconds() > 5) {
+
+                client.send(packet);
+                clock.restart();
+            }
+
         }
     }
 }}
