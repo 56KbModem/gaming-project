@@ -16,13 +16,14 @@ private:
     const int clipSize;
     sf::Font font;
     sf::View& view;
+    sf::Clock visibleClock, transparentClock;
 
     sf::Text ammoText;
     sf::Text healthText;
     sf::Text reloadText;
 
     void configText();
-    void checkAmmo();
+    void checkHealth();
     void updateText();
 public:
     HUD(sf::RenderWindow& window, sf::View& view);

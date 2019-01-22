@@ -9,8 +9,8 @@ namespace tf{ namespace gamemode{
         GameMode(window, mapName),
         hud(window, view)
     {
-        mSObjects.push_back(&hud);
         mSObjects.push_back(&ownPlayer);
+        mSObjects.push_back(&hud);
         sObjects.push_back(&level);
     }
     void FreeForAll::run() {
