@@ -35,10 +35,12 @@ void HUD::configText() {
     ammoText.setCharacterSize(24);
     healthText.setCharacterSize(24);
     reloadText.setCharacterSize(24);
+    timeLeft.setCharacterSize(24);
 
     ammoText.setFont(font);
     healthText.setFont(font);
     reloadText.setFont(font);
+    timeLeft.setFont(font);
 
     reloadText.setString("Press R to reload");
     reloadText.setFillColor(sf::Color::Red);
@@ -60,6 +62,7 @@ void HUD::update() {
     healthText.setPosition(x + 750, y + 350);
     ammoText.setPosition(x + 750, y + 400);
     reloadText.setPosition(x + 700, y + 450);
+    timeLeft.setPosition(x - 750, y - 350);
 
     checkHealth();
     updateText();
@@ -90,5 +93,11 @@ void HUD::reload() {
 
 bool HUD::hasAmmo(){
     return currentAmmo > 0;
+}
+
+void HUD::setTime(const tf::timePacket &packet) {
+    if (packet.header == "time") {
+        timeLeft.setString("Time left: " + std::to_string(packet.minutes) + ':' + std::to_string(packet.seconds));
+    }
 }
 } // namespace tf

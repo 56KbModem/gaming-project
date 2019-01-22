@@ -32,6 +32,12 @@ namespace tf {
         Search_and_Destroy,
         Free_For_All
     };
+
+    struct timePacket {
+        std::string header;
+        int minutes;
+        int seconds;
+    };
 }
 
 #endif //TOPFORCE_HEADERS_HPP
