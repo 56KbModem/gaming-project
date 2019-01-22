@@ -15,7 +15,7 @@ int main(){
     window.setCursorIcon("crosshair.png");
 
     // Server IP
-    sf::IpAddress serverIp("145.89.224.207");
+    sf::IpAddress serverIp("145.89.98.232");
 
 
     // ---- Main Menu ----

@@ -49,6 +49,7 @@ sf::Socket::Status Client::receive() {
         // NETWORK_INFO("No package received");
        // return sf::Socket::Error;
     }
+
 }
 
 sf::Socket::Status Client::send(const tf::playerPacket &packet) {

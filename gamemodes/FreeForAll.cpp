@@ -9,9 +9,11 @@ namespace tf{ namespace gamemode{
         GameMode(window, mapName),
         client(53000,serverIp,53000),
         enemy01(window,view,level.getHitboxes()),
-        enemy02(window,view,level.getHitboxes())
+        enemy02(window,view,level.getHitboxes()),
+        sendThread(&tf::gamemode::FreeForAll::send, this)
     {
         view.setSize(1920.f, 1080.f);
+        sendThread.detach();
     }
     void FreeForAll::run() {
         // DEBUG STUFF
@@ -52,9 +54,7 @@ namespace tf{ namespace gamemode{
             window.display();
 
             // Send own position to server
-            packet.rotation = ownPlayer.getRotation();
-            packet.position = ownPlayer.getPosition();
-            client.send(packet);
+
             sf::Event event;
             while (window.pollEvent(event)) {
                 if (event.type == sf::Event::Closed) {
@@ -62,5 +62,11 @@ namespace tf{ namespace gamemode{
                 }
             }
         }
+    }
+
+    void FreeForAll::send(){
+        packet.rotation = ownPlayer.getRotation();
+        packet.position = ownPlayer.getPosition();
+        client.send(packet);
     }
 }}
