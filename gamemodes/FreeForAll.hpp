@@ -14,11 +14,14 @@
 #include "../character/Character.hpp"
 #include "../Action.hpp"
 #include "../abstracts/GameMode.hpp"
+#include "../character/HUD.hpp"
 
 namespace tf{ namespace gamemode{
     class FreeForAll : public GameMode {
     private:
-        
+        tf::HUD hud;
+        std::vector<MoveableScreenObject*> mSObjects;
+        std::vector<ScreenObject*> sObjects;
     public:
         FreeForAll(tf::TopforceWindow & window, const std::string & mapName);
         void run() override;
