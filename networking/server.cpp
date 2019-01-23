@@ -62,11 +62,11 @@ void server::run() {
     NETWORK_INFO("Server running");
 
     while (true) {
+        
         if (timerClock.getElapsedTime().asSeconds() > 1){ // every second we send a time packet
 #if DEBUG
             NETWORK_INFO("Time packet: M: {} S: {}", minuteToPlay, secondToPlay);
 #endif // DEBUG
-           
 
             timePacket << "time" << minuteToPlay << secondToPlay; // constructing time packet
             timeSend();
