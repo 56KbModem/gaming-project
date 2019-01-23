@@ -21,16 +21,17 @@ private:
     sf::Text healthText;
     sf::Text reloadText;
     tf::SoundManager & soundManager = tf::SoundManager::getInstance();
+    sf::Text timeLeft;
 
     void configText();
-    void checkHealth();
+    void checkHUD();
     void updateText();
 public:
     HUD(sf::RenderWindow& window, sf::View& view);
 
     void update() override;
     void draw() const override;
-
+    void setTime(const tf::timePacket& packet);
     void decreaseAmmo(const int& amount);
     void decreaseHealth(const int& amount);
     void reload();
