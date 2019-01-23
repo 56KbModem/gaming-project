@@ -48,4 +48,8 @@ void SoundManager::stopMenuSound() {
     music.stop();
 }
 
+void SoundManager::emptyWeapon() {
+    sound[3].play();
+}
+
 }

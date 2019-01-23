@@ -23,6 +23,7 @@ public:
     void uiHover();
     void menuSound(bool loop);
     void stopMenuSound();
+    void emptyWeapon();
 };
 }
 

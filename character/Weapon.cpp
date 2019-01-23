@@ -18,10 +18,16 @@ namespace tf {
 
 void Weapon::shoot(const sf::Vector2f & position, const float & rotation, tf::HUD & hud){
     if(shootClock.getElapsedTime().asMilliseconds() > 100){
-        hud.decreaseAmmo(1);
-        soundManager.fireWeapon();
-        drawShootLine(position, rotation);
-        shootClock.restart();
+        if(hud.hasAmmo()) {
+
+            hud.decreaseAmmo(1);
+            soundManager.fireWeapon();
+            drawShootLine(position, rotation);
+            shootClock.restart();
+        }
+        else{
+            soundManager.emptyWeapon();
+        }
     }
 }
 
