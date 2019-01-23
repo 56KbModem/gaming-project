@@ -39,6 +39,7 @@ if (CMAKE_BUILD_TYPE MATCHES Release)
 endif()
 
 if (CMAKE_BUILD_TYPE MATCHES Server)
+    add_definitions(-DDEBUG=1)
     add_executable(Topforce networking/main.cpp networking/server.hpp networking/server.cpp log.cpp log.hpp)
 endif()
 
