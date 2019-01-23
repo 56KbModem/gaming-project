@@ -47,11 +47,11 @@ void Character::update(){
     hud.update();
 }
 
-void Character::setTexture(const std::string & texture){
-    if(texture == "RELOADING" && mySprite.getTexture() != &imageManager.getSoldierWalking()){
+void Character::setTexture(const Animation & animation){
+    if(animation == Animation::Running && mySprite.getTexture() != &imageManager.getSoldierWalking()){
         mySprite.setTexture(imageManager.getSoldierWalking(), true);
     }
-    if(texture == "STATIONARY" && mySprite.getTexture() != &imageManager.getSoldierStationary()){
+    if(animation == Animation::Idle && mySprite.getTexture() != &imageManager.getSoldierStationary()){
         mySprite.setTexture(imageManager.getSoldierStationary(), true);
     }
 }

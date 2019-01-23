@@ -19,13 +19,13 @@ private:
     tf::HUD hud;
     tf::ImageManager & imageManager = tf::ImageManager::getInstance();
     Action actions[8] = {Action([&](){currentPosition = getPosition(); lookAtMouse();} ),
-                        Action(sf::Keyboard::W, [&](){setTexture("RELOADING"); move( sf::Vector2f{ 0.0f, -5.0f } );}),
-                        Action(sf::Keyboard::A, [&](){setTexture("RELOADING"); move( sf::Vector2f{ -5.0f, 0.0f } );}),
-                        Action(sf::Keyboard::S, [&](){setTexture("RELOADING"); move( sf::Vector2f{ 0.0f, 5.0f } ); }),
-                        Action(sf::Keyboard::D, [&](){setTexture("RELOADING"); move( sf::Vector2f{ 5.0f, 0.0f } ); }),
+                        Action(sf::Keyboard::W, [&](){setTexture(Animation::Running); move( sf::Vector2f{ 0.0f, -5.0f } );}),
+                        Action(sf::Keyboard::A, [&](){setTexture(Animation::Running); move( sf::Vector2f{ -5.0f, 0.0f } );}),
+                        Action(sf::Keyboard::S, [&](){setTexture(Animation::Running); move( sf::Vector2f{ 0.0f, 5.0f } ); }),
+                        Action(sf::Keyboard::D, [&](){setTexture(Animation::Running); move( sf::Vector2f{ 5.0f, 0.0f } ); }),
                         Action(sf::Keyboard::R, [&](){hud.reload();}),
                         Action(sf::Mouse::Left, [&](){if(currentPosition == getPosition()){ shoot(getRotation());} }),
-                        Action([&](){return currentPosition == getPosition();}, [&](){setTexture("STATIONARY");})
+                        Action([&](){return currentPosition == getPosition();}, [&](){setTexture(Animation::Idle);})
     };
 public:
     Character(sf::RenderWindow &window, sf::View & view, const std::vector<sf::FloatRect> & levelHitboxes);
@@ -34,7 +34,7 @@ public:
     void move(const sf::Vector2f & position);
     void update() override;
 
-    void setTexture(const std::string & texture);
+    void setTexture(const Animation & animation);
     void shoot(const float & rotation);
     void lookAtMouse();
     sf::FloatRect getBounds();
