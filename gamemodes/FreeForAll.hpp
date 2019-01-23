@@ -25,9 +25,11 @@ namespace tf{ namespace gamemode{
 
         tf::Character enemy01;
         tf::Character enemy02;
+        std::thread sendThread;
     public:
         FreeForAll(tf::TopforceWindow & window, const std::string & mapName, sf::IpAddress & serverIp);
         void run() override;
+        void send();
     };
 }}
 
