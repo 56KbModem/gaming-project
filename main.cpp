@@ -13,7 +13,7 @@ int main(){
 #endif
 
     tf::TopforceWindow window; // customized window
-    window.setWindowIcon("Topforce_icon.png");
+    window.setWindowIcon();
     //window.setCursorIcon("crosshair.png");
 
     // ---- Main Menu ----

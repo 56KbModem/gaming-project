@@ -6,6 +6,7 @@
 
 namespace tf{
 SoundManager::SoundManager() {
+    sound[0].setVolume(20);
     buffer[1].loadFromFile(PATH + "gui/ui_hover.wav");
     sound[1].setBuffer(buffer[1]);
     buffer[2].loadFromFile(PATH + "gui/ui_select.wav");

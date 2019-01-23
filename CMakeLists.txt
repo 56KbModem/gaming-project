@@ -29,7 +29,7 @@ if(UNIX)
     link_directories(vendor/spdlog/include lib/macos/)
 endif(UNIX)
 #Add cource and header files
-add_executable(Topforce main.cpp topforce.hpp gui/Menu.hpp gui/MainMenu.cpp gui/MainMenu.hpp Log.cpp Log.hpp level/MapGraphics.cpp level/MapGraphics.hpp abstracts/ScreenObject.hpp abstracts/ScreenObject.cpp character/Character.hpp character/Character.cpp abstracts/MoveableScreenObject.cpp abstracts/MoveableScreenObject.hpp gui/TopforceWindow.cpp gui/TopforceWindow.hpp character/Weapon.cpp character/Weapon.hpp gamemodes/FreeForAll.cpp gamemodes/FreeForAll.hpp abstracts/GameMode.cpp abstracts/GameMode.hpp character/HUD.cpp character/HUD.hpp SoundManager.cpp SoundManager.hpp)
+add_executable(Topforce main.cpp topforce.hpp gui/Menu.hpp gui/MainMenu.cpp gui/MainMenu.hpp Log.cpp Log.hpp level/MapGraphics.cpp level/MapGraphics.hpp abstracts/ScreenObject.hpp abstracts/ScreenObject.cpp character/Character.hpp character/Character.cpp abstracts/MoveableScreenObject.cpp abstracts/MoveableScreenObject.hpp gui/TopforceWindow.cpp gui/TopforceWindow.hpp character/Weapon.cpp character/Weapon.hpp gamemodes/FreeForAll.cpp gamemodes/FreeForAll.hpp abstracts/GameMode.cpp abstracts/GameMode.hpp character/HUD.cpp character/HUD.hpp SoundManager.cpp SoundManager.hpp ImageManager.cpp ImageManager.hpp)
 
 #Link library's
 target_link_libraries(Topforce sfml-graphics sfml-audio sfml-network sfml-system tmxlite)

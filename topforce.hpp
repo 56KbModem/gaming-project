@@ -24,6 +24,7 @@
 // TopForce includes
 #include "Log.hpp"
 #include "SoundManager.hpp"
+#include "ImageManager.hpp"
 
 // Global enum classes
 namespace tf {

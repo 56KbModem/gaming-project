@@ -8,7 +8,6 @@
 #define SELECTED_COLOR sf::Color(206,79,70)
 #define UNSELECTED_COLOR sf::Color::White
 
-#define BACKGROUND "assets/images/MainMenuBackground.jpg"
 #define FONT "assets/fonts/BankGothicMediumBT.ttf"
 
 #include "../topforce.hpp"
@@ -17,21 +16,18 @@ template<size_t items>
 class Menu {
 private:
     int selectedItemIndex;
-    sf::Texture backgroundTexture;
     sf::Sprite background;
     sf::Font font;
     sf::Text textItems[items];
     tf::SoundManager & soundManager = tf::SoundManager::getInstance();
+    tf::ImageManager & imageManager = tf::ImageManager::getInstance();
 public:
     Menu(const sf::Vector2u & windowSize, const std::array<std::string,items> & menuItems){
-        if(!backgroundTexture.loadFromFile(BACKGROUND)){
-            TF_ERROR("Failed to load audio file {}", BACKGROUND);
-        }
         if(!font.loadFromFile(FONT)){
             TF_ERROR("Failed to load audio file {}", FONT);
         }
         //Load and set position of background
-        background.setTexture(backgroundTexture);
+        background.setTexture(imageManager.getMenuBackground());
         background.setPosition(0,0);
 
         // Keep track on wich index we are

@@ -9,13 +9,7 @@ Character::Character(sf::RenderWindow &window, sf::View & view, const std::vecto
     myWeapon(window, levelHitboxes),
     hud(window, view)
 {
-    if (!stationary.loadFromFile(PLAYER)) {
-        TF_ERROR("Failed to load png file {}", PLAYER);
-    }
-    if (!reloading.loadFromFile(RELOAD)) {
-        TF_ERROR("Failed to load png file {}", RELOAD);
-    }
-    mySprite.setTexture(stationary);
+    mySprite.setTexture(imageManager.getSoldierStationary());
     mySprite.setPosition(1700.0, 375.0);
     view.setCenter(mySprite.getPosition());
     sf::FloatRect bounds = mySprite.getGlobalBounds();
@@ -54,11 +48,11 @@ void Character::update(){
 }
 
 void Character::setTexture(const std::string & texture){
-    if(texture == "RELOADING" && mySprite.getTexture() != &reloading){
-        mySprite.setTexture(reloading, true);
+    if(texture == "RELOADING" && mySprite.getTexture() != &imageManager.getSoldierWalking()){
+        mySprite.setTexture(imageManager.getSoldierWalking(), true);
     }
-    if(texture == "STATIONARY" && mySprite.getTexture() != &stationary){
-        mySprite.setTexture(stationary, true);
+    if(texture == "STATIONARY" && mySprite.getTexture() != &imageManager.getSoldierStationary()){
+        mySprite.setTexture(imageManager.getSoldierStationary(), true);
     }
 }
 
