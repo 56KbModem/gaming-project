@@ -33,6 +33,7 @@ sf::Socket::Status Client::receive() {
                 rawPacket >> timeReceived.minutes >> timeReceived.seconds;
             }
         }
+        sf::sleep(sf::milliseconds(5));
     }
 
 }
