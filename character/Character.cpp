@@ -80,6 +80,7 @@ sf::Vector2f Character::getPosition(){
 
 void Character::setPosition(sf::Vector2f & position){
     mySprite.setPosition(position);
+    hitbox.setPosition(mySprite.getPosition().x -25, mySprite.getPosition().y - 25);
 }
 
 float Character::getRotation(){
