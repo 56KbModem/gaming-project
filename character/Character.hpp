@@ -42,6 +42,7 @@ public:
     void setPosition(sf::Vector2f & position);
     float getRotation();
     void setRotation(float & rotation);
+    void setTime(const tf::TimePacket & packet);
 };
 
 }
