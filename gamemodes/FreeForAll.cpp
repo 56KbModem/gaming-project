@@ -14,6 +14,8 @@ namespace tf{ namespace gamemode{
     {
         view.setSize(1920.f, 1080.f);
         sendThread.detach();
+        mSObjects.push_back(&ownPlayer);
+        sObjects.push_back(&level);
     }
     void FreeForAll::run() {
         // DEBUG STUFF
@@ -31,6 +33,7 @@ namespace tf{ namespace gamemode{
            // }
             window.clear(sf::Color::Black);
             window.setView(view);
+
             //Cursor position calculation
             sf::Vector2i position = sf::Mouse::getPosition(window);
             sf::Vector2f worldPos = window.mapPixelToCoords(position);
@@ -50,6 +53,17 @@ namespace tf{ namespace gamemode{
             ownPlayer.draw();
             enemy01.draw();
             enemy02.draw();
+
+            // Draw objects
+            for (const auto& obj : sObjects) {
+                obj->draw();
+            }
+
+            for (const auto& obj : mSObjects) {
+                obj->draw();
+                obj->update();
+            }
+
             window.draw(window.getCursorSprite());
             window.display();
 

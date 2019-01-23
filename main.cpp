@@ -2,6 +2,8 @@
 #include "gui/MainMenu.hpp"
 #include "gui/TopforceWindow.hpp"
 #include "gamemodes/FreeForAll.hpp"
+#include "SoundManager.hpp"
+
 int main(){
     // Setup logger
     tf::Log::init();
@@ -11,17 +13,15 @@ int main(){
 #endif
 
     tf::TopforceWindow window; // customized window
-    window.setWindowIcon("Topforce_icon.png");
-    window.setCursorIcon("crosshair.png");
-
-    // Server IP
-    sf::IpAddress serverIp("145.89.98.232");
-
+    window.setWindowIcon();
+    //window.setCursorIcon("crosshair.png");
 
     // ---- Main Menu ----
     tf::GameModes selectedMode;
     tf::gui::MainMenu menu(window);
     selectedMode = menu.run(); // selected_mode indicates which game mode needs to be called
+
+
 
 #if DEBUG
     TF_INFO("Chosen game mode: {}", int(selectedMode));
@@ -29,7 +29,7 @@ int main(){
 
     switch(selectedMode){
         case tf::GameModes::Free_For_All:{
-            tf::gamemode::FreeForAll freeForAll(window,"NukeTown.tmx", serverIp);
+            tf::gamemode::FreeForAll freeForAll(window,"FiringRange.tmx");
             freeForAll.run();
             break;
         }

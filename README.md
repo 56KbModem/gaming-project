@@ -16,3 +16,8 @@ If you already cloned the repo without `--recursive` param<br>
   * Cris van der Nolle
   * Wessel de Bruijn
   * Nick Snel
+  
+## Dependencies
+This project uses two external dependencies:
+ * [SPDLog](https://github.com/gabime/spdlog)
+ * [TMXLite](https://github.com/fallahn/tmxlite)

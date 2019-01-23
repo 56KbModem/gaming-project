@@ -5,18 +5,17 @@
 #ifndef TOPFORCE_WINDOW_SETTINGS_H
 #define TOPFORCE_WINDOW_SETTINGS_H
 
-#define IMAGE_FOLDER "assets/images/"
 #include "../topforce.hpp"
 namespace tf {
 class TopforceWindow : public sf::RenderWindow {
 private:
-    sf::Image image;
     sf::Texture cursorTexture;
     sf::Sprite cursor;
+    tf::ImageManager & imageManager = tf::ImageManager::getInstance();
 public:
     TopforceWindow();
-    void setWindowIcon(const std::string &filename);
-    void setCursorIcon(const std::string &filename);
+    void setWindowIcon();
+    //void setCursorIcon(const std::string &filename);
     void setSpritePosition(const sf::Vector2f &pos);
     sf::Sprite getCursorSprite();
 };

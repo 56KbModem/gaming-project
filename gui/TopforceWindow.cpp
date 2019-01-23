@@ -13,18 +13,17 @@ namespace tf {
         sf::RenderWindow::setFramerateLimit(60);
     }
 
-    void TopforceWindow::setWindowIcon(const std::string &filename) {
-        image.loadFromFile(IMAGE_FOLDER + filename);
-        sf::RenderWindow::setIcon(512, 512, image.getPixelsPtr());
+    void TopforceWindow::setWindowIcon() {
+        sf::RenderWindow::setIcon(512, 512, imageManager.getWindowIcon());
     }
-
+/*
     void TopforceWindow::setCursorIcon(const std::string &filename) {
-        sf::RenderWindow::setMouseCursorVisible(false);
+        sf::RenderWindow::setMouseCursorVisible(true);
         cursorTexture.loadFromFile(IMAGE_FOLDER + filename);
         cursor = sf::Sprite(cursorTexture);
         cursor.setScale(0.5f,0.5f);
     }
-
+*/
     void TopforceWindow::setSpritePosition(const sf::Vector2f &pos) {
         cursor.setPosition(pos);
     }

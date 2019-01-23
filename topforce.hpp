@@ -13,6 +13,7 @@
 #include <memory>
 #include <time.h>
 
+#include <thread>
 #include <string>
 #include <sstream>
 #include <vector>
@@ -24,8 +25,10 @@
 #include <SFML/System.hpp>
 //#include <SFML/Time.hpp>
 
-// Logger include
+// TopForce includes
 #include "Log.hpp"
+#include "SoundManager.hpp"
+#include "ImageManager.hpp"
 
 // Global enum classes
 namespace tf {
@@ -34,6 +37,12 @@ namespace tf {
         Team_Deathmatch,
         Search_and_Destroy,
         Free_For_All
+    };
+
+
+    enum class Animation {
+        Idle,
+        Running
     };
 
     struct playerPacket {
@@ -52,6 +61,5 @@ namespace tf {
         int seconds;
     };
 
-}
 
 #endif //TOPFORCE_HEADERS_HPP
