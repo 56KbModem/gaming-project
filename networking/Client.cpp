@@ -50,5 +50,9 @@ sf::Socket::Status Client::send(const tf::PlayerPacket &packet) {
 
 tf::PlayerPacket Client::getLastPacket() {
     return lastReceived;
-}  
+}
+
+tf::TimePacket Client::getTime(){
+    return timeReceived ;
+}
 }}

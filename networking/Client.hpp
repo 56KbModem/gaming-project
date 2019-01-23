@@ -20,6 +20,7 @@ public:
     sf::Socket::Status receive();
     sf::Socket::Status send(const tf::PlayerPacket &packet);
     tf::PlayerPacket getLastPacket();
+    tf::TimePacket getTime();
 };
 }}
 
