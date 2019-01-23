@@ -21,16 +21,12 @@ namespace tf{ namespace gamemode{
         // DEBUG STUFF
         packet.PlayerId = 2;
         packet.playerName = "DebugPlayer1";
-       // sf::Thread thread(client.receive());
+
         // ---- Free-For-All gameloop ----
-
-        while (window.isOpen())
-        {
-
+        while (window.isOpen()) {
             // Recieve server packets
-           // if(client.receive() == sf::Socket::Done){
-           serverPacket = client.getLastPacket();
-           // }
+            serverPacket = client.getLastPacket();
+
             window.clear(sf::Color::Black);
             window.setView(view);
 
@@ -52,17 +48,14 @@ namespace tf{ namespace gamemode{
             for (const auto& obj : sObjects) {
                 obj->draw();
             }
-
             for (const auto& obj : mSObjects) {
                 obj->draw();
                 obj->update();
             }
-
             window.draw(window.getCursorSprite());
             window.display();
 
-            // Send own position to server
-
+            // Handle pollEvents
             sf::Event event;
             while (window.pollEvent(event)) {
                 if (event.type == sf::Event::Closed) {

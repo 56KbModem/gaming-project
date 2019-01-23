@@ -9,7 +9,6 @@
 
 namespace tf { namespace network{
 class Client {
-    const unsigned short myPort;
     sf::IpAddress serverIp;
     unsigned short serverPort;
     sf::UdpSocket socket;

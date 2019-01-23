@@ -6,7 +6,6 @@
 
 namespace tf {namespace network{
 Client::Client(const unsigned short &myPort, sf::IpAddress &serverIp, const unsigned short &serverPort):
-        myPort(myPort),
         serverIp(serverIp),
         serverPort(serverPort),
         thread(&tf::network::Client::receive, this)
