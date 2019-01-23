@@ -15,6 +15,7 @@ private:
     sf::RectangleShape bulletHit;
     sf::FloatRect bounds;
     tf::SoundManager & soundManager = tf::SoundManager::getInstance();
+    bool emptyMag = 0;
 public:
     Weapon(sf::RenderWindow &window, const std::vector<sf::FloatRect> & levelHitboxes);
     void shoot(const sf::Vector2f & position, const float & rotation, tf::HUD & hud);

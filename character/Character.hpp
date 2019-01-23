@@ -8,7 +8,6 @@
 
 #define PLAYER "assets/images/soldier1_machine.png"
 #define RELOAD "assets/images/soldier1_reload.png"
-#define WEAPONG3 "assets/sounds/weap_g3_slst_2.wav"
 #define PI 3.14159265
 
 namespace tf{

@@ -20,6 +20,7 @@ private:
     sf::Text ammoText;
     sf::Text healthText;
     sf::Text reloadText;
+    tf::SoundManager & soundManager = tf::SoundManager::getInstance();
 
     void configText();
     void checkHealth();

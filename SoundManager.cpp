@@ -13,6 +13,8 @@ SoundManager::SoundManager() {
     buffer[3].loadFromFile(PATH + "weap_dryfire.wav");
     sound[3].setBuffer(buffer[3]);
     music.openFromFile(PATH + "gui/menu_sound.wav");
+    buffer[4].loadFromFile(PATH + "weap_reload.wav");
+    sound[4].setBuffer(buffer[4]);
 }
 
 SoundManager& SoundManager::getInstance() {
@@ -50,6 +52,10 @@ void SoundManager::stopMenuSound() {
 
 void SoundManager::emptyWeapon() {
     sound[3].play();
+}
+
+void SoundManager::reloadWeapon() {
+    sound[4].play();
 }
 
 }

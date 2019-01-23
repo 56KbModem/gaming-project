@@ -12,8 +12,8 @@ class SoundManager {
 private:
     SoundManager();
     const std::string PATH =  "assets/sounds/";
-    sf::SoundBuffer buffer[4];
-    sf::Sound sound[4];
+    sf::SoundBuffer buffer[5];
+    sf::Sound sound[5];
     sf::Music music;
 public:
     static SoundManager & getInstance();
@@ -24,6 +24,7 @@ public:
     void menuSound(bool loop);
     void stopMenuSound();
     void emptyWeapon();
+    void reloadWeapon();
 };
 }
 
