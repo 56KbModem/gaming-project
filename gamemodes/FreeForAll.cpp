@@ -16,11 +16,12 @@ namespace tf{ namespace gamemode{
         sendThread.detach();
         mSObjects.push_back(&ownPlayer);
         sObjects.push_back(&level);
+        sObjects.push_back(&enemy01);
     }
     void FreeForAll::run() {
         // DEBUG STUFF
         packet.PlayerId = 2;
-        packet.playerName = "DebugPlayer1";
+        packet.playerName = "DebugPlayer2";
 
         // ---- Free-For-All gameloop ----
         while (window.isOpen()) {
@@ -52,6 +53,7 @@ namespace tf{ namespace gamemode{
                 obj->draw();
                 obj->update();
             }
+            ownPlayer.setTime(client.getTime());
             window.draw(window.getCursorSprite());
             window.display();
 

@@ -105,8 +105,7 @@ bool HUD::hasAmmo(){
 }
 
 void HUD::setTime(const tf::TimePacket &packet) {
-    if (packet.header == "time") {
-        timeLeft.setString("Time left: " + std::to_string(packet.minutes) + ':' + std::to_string(packet.seconds));
-    }
+    TF_INFO("Packet: {}",packet.seconds);
+    timeLeft.setString("Time left: " + std::to_string(packet.minutes) + ':' + std::to_string(packet.seconds));
 }
 } // namespace tf
