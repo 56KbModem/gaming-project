@@ -9,7 +9,7 @@ secondToPlay(secondToPlay)
         secondToPlay = 59;
 
     socket.bind(serverPort);
-    socket.setBlocking(0); // just drop datagrams instead of trying to catch
+    socket.setBlocking(0); // just drop datagrams instead of trying to catch all of them
     NETWORK_INFO("port binded");
 
 }
@@ -72,10 +72,13 @@ void server::run() {
             }
             else if (secondToPlay <= 0 && minuteToPlay <= 0){
                     exit(1);
-                }
+            }
 
             timerClock.restart(); // restart the clock
-            }
+        }
+#if DEBUG
+        NETWORK_INFO("Time packet \n M: {} S: {}", minuteToPlay, secondToPlay);
+#endif // DEBUG
 
         timePacket << "time" << minuteToPlay << secondToPlay; // constructing time packet
         timeSend();

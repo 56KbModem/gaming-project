@@ -13,7 +13,9 @@ int main(int argc, char ** argv){
 
     /* parsing command-line arguments */
     if (argc < 3){
-        std::cerr << "Usage: " << argv[0] << " minutes" << " seconds" << '\n'; // we push this to stderr, not the logger
+        std::cerr << "Missing arguments:\n";
+        std::cerr << "Usage: " << argv[0]
+        << " minutes" << " seconds" << '\n'; // we push this to stderr, not the logger
         return 1; // give error status to the shell
     }
 
