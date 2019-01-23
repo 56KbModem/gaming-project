@@ -20,7 +20,7 @@ int main(){
     tf::GameModes selectedMode;
     tf::gui::MainMenu menu(window);
     selectedMode = menu.run(); // selected_mode indicates which game mode needs to be called
-
+    sf::IpAddress ipAddress("145.89.98.232");
 
 
 #if DEBUG
@@ -29,7 +29,7 @@ int main(){
 
     switch(selectedMode){
         case tf::GameModes::Free_For_All:{
-            tf::gamemode::FreeForAll freeForAll(window,"FiringRange.tmx");
+            tf::gamemode::FreeForAll freeForAll(window,"FiringRange.tmx", ipAddress);
             freeForAll.run();
             break;
         }

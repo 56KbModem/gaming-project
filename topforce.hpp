@@ -45,7 +45,7 @@ namespace tf {
         Running
     };
 
-    struct playerPacket {
+    struct PlayerPacket {
         std::string header;
         std::string playerName;
         sf::Vector2f position;
@@ -55,11 +55,10 @@ namespace tf {
         int PlayerId;
     };
 
-    struct timePacket {
+    struct TimePacket {
         std::string header;
         int minutes;
         int seconds;
     };
-
-
+}
 #endif //TOPFORCE_HEADERS_HPP

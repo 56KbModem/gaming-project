@@ -104,7 +104,7 @@ bool HUD::hasAmmo(){
     return currentAmmo > 0;
 }
 
-void HUD::setTime(const tf::timePacket &packet) {
+void HUD::setTime(const tf::TimePacket &packet) {
     if (packet.header == "time") {
         timeLeft.setString("Time left: " + std::to_string(packet.minutes) + ':' + std::to_string(packet.seconds));
     }

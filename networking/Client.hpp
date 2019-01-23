@@ -8,23 +8,19 @@
 //#include <iostream>
 
 namespace tf { namespace network{
-class Client
-{
+class Client {
     const unsigned short myPort;
     sf::IpAddress serverIp;
     unsigned short serverPort;
     sf::UdpSocket socket;
-    tf::playerPacket lastReceived;
-    tf::timePacket timeReceived;
+    tf::PlayerPacket lastReceived;
+    tf::TimePacket timeReceived;
     std::thread thread;
-
-
 public:
     Client(const unsigned short &myPort,sf::IpAddress &serverIp, const unsigned short &serverPort );
     sf::Socket::Status receive();
-    sf::Socket::Status send(const tf::playerPacket &packet);
-    tf::playerPacket getLastPacket();
-   // void threadReceive();
+    sf::Socket::Status send(const tf::PlayerPacket &packet);
+    tf::PlayerPacket getLastPacket();
 };
 }}
 

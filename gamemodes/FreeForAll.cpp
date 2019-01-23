@@ -47,13 +47,7 @@ namespace tf{ namespace gamemode{
                 enemy02.setPosition(serverPacket.position);
                 enemy02.setRotation(serverPacket.rotation);
             }
-            // Draw objects
-            level.draw();
-            ownPlayer.update();
-            ownPlayer.draw();
-            enemy01.draw();
-            enemy02.draw();
-
+            
             // Draw objects
             for (const auto& obj : sObjects) {
                 obj->draw();

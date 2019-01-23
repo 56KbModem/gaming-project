@@ -20,8 +20,8 @@ namespace tf{ namespace gamemode{
     class FreeForAll : public GameMode {
     private:
         tf::network::Client client;
-        tf::playerPacket packet;
-        tf::playerPacket serverPacket;
+        tf::PlayerPacket packet;
+        tf::PlayerPacket serverPacket;
 
         tf::Character enemy01;
         tf::Character enemy02;
