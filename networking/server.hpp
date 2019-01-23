@@ -15,7 +15,7 @@ class server
 {
     sf::UdpSocket socket;
     std::set<sf::IpAddress> clientIps;
-    sf::Packet rawPacket;
+    sf::Packet playerPacket;
     sf::Packet timePacket;
     sf::IpAddress lastIp;
     unsigned short lastPort;
