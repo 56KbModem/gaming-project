@@ -16,12 +16,17 @@ class server
     sf::UdpSocket socket;
     std::set<sf::IpAddress> clientIps;
     sf::Packet rawPacket;
+    sf::Packet timePacket;
     sf::IpAddress lastIp;
     unsigned short lastPort;
-    sf::Time currentTime;
+
+    sf::Clock timerClock;
+
+    int minuteToPlay;
+    int secondToPlay;
 
 public:
-    server(unsigned short serverPort);
+    server(unsigned short serverPort, int minuteToPlay, int secondToPlay);
     sf::Socket::Status serverReceive();
     sf::Socket::Status playerSend();
     sf::Socket::Status timeSend();

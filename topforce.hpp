@@ -11,6 +11,7 @@
 #include <functional>
 #include <cstdint>
 #include <memory>
+#include <time.h>
 
 #include <string>
 #include <sstream>
