@@ -14,7 +14,7 @@ int main(){
 
     tf::TopforceWindow window; // customized window
     window.setWindowIcon();
-    //window.setCursorIcon("crosshair.png");
+    window.setCursorIcon("crosshair.png");
 
     // ---- Main Menu ----
     tf::GameModes selectedMode;
