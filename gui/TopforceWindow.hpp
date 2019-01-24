@@ -16,8 +16,8 @@ private:
 public:
     TopforceWindow();
     void setWindowIcon();
-    //void setCursorIcon(const std::string &filename);
-    void setSpritePosition(const sf::Vector2f &pos);
+    void setCursorIcon(const std::string &filename);
+    void setSpritePosition();
     sf::Sprite getCursorSprite();
 };
 }
