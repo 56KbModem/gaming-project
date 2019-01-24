@@ -1,7 +1,7 @@
-#include "server.hpp"
+#include "Server.hpp"
 
 
-server::server(unsigned short serverPort, int minuteToPlay, int secondToPlay):
+Server::Server(unsigned short serverPort, int minuteToPlay, int secondToPlay):
 minuteToPlay(minuteToPlay),
 secondToPlay(secondToPlay)
 {
@@ -15,7 +15,7 @@ secondToPlay(secondToPlay)
 }
 
 
-sf::Socket::Status server::serverReceive() {
+sf::Socket::Status Server::serverReceive() {
 
     if (socket.receive(playerPacket, lastIp, lastPort) != sf::Socket::Done) {
 #if DEBUG
@@ -30,7 +30,7 @@ sf::Socket::Status server::serverReceive() {
     return sf::Socket::Done; 
 }
 
-sf::Socket::Status server::playerSend() {
+sf::Socket::Status Server::playerSend() {
 #if DEBUG
     //NETWORK_INFO("Server send function");
 #endif // DEBUG
@@ -45,7 +45,7 @@ sf::Socket::Status server::playerSend() {
     return sf::Socket::Done;
 }
 
-sf::Socket::Status server::timeSend(){
+sf::Socket::Status Server::timeSend(){
 #if DEBUG
     //NETWORK_INFO("Server send function");
 #endif // DEBUG
@@ -58,7 +58,7 @@ sf::Socket::Status server::timeSend(){
     });
 }
 
-void server::run() {
+void Server::run() {
     NETWORK_INFO("Server running");
 
     while (true) {

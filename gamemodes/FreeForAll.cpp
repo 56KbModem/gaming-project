@@ -25,7 +25,7 @@ namespace tf{ namespace gamemode{
 
         // ---- Free-For-All gameloop ----
         while (window.isOpen()) {
-            // Recieve server packets
+            // Recieve Server packets
             serverPacket = client.getLastPacket();
 
             window.clear(sf::Color::Black);

@@ -4,7 +4,7 @@
 
 #ifndef TOPFORCE_CLIENT1_HPP
 #define TOPFORCE_CLIENT1_HPP
-#include "../topforce.hpp"
+#include "../Topforce.hpp"
 //#include <iostream>
 
 namespace tf { namespace network{

@@ -8,10 +8,10 @@
 
 #include <set>
 #include <algorithm>
-#include "../topforce.hpp"
+#include "../Topforce.hpp"
 
 
-class server
+class Server
 {
     sf::UdpSocket socket;
     std::set<sf::IpAddress> clientIps;
@@ -26,7 +26,7 @@ class server
     int secondToPlay;
 
 public:
-    server(unsigned short serverPort, int minuteToPlay, int secondToPlay);
+    Server(unsigned short serverPort, int minuteToPlay, int secondToPlay);
     sf::Socket::Status serverReceive();
     sf::Socket::Status playerSend();
     sf::Socket::Status timeSend();
