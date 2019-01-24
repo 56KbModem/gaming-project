@@ -6,26 +6,26 @@
 
 namespace tf{
 ImageManager::ImageManager() {
-    texture[0].loadFromFile(PATH + "main_menu_bg.jpg");
-    texture[1].loadFromFile(PATH + "soldier1_machine.png");
-    texture[2].loadFromFile(PATH + "soldier1_reload.png");
+    textureArray[0].loadFromFile(PATH + "main_menu_bg.jpg");
+    textureArray[1].loadFromFile(PATH + "soldier1_machine.png");
+    textureArray[2].loadFromFile(PATH + "soldier1_reload.png");
     icon.loadFromFile(PATH + "topforce_icon.png");
 }
+
 ImageManager& ImageManager::getInstance() {
     static ImageManager Instance;
     return Instance;
 }
 
-const sf::Texture& ImageManager::getMenuBackground() {
-    return texture[0];
-}
-
-const sf::Texture& ImageManager::getSoldierStationary() {
-    return texture[1];
-}
-
-const sf::Texture& ImageManager::getSoldierWalking() {
-    return texture[2];
+const sf::Texture& ImageManager::getTexture(const tf::Texture &texture) {
+    switch(texture){
+        case tf::Texture::MenuBG:
+            return textureArray[0];
+        case tf::Texture::Stationary:
+            return textureArray[1];
+        case tf::Texture::Walking:
+            return textureArray[2];
+    }
 }
 
 const sf::Uint8* ImageManager::getWindowIcon() {

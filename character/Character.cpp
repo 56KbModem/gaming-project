@@ -9,7 +9,7 @@ Character::Character(sf::RenderWindow &window, sf::View & view, const std::vecto
     myWeapon(window, levelHitboxes),
     hud(window, view)
 {
-    mySprite.setTexture(imageManager.getSoldierStationary());
+    mySprite.setTexture(imageManager.getTexture(Texture::Stationary));
     mySprite.setPosition(1700.0, 375.0);
     view.setCenter(mySprite.getPosition());
     sf::FloatRect bounds = mySprite.getGlobalBounds();
@@ -47,12 +47,12 @@ void Character::update(){
     hud.update();
 }
 
-void Character::setTexture(const Animation & animation){
-    if(animation == Animation::Running && mySprite.getTexture() != &imageManager.getSoldierWalking()){
-        mySprite.setTexture(imageManager.getSoldierWalking(), true);
+void Character::setTexture(const Texture & texture){
+    if(texture == Texture::Walking && mySprite.getTexture() != &imageManager.getTexture(Texture::Walking)){
+        mySprite.setTexture(imageManager.getTexture(Texture::Walking), true);
     }
-    if(animation == Animation::Idle && mySprite.getTexture() != &imageManager.getSoldierStationary()){
-        mySprite.setTexture(imageManager.getSoldierStationary(), true);
+    if(texture == Texture::Stationary && mySprite.getTexture() != &imageManager.getTexture(Texture::Stationary)){
+        mySprite.setTexture(imageManager.getTexture(Texture::Stationary), true);
     }
 }
 
