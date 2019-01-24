@@ -26,11 +26,13 @@ int main(){
 #if DEBUG
     TF_INFO("Chosen game mode: {}", int(selectedMode));
 #endif
-
-    switch(selectedMode){
-        case tf::GameModes::Free_For_All:{
-            tf::gamemode::FreeForAll freeForAll(window,"FiringRange.tmx", ipAddress);
-            freeForAll.run();
+    
+    std::unique_ptr<tf::GameMode> gameMode;
+    
+    switch (selectedMode) {
+        case tf::GameModes::Free_For_All: {
+            gameMode = std::make_unique<tf::gamemode::FreeForAll>(window, "FiringRange.tmx", ipAddress);
+            gameMode->run();
             break;
         }
         default:
