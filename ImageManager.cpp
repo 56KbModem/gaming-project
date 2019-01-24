@@ -16,15 +16,15 @@ ImageManager& ImageManager::getInstance() {
     return Instance;
 }
 
-sf::Texture& ImageManager::getMenuBackground() {
+const sf::Texture& ImageManager::getMenuBackground() {
     return texture[0];
 }
 
-sf::Texture& ImageManager::getSoldierStationary() {
+const sf::Texture& ImageManager::getSoldierStationary() {
     return texture[1];
 }
 
-sf::Texture& ImageManager::getSoldierWalking() {
+const sf::Texture& ImageManager::getSoldierWalking() {
     return texture[2];
 }
 

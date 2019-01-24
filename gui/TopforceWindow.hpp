@@ -5,7 +5,8 @@
 #ifndef TOPFORCE_WINDOW_SETTINGS_H
 #define TOPFORCE_WINDOW_SETTINGS_H
 
-#include "../topforce.hpp"
+#include "../Topforce.hpp"
+
 namespace tf {
 class TopforceWindow : public sf::RenderWindow {
 private:
@@ -15,8 +16,8 @@ private:
 public:
     TopforceWindow();
     void setWindowIcon();
-    //void setCursorIcon(const std::string &filename);
-    void setSpritePosition(const sf::Vector2f &pos);
+    void setCursorIcon(const std::string &filename);
+    void setSpritePosition();
     sf::Sprite getCursorSprite();
 };
 }

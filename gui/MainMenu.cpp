@@ -16,7 +16,7 @@ GameModes MainMenu::run() {
     Menu play(window.getSize(),std::array<std::string,4>{"Team Deatmatch", "Search & Destroy", "Free For All", "Back"});
     Menu settings(window.getSize(),std::array<std::string,3>{"Music", "FX", "Back"});
     // Play main MainMenu sound
-    soundManager.menuSound(true);
+    soundManager.play(tf::Sounds::Menu, true);
     // Set Action list
     Action actions[] = {
             Action( sf::Keyboard::Up,
@@ -61,7 +61,7 @@ GameModes MainMenu::run() {
 
         // ----- Menu logic -----
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Return)){
-            soundManager.uiSelect();
+            soundManager.play(tf::Sounds::UISelect);
             switch(activeMenu){
                 case Menus::main:
                     switch(main.getPressedItem()){
@@ -85,15 +85,15 @@ GameModes MainMenu::run() {
                     switch(play.getPressedItem()){
                         case 0:
                             //Team Deatmatch
-                            soundManager.stopMenuSound();
+                            soundManager.play(tf::Sounds::StopMenu);
                             return GameModes::Team_Deathmatch;
                         case 1:
                             //Search & Destroy
-                            soundManager.stopMenuSound();
+                            soundManager.play(tf::Sounds::StopMenu);
                             return GameModes::Search_and_Destroy;
                         case 2:
                             //Free For All
-                            soundManager.stopMenuSound();
+                            soundManager.play(tf::Sounds::StopMenu);
                             return GameModes::Free_For_All;
                         case 3:
                             //Back
@@ -132,7 +132,7 @@ GameModes MainMenu::run() {
             }
         }
     }
-    soundManager.stopMenuSound();
+    soundManager.play(tf::Sounds::StopMenu);
     return GameModes::None;
 }
 }}
