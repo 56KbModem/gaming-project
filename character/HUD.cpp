@@ -95,7 +95,7 @@ void HUD::reload() {
                 currentAmmo += totalAmmo;
                 totalAmmo = 0;
             }
-            soundManager.play(tf::Sounds::RealoadWeapon);
+            soundManager.play(tf::Sounds::ReloadWeapon);
         }
     }
 }

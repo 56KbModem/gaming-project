@@ -5,7 +5,10 @@
 #ifndef TOPFORCE_IMAGEMANAGER_HPP
 #define TOPFORCE_IMAGEMANAGER_HPP
 
-#include "Topforce.hpp"
+#include <string>
+#include <SFML/Graphics/Image.hpp>
+#include <SFML/Graphics/Texture.hpp>
+
 
 namespace tf{
 enum class Animation {
@@ -21,9 +24,9 @@ private:
     sf::Image icon;
 public:
     static ImageManager & getInstance();
-    sf::Texture& getMenuBackground();
-    sf::Texture& getSoldierStationary();
-    sf::Texture& getSoldierWalking();
+    const sf::Texture& getMenuBackground();
+    const sf::Texture& getSoldierStationary();
+    const sf::Texture& getSoldierWalking();
     const sf::Uint8* getWindowIcon();
 };
 }

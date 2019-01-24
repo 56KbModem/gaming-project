@@ -17,7 +17,7 @@ enum class Sounds {
     UIHover,
     UISelect,
     EmptyWeapon,
-    RealoadWeapon,
+    ReloadWeapon,
     StopMenu,
     Menu
 };

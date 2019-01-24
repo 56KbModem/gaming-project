@@ -31,8 +31,7 @@ void SoundManager::setWeapon(const std::string &weaponFile) {
 }
 
 void SoundManager::play(const tf::Sounds& sounds, bool loop) {
-    Sounds sounds1 = sounds;
-    switch (sounds1) {
+    switch (sounds) {
         case Sounds::FireWeapon:
             sound[0].play();
             break;
@@ -45,7 +44,7 @@ void SoundManager::play(const tf::Sounds& sounds, bool loop) {
         case Sounds::EmptyWeapon:
             sound[3].play();
             break;
-        case Sounds::RealoadWeapon:
+        case Sounds::ReloadWeapon:
             sound[4].play();
             break;
         case Sounds::Menu:
