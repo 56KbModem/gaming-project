@@ -2,7 +2,7 @@
 // be a dedicated server and must be
 // compiled as a seperate executable!
 
-#include "server.hpp"
+#include "Server.hpp"
 int main(int argc, char ** argv){
     // Setup logger
     tf::Log::init();
@@ -36,7 +36,7 @@ int main(int argc, char ** argv){
 
 
     NETWORK_INFO("Starting main");
-    server my_server(53000, minute, second);
+    Server my_server(53000, minute, second);
     TF_INFO("Server created");
     my_server.run();
     TF_INFO("Topforce server shutting down!...");

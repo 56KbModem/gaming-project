@@ -35,12 +35,12 @@ if (CMAKE_BUILD_TYPE MATCHES Debug)
 endif()
 
 if (CMAKE_BUILD_TYPE MATCHES Release)
-    add_executable(Topforce networking/main.cpp networking/server.hpp networking/server.cpp log.cpp log.hpp)
+    add_executable(Topforce networking/main.cpp networking/Server.hpp networking/Server.cpp log.cpp log.hpp)
 endif()
 
 if (CMAKE_BUILD_TYPE MATCHES Server)
     add_definitions(-DDEBUG=1)
-    add_executable(Topforce networking/main.cpp networking/server.hpp networking/server.cpp log.cpp log.hpp)
+    add_executable(Topforce networking/main.cpp networking/Server.hpp networking/Server.cpp log.cpp log.hpp)
 endif()
 
 

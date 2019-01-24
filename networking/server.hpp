@@ -11,7 +11,7 @@
 #include "../topforce.hpp"
 
 
-class server
+class Server
 {
     sf::UdpSocket socket;
     std::set<sf::IpAddress> clientIps;
@@ -26,8 +26,8 @@ class server
     int secondToPlay;
 
 public:
-    server(unsigned short serverPort, int minuteToPlay, int secondToPlay);
-    sf::Socket::Status serverReceive();
+    Server(unsigned short ServerPort, int minuteToPlay, int secondToPlay);
+    sf::Socket::Status ServerReceive();
     sf::Socket::Status playerSend();
     sf::Socket::Status timeSend();
     void run();
