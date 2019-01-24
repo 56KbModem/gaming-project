@@ -6,7 +6,7 @@
 #define TOPFORCE_GAMEMODE_HPP
 
 #include "../gui/TopforceWindow.hpp"
-#include "../topforce.hpp"
+#include "../Topforce.hpp"
 #include "../level/MapGraphics.hpp"
 
 namespace tf {

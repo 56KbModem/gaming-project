@@ -30,33 +30,30 @@ void SoundManager::setWeapon(const std::string &weaponFile) {
     sound[0].setBuffer(buffer[0]);
 }
 
-void SoundManager::fireWeapon() {
-    sound[0].play();
+void SoundManager::play(const tf::Sounds& sounds, bool loop) {
+    switch (sounds) {
+        case Sounds::FireWeapon:
+            sound[0].play();
+            break;
+        case Sounds::UIHover:
+            sound[1].play();
+            break;
+        case Sounds::UISelect:
+            sound[2].play();
+            break;
+        case Sounds::EmptyWeapon:
+            sound[3].play();
+            break;
+        case Sounds::ReloadWeapon:
+            sound[4].play();
+            break;
+        case Sounds::Menu:
+            music.play();
+            music.setLoop(loop);
+            break;
+        case Sounds::StopMenu:
+            music.stop();
+            break;
+    }
 }
-
-void SoundManager::uiHover() {
-    sound[1].play();
-}
-
-void SoundManager::uiSelect() {
-    sound[2].play();
-}
-
-void SoundManager::menuSound(bool loop) {
-    music.play();
-    music.setLoop(loop);
-}
-
-void SoundManager::stopMenuSound() {
-    music.stop();
-}
-
-void SoundManager::emptyWeapon() {
-    sound[3].play();
-}
-
-void SoundManager::reloadWeapon() {
-    sound[4].play();
-}
-
 }

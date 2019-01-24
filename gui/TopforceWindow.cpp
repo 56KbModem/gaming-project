@@ -16,16 +16,18 @@ namespace tf {
     void TopforceWindow::setWindowIcon() {
         sf::RenderWindow::setIcon(512, 512, imageManager.getWindowIcon());
     }
-/*
+
     void TopforceWindow::setCursorIcon(const std::string &filename) {
-        sf::RenderWindow::setMouseCursorVisible(true);
-        cursorTexture.loadFromFile(IMAGE_FOLDER + filename);
+        sf::RenderWindow::setMouseCursorVisible(false);
+        cursorTexture.loadFromFile("assets/images/crosshair.png");
         cursor = sf::Sprite(cursorTexture);
-        cursor.setScale(0.5f,0.5f);
+        cursor.setScale(0.3f,0.3f);
     }
-*/
-    void TopforceWindow::setSpritePosition(const sf::Vector2f &pos) {
-        cursor.setPosition(pos);
+
+    void TopforceWindow::setSpritePosition() {
+        sf::Vector2i position = sf::Mouse::getPosition(*this);
+        sf::Vector2f worldPos = mapPixelToCoords(position);
+        cursor.setPosition(sf::Vector2f(worldPos.x - 20, worldPos.y - 20));
     }
 
     sf::Sprite TopforceWindow::getCursorSprite() {

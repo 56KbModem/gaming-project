@@ -1,4 +1,4 @@
-#include "topforce.hpp"
+#include "Topforce.hpp"
 #include "gui/MainMenu.hpp"
 #include "gui/TopforceWindow.hpp"
 #include "gamemodes/FreeForAll.hpp"
@@ -14,7 +14,7 @@ int main(){
 
     tf::TopforceWindow window; // customized window
     window.setWindowIcon();
-    //window.setCursorIcon("crosshair.png");
+    window.setCursorIcon("crosshair.png");
 
     // ---- Main Menu ----
     tf::GameModes selectedMode;

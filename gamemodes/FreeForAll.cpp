@@ -32,9 +32,7 @@ namespace tf{ namespace gamemode{
             window.setView(view);
 
             //Cursor position calculation
-            sf::Vector2i position = sf::Mouse::getPosition(window);
-            sf::Vector2f worldPos = window.mapPixelToCoords(position);
-            window.setSpritePosition(worldPos);
+            window.setSpritePosition();
 
             // Set enemy position
             if(serverPacket.PlayerId == 1){
