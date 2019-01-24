@@ -5,9 +5,23 @@
 #ifndef TOPFORCE_SOUNDMANAGER_HPP
 #define TOPFORCE_SOUNDMANAGER_HPP
 
-#include "topforce.hpp"
+#include <string>
+#include <SFML/Audio/SoundBuffer.hpp>
+#include <SFML/Audio/Music.hpp>
+#include <SFML/Audio/Sound.hpp>
+#include "Log.hpp"
 
 namespace tf{
+enum class Sounds {
+    FireWeapon,
+    UIHover,
+    UISelect,
+    EmptyWeapon,
+    RealoadWeapon,
+    StopMenu,
+    Menu
+};
+
 class SoundManager {
 private:
     SoundManager();
@@ -18,14 +32,9 @@ private:
 public:
     static SoundManager & getInstance();
     void setWeapon(const std::string & weaponFile);
-    void fireWeapon();
-    void uiSelect();
-    void uiHover();
-    void menuSound(bool loop);
-    void stopMenuSound();
-    void emptyWeapon();
-    void reloadWeapon();
+    void play(const tf::Sounds& sounds, bool loop = false);
 };
+
 }
 
 #endif //TOPFORCE_SOUNDMANAGER_HPP

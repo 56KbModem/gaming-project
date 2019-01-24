@@ -5,7 +5,7 @@
 #ifndef TOPFORCE_TEST_MENU_HPP
 #define TOPFORCE_TEST_MENU_HPP
 
-#include "../topforce.hpp"
+#include "../Topforce.hpp"
 #include "Menu.hpp"
 #include "../Action.hpp"
 

@@ -21,13 +21,13 @@ void Weapon::shoot(const sf::Vector2f & position, const float & rotation, tf::HU
         if(hud.hasAmmo()) {
             emptyMag = 0;
             hud.decreaseAmmo(1);
-            soundManager.fireWeapon();
+            soundManager.play(tf::Sounds::FireWeapon);
             drawShootLine(position, rotation);
             shootClock.restart();
         }
         else if(emptyMag == 0 && !hud.hasAmmo()){
             emptyMag = 1;
-            soundManager.emptyWeapon();
+            soundManager.play(tf::Sounds::EmptyWeapon);
         }
     }
 }

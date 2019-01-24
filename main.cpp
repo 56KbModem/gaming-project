@@ -1,4 +1,4 @@
-#include "topforce.hpp"
+#include "Topforce.hpp"
 #include "gui/MainMenu.hpp"
 #include "gui/TopforceWindow.hpp"
 #include "gamemodes/FreeForAll.hpp"

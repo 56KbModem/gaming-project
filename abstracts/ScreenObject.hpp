@@ -5,7 +5,7 @@
 #ifndef TOPFORCE_SCREENOBJECT_HPP
 #define TOPFORCE_SCREENOBJECT_HPP
 
-#include "../topforce.hpp"
+#include "../Topforce.hpp"
 
 namespace tf {
     class ScreenObject {

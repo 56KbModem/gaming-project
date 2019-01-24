@@ -1,4 +1,4 @@
-#include "../topforce.hpp"
+#include "../Topforce.hpp"
 #include "../character/HUD.hpp"
 
 #ifndef TOPFORCE_WEAPON_HPP

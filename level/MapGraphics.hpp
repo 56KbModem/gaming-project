@@ -5,7 +5,7 @@
 #ifndef TOPFORCE_MAP_LOADER_HPP
 #define TOPFORCE_MAP_LOADER_HPP
 
-#include "../topforce.hpp"
+#include "../Topforce.hpp"
 #include "../abstracts/ScreenObject.hpp"
 #include <tmxlite/Map.hpp>
 #include "SFMLOrthogonalLayer.hpp"
