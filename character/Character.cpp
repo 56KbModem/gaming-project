@@ -40,7 +40,7 @@ void Character::move(const sf::Vector2f & position) {
 }
 
 void Character::update(){
-    //hud.setTime(tf::TimePacket{"time", 10, 3});
+   // hud.setTime(tf::TimePacket{"time", 10, 3});
     for(auto & action : actions) {
         action();
     }

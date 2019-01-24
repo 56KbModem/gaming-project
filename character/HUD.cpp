@@ -3,7 +3,8 @@
 //
 
 #include "HUD.hpp"
-
+#include <iomanip>
+//#include <sstream>
 namespace tf {
 HUD::HUD(sf::RenderWindow &window, sf::View& view) :
     MoveableScreenObject(window),
@@ -106,6 +107,10 @@ bool HUD::hasAmmo(){
 
 void HUD::setTime(const tf::TimePacket &packet) {
     TF_INFO("Packet: {}",packet.seconds);
-    timeLeft.setString("Time left: " + std::to_string(packet.minutes) + ':' + std::to_string(packet.seconds));
+    std::stringstream seconds;
+    std::stringstream minutes;
+    seconds <<std::setw(2) <<std::setfill('0') <<packet.seconds ;
+    minutes <<std::setw(2) <<std::setfill('0') <<packet.minutes;
+    timeLeft.setString("Time left: " + minutes.str() + ':' + seconds.str());
 }
 } // namespace tf
