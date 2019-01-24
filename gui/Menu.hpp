@@ -10,7 +10,7 @@
 
 #define FONT "assets/fonts/BankGothicMediumBT.ttf"
 
-#include "../topforce.hpp"
+#include "../Topforce.hpp"
 
 template<size_t items>
 class Menu {
@@ -56,7 +56,7 @@ public:
         if(selectedItemIndex - 1 >= 0){
             textItems[selectedItemIndex].setFillColor(UNSELECTED_COLOR);
             selectedItemIndex--;
-            soundManager.uiHover();
+            soundManager.play(tf::Sounds::UIHover);
             textItems[selectedItemIndex].setFillColor(SELECTED_COLOR);
         }
     }
@@ -64,7 +64,7 @@ public:
         if(selectedItemIndex + 1 < int(items)){
             textItems[selectedItemIndex].setFillColor(UNSELECTED_COLOR);
             selectedItemIndex++;
-            soundManager.uiHover();
+            soundManager.play(tf::Sounds::UIHover);
             textItems[selectedItemIndex].setFillColor(SELECTED_COLOR);
         }
     }

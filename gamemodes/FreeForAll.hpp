@@ -8,7 +8,7 @@
 
 #include "../abstracts/GameMode.hpp"
 
-#include "../topforce.hpp"
+#include "../Topforce.hpp"
 #include "../gui/TopforceWindow.hpp"
 #include "../level/MapGraphics.hpp"
 #include "../character/Character.hpp"

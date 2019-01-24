@@ -35,11 +35,6 @@ namespace tf {
         Free_For_All
     };
 
-    enum class Animation {
-        Idle,
-        Running
-    };
-
     struct timePacket {
         std::string header;
         int minutes;

@@ -5,7 +5,8 @@
 #ifndef TOPFORCE_WINDOW_SETTINGS_H
 #define TOPFORCE_WINDOW_SETTINGS_H
 
-#include "../topforce.hpp"
+#include "../Topforce.hpp"
+
 namespace tf {
 class TopforceWindow : public sf::RenderWindow {
 private:

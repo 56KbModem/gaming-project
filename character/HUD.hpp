@@ -7,7 +7,7 @@
 #define FONT "assets/fonts/BankGothicMediumBT.ttf"
 
 #include "../abstracts/MoveableScreenObject.hpp"
-#include "../topforce.hpp"
+#include "../Topforce.hpp"
 
 namespace tf {
 class HUD : public MoveableScreenObject {

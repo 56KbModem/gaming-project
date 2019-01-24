@@ -5,9 +5,14 @@
 #ifndef TOPFORCE_IMAGEMANAGER_HPP
 #define TOPFORCE_IMAGEMANAGER_HPP
 
-#include "topforce.hpp"
+#include "Topforce.hpp"
 
 namespace tf{
+enum class Animation {
+    Idle,
+    Running
+};
+
 class ImageManager {
 private:
     ImageManager();
