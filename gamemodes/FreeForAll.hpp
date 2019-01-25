@@ -33,6 +33,7 @@ namespace tf{ namespace gamemode{
         FreeForAll(tf::TopforceWindow & window, const std::string & mapName, sf::IpAddress & serverIp);
         void run() override;
         void send();
+        ~FreeForAll();
     };
 }}
 

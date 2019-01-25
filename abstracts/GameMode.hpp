@@ -19,6 +19,7 @@ namespace tf {
     public:
         virtual void run() = 0;
         GameMode(tf::TopforceWindow& window, const std::string& mapName);
+        virtual ~GameMode() = 0;
     };
 }
 

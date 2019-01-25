@@ -18,6 +18,7 @@ namespace tf{ namespace gamemode{
         sObjects.push_back(&level);
         sObjects.push_back(&enemy01);
     }
+    FreeForAll::~FreeForAll() {}
     void FreeForAll::run() {
         // DEBUG STUFF
         packet.PlayerId = 2;
