@@ -57,8 +57,8 @@ void FreeForAll::run() {
 
         // Draw objects
         level.draw();
-        ownPlayer.update();
         ownPlayer.draw();
+        ownPlayer.update();
         for (const auto& enemy : enemies) {
             enemy.draw();
         }
