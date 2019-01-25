@@ -19,13 +19,9 @@
 namespace tf{ namespace gamemode{
 class FreeForAll : public GameMode {
 private:
-    tf::network::Client client;
+    std::thread sendThread;
     tf::PlayerPacket packet;
     tf::PlayerPacket serverPacket;
-    std::vector<tf::Character> enemies;
-    std::thread sendThread;
-    bool playerExists();
-    void setEnemyParams();
 public:
     FreeForAll(tf::TopforceWindow & window, const std::string & mapName, sf::IpAddress & serverIp);
     void run() override;

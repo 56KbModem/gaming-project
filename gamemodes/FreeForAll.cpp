@@ -6,33 +6,13 @@
 
 namespace tf{ namespace gamemode{
 FreeForAll::FreeForAll(tf::TopforceWindow & window, const std::string & mapName, sf::IpAddress & serverIp):
-    GameMode(window, mapName),
-    client(53000, serverIp, 53000),
+    GameMode(window, mapName, serverIp),
     sendThread(&FreeForAll::send, this)
 {
     view.setSize(1920.f, 1080.f);
     sendThread.detach();
 }
 FreeForAll::~FreeForAll() {}
-
-bool FreeForAll::playerExists() {
-    for (const auto& enemy : enemies) {
-        if (enemy.playerID == serverPacket.PlayerId) {
-            return true;
-        }
-    }
-    return false;
-}
-
-void FreeForAll::setEnemyParams() {
-    for (auto& enemy : enemies) {
-        if (enemy.playerID == serverPacket.PlayerId) {
-            enemy.setPosition(serverPacket.position);
-            enemy.setRotation(serverPacket.rotation);
-            return;
-        }
-    }
-}
 
 void FreeForAll::run() {
     packet.PlayerId = ownPlayer.playerID;
@@ -43,11 +23,11 @@ void FreeForAll::run() {
         // Recieve Server packets
         serverPacket = client.getLastPacket();
 
-        if (!playerExists()) {
+        if (!playerExists(serverPacket)) {
             enemies.push_back(Character(window, view, level.getHitboxes(), serverPacket.PlayerId));
         }
         // set position, rotation, shooting ... etc
-        setEnemyParams();
+        setEnemyParams(serverPacket);
 
         window.clear(sf::Color::Black);
         window.setView(view);
