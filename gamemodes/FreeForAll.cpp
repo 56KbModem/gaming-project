@@ -5,73 +5,68 @@
 #include "FreeForAll.hpp"
 
 namespace tf{ namespace gamemode{
-    FreeForAll::FreeForAll(tf::TopforceWindow & window, const std::string & mapName, sf::IpAddress & serverIp):
-        GameMode(window, mapName),
-        client(53000,serverIp,53000),
-        enemy01(window,view,level.getHitboxes()),
-        enemy02(window,view,level.getHitboxes()),
-        sendThread(&tf::gamemode::FreeForAll::send, this)
-    {
-        view.setSize(1920.f, 1080.f);
-        sendThread.detach();
-        mSObjects.push_back(&ownPlayer);
-        sObjects.push_back(&level);
-        sObjects.push_back(&enemy01);
-    }
-    void FreeForAll::run() {
-        // DEBUG STUFF
-        packet.PlayerId = 2;
-        packet.playerName = "DebugPlayer2";
+FreeForAll::FreeForAll(tf::TopforceWindow & window, const std::string & mapName, sf::IpAddress & serverIp):
+    GameMode(window, mapName, serverIp),
+    sendThread(&FreeForAll::send, this)
+{
+    view.setSize(1920.f, 1080.f);
+    sendThread.detach();
+}
+FreeForAll::~FreeForAll() {}
 
-        // ---- Free-For-All gameloop ----
-        while (window.isOpen()) {
-            // Recieve Server packets
-            serverPacket = client.getLastPacket();
+void FreeForAll::run() {
+    packet.PlayerId = ownPlayer.playerID;
+    packet.playerName = sf::IpAddress::getLocalAddress().toString();
 
-            window.clear(sf::Color::Black);
-            window.setView(view);
+    // ---- Free-For-All gameloop ----
+    while (window.isOpen()) {
+        // Recieve Server packets
+        serverPacket = client.getLastPacket();
 
-            //Cursor position calculation
-            window.setSpritePosition();
-            window.setRotation(ownPlayer.getRotation());
+        //Cursor position calculation
+        window.setSpritePosition();
+        window.setRotation(ownPlayer.getRotation());
 
-            // Set enemy position
-            if(serverPacket.PlayerId == 1){
-                enemy01.setPosition(serverPacket.position);
-                enemy01.setRotation(serverPacket.rotation);
-            }else if(serverPacket.PlayerId == 3){
-                enemy02.setPosition(serverPacket.position);
-                enemy02.setRotation(serverPacket.rotation);
-            }
-            
-            // Draw objects
-            for (const auto& obj : sObjects) {
-                obj->draw();
-            }
-            for (const auto& obj : mSObjects) {
-                obj->draw();
-                obj->update();
-            }
-            ownPlayer.setTime(client.getTime());
-            window.draw(window.getCursorSprite());
-            window.display();
+        if (!playerExists(serverPacket)) {
+            enemies.push_back(Character(window, view, level.getHitboxes(), serverPacket.PlayerId));
+        }
+        // set position, rotation, shooting ... etc
+        setEnemyParams(serverPacket);
 
-            // Handle pollEvents
-            sf::Event event;
-            while (window.pollEvent(event)) {
-                if (event.type == sf::Event::Closed) {
-                    window.close();
-                }
+        window.clear(sf::Color::Black);
+        window.setView(view);
+
+        //Cursor position calculation
+        window.setSpritePosition();
+
+        // Draw objects
+        level.draw();
+        ownPlayer.draw();
+        ownPlayer.update();
+        for (const auto& enemy : enemies) {
+            enemy.draw();
+        }
+
+        ownPlayer.setTime(client.getTime());
+        window.draw(window.getCursorSprite());
+        window.display();
+
+        // Handle pollEvents
+        sf::Event event;
+        while (window.pollEvent(event)) {
+            if (event.type == sf::Event::Closed) {
+                window.close();
             }
         }
     }
+}
 
-    void FreeForAll::send(){
-        while(true) {
-            packet.rotation = ownPlayer.getRotation();
-            packet.position = ownPlayer.getPosition();
-            client.send(packet);
-            sf::sleep(sf::milliseconds(5));
-        }
+void FreeForAll::send(){
+    while(true) {
+        packet.rotation = ownPlayer.getRotation();
+        packet.position = ownPlayer.getPosition();
+        client.send(packet);
+        sf::sleep(sf::milliseconds(5));
     }
+}
 }}

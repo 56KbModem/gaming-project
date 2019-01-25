@@ -19,30 +19,35 @@ private:
     tf::HUD hud;
     tf::ImageManager & imageManager = tf::ImageManager::getInstance();
     Action actions[8] = {Action([&](){currentPosition = getPosition(); lookAtMouse();} ),
-                        Action(sf::Keyboard::W, [&](){setTexture(Animation::Running); move( sf::Vector2f{ 0.0f, -5.0f } );}),
-                        Action(sf::Keyboard::A, [&](){setTexture(Animation::Running); move( sf::Vector2f{ -5.0f, 0.0f } );}),
-                        Action(sf::Keyboard::S, [&](){setTexture(Animation::Running); move( sf::Vector2f{ 0.0f, 5.0f } ); }),
-                        Action(sf::Keyboard::D, [&](){setTexture(Animation::Running); move( sf::Vector2f{ 5.0f, 0.0f } ); }),
+                        Action(sf::Keyboard::W, [&](){setTexture(Texture::Walking); move( sf::Vector2f{ 0.0f, -5.0f } );}),
+                        Action(sf::Keyboard::A, [&](){setTexture(Texture::Walking); move( sf::Vector2f{ -5.0f, 0.0f } );}),
+                        Action(sf::Keyboard::S, [&](){setTexture(Texture::Walking); move( sf::Vector2f{ 0.0f, 5.0f } ); }),
+                        Action(sf::Keyboard::D, [&](){setTexture(Texture::Walking); move( sf::Vector2f{ 5.0f, 0.0f } ); }),
                         Action(sf::Keyboard::R, [&](){hud.reload();}),
                         Action(sf::Mouse::Left, [&](){if(currentPosition == getPosition()){ shoot(getRotation());} }),
-                        Action([&](){return currentPosition == getPosition();}, [&](){setTexture(Animation::Idle);})
+                        Action([&](){return currentPosition == getPosition();}, [&](){setTexture(Texture::Stationary);})
     };
 public:
-    Character(sf::RenderWindow &window, sf::View & view, const std::vector<sf::FloatRect> & levelHitboxes);
+    Character(sf::RenderWindow &window, sf::View & view, const std::vector<sf::FloatRect> & levelHitboxes, const int &playerID);
+    ~Character(){};
+    const int playerID;
 
     void draw() const override;
-    void move(const sf::Vector2f & position);
     void update() override;
 
-    void setTexture(const Animation & animation);
+    void move(const sf::Vector2f & position);
     void shoot(const float & rotation);
     void lookAtMouse();
-    sf::FloatRect getBounds();
-    sf::Vector2f getPosition();
-    void setPosition(sf::Vector2f & position);
-    float getRotation();
+
+    void setTexture(const Texture & animation);
     void setRotation(float & rotation);
     void setTime(const tf::TimePacket & packet);
+    void setPosition(sf::Vector2f & position);
+
+    sf::FloatRect getBounds();
+    sf::Vector2f getPosition();
+
+    float getRotation();
 };
 
 }

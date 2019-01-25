@@ -27,7 +27,7 @@ public:
             TF_ERROR("Failed to load audio file {}", FONT);
         }
         //Load and set position of background
-        background.setTexture(imageManager.getMenuBackground());
+        background.setTexture(imageManager.getTexture(tf::Texture::MenuBG));
         background.setPosition(0,0);
 
         // Keep track on wich index we are
