@@ -8,5 +8,6 @@ namespace tf{
     MoveableScreenObject::MoveableScreenObject(sf::RenderWindow & window):
     ScreenObject(window)
     {}
+    MoveableScreenObject::~MoveableScreenObject() {}
 }
 

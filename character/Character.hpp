@@ -28,7 +28,8 @@ private:
                         Action([&](){return currentPosition == getPosition();}, [&](){setTexture(Texture::Stationary);})
     };
 public:
-    Character(sf::RenderWindow &window, sf::View & view, const int &playerID);
+    Character(sf::RenderWindow &window, sf::View & view, const std::vector<sf::FloatRect> & levelHitboxes, const int &playerID);
+    ~Character(){};
     const int playerID;
 
     void draw() const override;
@@ -42,13 +43,11 @@ public:
     void setRotation(float & rotation);
     void setTime(const tf::TimePacket & packet);
     void setPosition(sf::Vector2f & position);
-    void setHitboxes(const std::vector<sf::FloatRect> & levelHitboxes);
 
     sf::FloatRect getBounds();
     sf::Vector2f getPosition();
 
     float getRotation();
-
 };
 
 }

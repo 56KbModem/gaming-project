@@ -2,9 +2,10 @@
 #include "Character.hpp"
 
 namespace tf {
-Character::Character(sf::RenderWindow &window, sf::View & view, const int &playerID):
+Character::Character(sf::RenderWindow &window, sf::View & view, const std::vector<sf::FloatRect> & levelHitboxes, const int &playerID):
     MoveableScreenObject(window),
     view(view),
+    levelHitboxes(levelHitboxes),
     myWeapon(window, levelHitboxes),
     hud(window, view),
     playerID(playerID)
@@ -93,9 +94,5 @@ void Character::setRotation(float & rotation){
 
 void Character::setTime(const tf::TimePacket & packet) {
     hud.setTime(packet);
-}
-
-void Character::setHitboxes(const std::vector<sf::FloatRect> &levelHitboxes) {
-    this->levelHitboxes = levelHitboxes;
 }
 } // End namespace tf

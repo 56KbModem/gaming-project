@@ -10,7 +10,6 @@ FreeForAll::FreeForAll(tf::TopforceWindow & window, const std::string & mapName,
     client(53000, serverIp, 53000),
     sendThread(&FreeForAll::send, this)
 {
-    ownPlayer.setHitboxes(level.getHitboxes());
     view.setSize(1920.f, 1080.f);
     sendThread.detach();
 }
@@ -45,7 +44,7 @@ void FreeForAll::run() {
         serverPacket = client.getLastPacket();
 
         if (!playerExists()) {
-            enemies.push_back(Character(window, view, serverPacket.PlayerId));
+            enemies.push_back(Character(window, view, level.getHitboxes(), serverPacket.PlayerId));
         }
         // set position, rotation, shooting ... etc
         setEnemyParams();
