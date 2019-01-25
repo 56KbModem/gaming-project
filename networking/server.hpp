@@ -26,7 +26,7 @@ class Server
     int secondToPlay;
 
 public:
-    Server(unsigned short ServerPort, int minuteToPlay, int secondToPlay);
+    Server(const unsigned short & ServerPort, int & minuteToPlay, int & secondToPlay);
     sf::Socket::Status ServerReceive();
     sf::Socket::Status playerSend();
     sf::Socket::Status timeSend();

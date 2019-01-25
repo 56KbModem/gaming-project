@@ -1,7 +1,7 @@
 #include "Server.hpp"
 
 
-Server::Server(unsigned short ServerPort, int minuteToPlay, int secondToPlay):
+Server::Server(const unsigned short & ServerPort, int & minuteToPlay, int & secondToPlay):
 minuteToPlay(minuteToPlay),
 secondToPlay(secondToPlay)
 {
@@ -54,13 +54,17 @@ sf::Socket::Status Server::timeSend(){
         --minuteToPlay;
         secondToPlay = 59;
     } else if (secondToPlay <= 0 && minuteToPlay <= 0) {
+        timePacket.clear();
+        timePacket << "time" << 0 << 0; // stop the clients
         exit(1);
     }
 
     timePacket.clear(); // clear the packet, otherwise we keep the same data...
 
     if (timePacket << "time" << minuteToPlay << secondToPlay) {  // constructing time packet
+#if DEBUG
         NETWORK_INFO("Packet created");
+#endif
     }
 
 #if DEBUG
@@ -69,7 +73,9 @@ sf::Socket::Status Server::timeSend(){
 
     std::for_each(clientIps.begin(), clientIps.end(), [&](sf::IpAddress client){
        if(socket.send(timePacket, client, 53000) != sf::Socket::Done){
+#if DEBUG
             NETWORK_ERROR("Sending failed to client: {}:{}", client, lastPort);
+#endif // DEBUG
             return sf::Socket::Error;
        }
     });
@@ -81,11 +87,9 @@ void Server::run() {
     while (true) {
         ServerReceive();
         playerSend();
-        if (timerClock.getElapsedTime().asSeconds() > 1) { // every second we send a time packet
+       if (timerClock.getElapsedTime().asSeconds() > 1) { // every second we send a time packet
             timeSend();
             timerClock.restart(); // restart the clock
         }
-
     }
 }
-
