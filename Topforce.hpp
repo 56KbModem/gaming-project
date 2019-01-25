@@ -9,7 +9,10 @@
 #include <iostream>
 #include <algorithm>
 #include <functional>
+#include <cstdint>
 #include <memory>
+#include <time.h>
+
 #include <thread>
 #include <string>
 #include <sstream>
@@ -20,9 +23,12 @@
 #include <SFML/Network.hpp>
 #include <SFML/Audio.hpp>
 #include <SFML/System.hpp>
+//#include <SFML/Time.hpp>
 
-// Logger include
+// TopForce includes
 #include "Log.hpp"
+#include "SoundManager.hpp"
+#include "ImageManager.hpp"
 
 // Global enum classes
 namespace tf {
@@ -32,6 +38,21 @@ namespace tf {
         Search_and_Destroy,
         Free_For_All
     };
-}
 
+    struct PlayerPacket {
+        std::string header;
+        std::string playerName;
+        sf::Vector2f position;
+        float rotation;
+        bool walking;
+        bool firing;
+        int PlayerId;
+    };
+
+    struct TimePacket {
+        std::string header;
+        int minutes;
+        int seconds;
+    };
+}
 #endif //TOPFORCE_HEADERS_HPP

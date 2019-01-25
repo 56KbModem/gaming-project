@@ -7,7 +7,7 @@
 #define FONT "assets/fonts/BankGothicMediumBT.ttf"
 
 #include "../abstracts/MoveableScreenObject.hpp"
-#include "../topforce.hpp"
+#include "../Topforce.hpp"
 
 namespace tf {
 class HUD : public MoveableScreenObject {
@@ -20,19 +20,22 @@ private:
     sf::Text ammoText;
     sf::Text healthText;
     sf::Text reloadText;
+    tf::SoundManager & soundManager = tf::SoundManager::getInstance();
+    sf::Text timeLeft;
 
     void configText();
-    void checkHealth();
+    void checkHUD();
     void updateText();
 public:
     HUD(sf::RenderWindow& window, sf::View& view);
 
     void update() override;
     void draw() const override;
-
+    void setTime(const tf::TimePacket& packet);
     void decreaseAmmo(const int& amount);
     void decreaseHealth(const int& amount);
     void reload();
+    bool hasAmmo();
 };
 } // namespace tf
 

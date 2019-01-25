@@ -6,15 +6,10 @@ Character::Character(sf::RenderWindow &window, sf::View & view, const std::vecto
     MoveableScreenObject(window),
     view(view),
     levelHitboxes(levelHitboxes),
-    myWeapon(window, levelHitboxes)
+    myWeapon(window, levelHitboxes),
+    hud(window, view)
 {
-    if (!stationary.loadFromFile(PLAYER)) {
-        TF_ERROR("Failed to load png file {}", PLAYER);
-    }
-    if (!reloading.loadFromFile(RELOAD)) {
-        TF_ERROR("Failed to load png file {}", RELOAD);
-    }
-    mySprite.setTexture(stationary);
+    mySprite.setTexture(imageManager.getTexture(Texture::Stationary));
     mySprite.setPosition(1700.0, 375.0);
     view.setCenter(mySprite.getPosition());
     sf::FloatRect bounds = mySprite.getGlobalBounds();
@@ -27,6 +22,7 @@ Character::Character(sf::RenderWindow &window, sf::View & view, const std::vecto
 }
 
 void Character::draw() const {
+    hud.draw();
     window.draw(mySprite);
 #if DEBUG
     window.draw(hitbox);
@@ -44,21 +40,24 @@ void Character::move(const sf::Vector2f & position) {
 }
 
 void Character::update(){
+   // hud.setTime(tf::TimePacket{"time", 10, 3});
     for(auto & action : actions) {
         action();
     }
+    hud.update();
 }
 
-void Character::setTexture(const std::string & texture){
-    if(texture == "RELOADING" && mySprite.getTexture() != &reloading){
-        mySprite.setTexture(reloading, true);
+void Character::setTexture(const Texture & texture){
+    if(texture == Texture::Walking && mySprite.getTexture() != &imageManager.getTexture(Texture::Walking)){
+        mySprite.setTexture(imageManager.getTexture(Texture::Walking), true);
     }
-    if(texture == "STATIONARY" && mySprite.getTexture() != &stationary){
-        mySprite.setTexture(stationary, true);
+    if(texture == Texture::Stationary && mySprite.getTexture() != &imageManager.getTexture(Texture::Stationary)){
+        mySprite.setTexture(imageManager.getTexture(Texture::Stationary), true);
     }
 }
-void Character::shoot(){
-    myWeapon.shoot(mySprite.getPosition());
+
+void Character::shoot(const float & rotation){
+    myWeapon.shoot(mySprite.getPosition(), mySprite.getRotation(), hud);
 }
 
 void Character::lookAtMouse() {
@@ -81,6 +80,7 @@ sf::Vector2f Character::getPosition(){
 
 void Character::setPosition(sf::Vector2f & position){
     mySprite.setPosition(position);
+    hitbox.setPosition(mySprite.getPosition().x -25, mySprite.getPosition().y - 25);
 }
 
 float Character::getRotation(){
@@ -90,4 +90,9 @@ float Character::getRotation(){
 void Character::setRotation(float & rotation){
     mySprite.setRotation(rotation);
 }
+
+void Character::setTime(const tf::TimePacket & packet) {
+    hud.setTime(packet);
+}
+
 } // End namespace tf

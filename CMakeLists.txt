@@ -28,8 +28,22 @@ include_directories(vendor/spdlog/include vendor/tmxlite/include)
 if(UNIX)
     link_directories(vendor/spdlog/include lib/macos/)
 endif(UNIX)
-#Add cource and header files
-add_executable(Topforce main.cpp topforce.hpp gui/Menu.hpp gui/MainMenu.cpp gui/MainMenu.hpp Log.cpp Log.hpp level/MapGraphics.cpp level/MapGraphics.hpp abstracts/ScreenObject.hpp abstracts/ScreenObject.cpp character/Character.hpp character/Character.cpp abstracts/MoveableScreenObject.cpp abstracts/MoveableScreenObject.hpp gui/TopforceWindow.cpp gui/TopforceWindow.hpp character/Weapon.cpp character/Weapon.hpp gamemodes/FreeForAll.cpp gamemodes/FreeForAll.hpp abstracts/GameMode.cpp abstracts/GameMode.hpp character/HUD.cpp character/HUD.hpp)
+
+#Add source and header files
+if (CMAKE_BUILD_TYPE MATCHES Debug)
+    add_executable(Topforce main.cpp Topforce.hpp gui/Menu.hpp gui/MainMenu.cpp gui/MainMenu.hpp Log.cpp Log.hpp level/MapGraphics.cpp level/MapGraphics.hpp abstracts/ScreenObject.hpp abstracts/ScreenObject.cpp character/Character.hpp character/Character.cpp abstracts/MoveableScreenObject.cpp abstracts/MoveableScreenObject.hpp gui/TopforceWindow.cpp gui/TopforceWindow.hpp character/Weapon.cpp character/Weapon.hpp gamemodes/FreeForAll.cpp gamemodes/FreeForAll.hpp abstracts/GameMode.cpp abstracts/GameMode.hpp character/HUD.cpp character/HUD.hpp SoundManager.cpp SoundManager.hpp ImageManager.cpp ImageManager.hpp networking/Client.hpp networking/Client.cpp)
+endif()
+
+if (CMAKE_BUILD_TYPE MATCHES Release)
+    add_executable(Topforce main.cpp Topforce.hpp gui/Menu.hpp gui/MainMenu.cpp gui/MainMenu.hpp Log.cpp Log.hpp level/MapGraphics.cpp level/MapGraphics.hpp abstracts/ScreenObject.hpp abstracts/ScreenObject.cpp character/Character.hpp character/Character.cpp abstracts/MoveableScreenObject.cpp abstracts/MoveableScreenObject.hpp gui/TopforceWindow.cpp gui/TopforceWindow.hpp character/Weapon.cpp character/Weapon.hpp gamemodes/FreeForAll.cpp gamemodes/FreeForAll.hpp abstracts/GameMode.cpp abstracts/GameMode.hpp character/HUD.cpp character/HUD.hpp SoundManager.cpp SoundManager.hpp ImageManager.cpp ImageManager.hpp networking/Client.hpp networking/Client.cpp)
+endif()
+
+if (CMAKE_BUILD_TYPE MATCHES Server)
+    add_definitions(-DDEBUG=1)
+    add_executable(Topforce networking/main.cpp networking/Server.hpp networking/Server.cpp log.cpp log.hpp)
+endif()
+
+
 
 #Link library's
 target_link_libraries(Topforce sfml-graphics sfml-audio sfml-network sfml-system tmxlite)

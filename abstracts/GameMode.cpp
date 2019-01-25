@@ -12,4 +12,7 @@ namespace tf {
     {
         view.setSize(1920.f, 1080.f);
     }
+    GameMode::~GameMode() {
+
+    }
 }
