@@ -67,6 +67,7 @@ void Character::lookAtMouse() {
     float dx = curPos.x - worldPos.x;
     float dy = curPos.y - worldPos.y;
     float rotation = float((atan2(dy, dx)) * 180 / PI) + 180;
+    myWeapon.setWeaponLocation(curPos, getRotation());
     mySprite.setRotation(rotation);
 }
 
