@@ -5,16 +5,12 @@
 #include "Weapon.hpp"
 
 namespace tf {
-    Weapon::Weapon(sf::RenderWindow & window, const std::vector<sf::FloatRect> & levelHitboxes):
+Weapon::Weapon(sf::RenderWindow & window, const std::vector<sf::FloatRect> & levelHitboxes):
     window(window),
     levelHitboxes(levelHitboxes),
-<<<<<<< HEAD
     bulletHit(sf::Vector2f(1, 1)),
-=======
-    bulletHit(sf::Vector2f(5, 5)),
->>>>>>> fc7bc053ed8688c9789980a37ae6571858e8ec3d
     weaponLocation(sf::Vector2f(10, 10))
-    {
+{
     sf::FloatRect bounds = bulletHit.getGlobalBounds();
     bulletHit.setOrigin(bounds.width / 2, bounds.height /2);
     bulletHit.setFillColor(sf::Color::Cyan);
