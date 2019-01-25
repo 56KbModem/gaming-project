@@ -20,7 +20,7 @@ int main(){
     tf::GameModes selectedMode;
     tf::gui::MainMenu menu(window);
     selectedMode = menu.run(); // selected_mode indicates which game mode needs to be called
-    sf::IpAddress ipAddress("wodan");
+    sf::IpAddress ipAddress("wodan.wifi.hu.nl");
 
 
 #if DEBUG
