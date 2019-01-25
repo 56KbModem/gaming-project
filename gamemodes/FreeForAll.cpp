@@ -7,7 +7,7 @@
 namespace tf{ namespace gamemode{
     FreeForAll::FreeForAll(tf::TopforceWindow & window, const std::string & mapName, sf::IpAddress & serverIp):
         GameMode(window, mapName),
-        client(53000,serverIp,53000),
+        client(serverIp),
         enemy01(window,view,level.getHitboxes()),
         enemy02(window,view,level.getHitboxes()),
         sendThread(&tf::gamemode::FreeForAll::send, this)

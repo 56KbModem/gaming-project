@@ -8,6 +8,7 @@
 //#include <iostream>
 
 namespace tf { namespace network{
+    const short port= 53000;
 class Client {
     sf::IpAddress serverIp;
     unsigned short serverPort;
@@ -16,7 +17,7 @@ class Client {
     tf::TimePacket timeReceived;
     std::thread thread;
 public:
-    Client(const unsigned short &myPort,sf::IpAddress &serverIp, const unsigned short &serverPort );
+    Client(sf::IpAddress &serverIp );
     sf::Socket::Status receive();
     sf::Socket::Status send(const tf::PlayerPacket &packet);
     tf::PlayerPacket getLastPacket();
