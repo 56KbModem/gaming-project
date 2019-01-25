@@ -28,7 +28,7 @@ void FreeForAll::run() {
         window.setRotation(ownPlayer.getRotation());
 
         if (!playerExists(serverPacket)) {
-            enemies.push_back(Character(window, view, level.getHitboxes(), serverPacket.PlayerId));
+            enemies.push_back(Character(window, serverPacket.PlayerId));
         }
         // set position, rotation, shooting ... etc
         setEnemyParams(serverPacket);

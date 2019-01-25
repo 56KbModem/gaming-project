@@ -1,23 +1,20 @@
-#include "../abstracts/MoveableScreenObject.hpp"
+#include "../abstracts/Character.hpp"
 #include "Weapon.hpp"
 #include "../Action.hpp"
 #include "HUD.hpp"
 
-#ifndef TOPFORCE_CHARACTER_HPP
-#define TOPFORCE_CHARACTER_HPP
+#ifndef TOPFORCE_PLAYER_HPP
+#define TOPFORCE_PLAYER_HPP
 #define PI 3.14159265
 
 namespace tf{
-class Character: public tf::MoveableScreenObject {
+class Player: public tf::Character {
 private:
-    sf::Sprite mySprite;
     sf::View & view;
     std::vector<sf::FloatRect> levelHitboxes;
-    sf::RectangleShape hitbox;
     tf::Weapon myWeapon;
     sf::Vector2f currentPosition;
     tf::HUD hud;
-    tf::ImageManager & imageManager = tf::ImageManager::getInstance();
     Action actions[8] = {Action([&](){currentPosition = getPosition(); lookAtMouse();} ),
                         Action(sf::Keyboard::W, [&](){setTexture(Texture::Walking); move( sf::Vector2f{ 0.0f, -5.0f } );}),
                         Action(sf::Keyboard::A, [&](){setTexture(Texture::Walking); move( sf::Vector2f{ -5.0f, 0.0f } );}),
@@ -27,10 +24,10 @@ private:
                         Action(sf::Mouse::Left, [&](){if(currentPosition == getPosition()){ shoot(getRotation());} }),
                         Action([&](){return currentPosition == getPosition();}, [&](){setTexture(Texture::Stationary);})
     };
+    void setTexture(const Texture & animation) override;
 public:
-    Character(sf::RenderWindow &window, sf::View & view, const std::vector<sf::FloatRect> & levelHitboxes, const int &playerID);
-    ~Character(){};
-    const int playerID;
+    Player(tf::TopforceWindow& window, const int &playerID, sf::View & view, const std::vector<sf::FloatRect> & levelHitboxes);
+    ~Player(){};
 
     void draw() const override;
     void update() override;
@@ -39,17 +36,10 @@ public:
     void shoot(const float & rotation);
     void lookAtMouse();
 
-    void setTexture(const Texture & animation);
-    void setRotation(float & rotation);
+
     void setTime(const tf::TimePacket & packet);
-    void setPosition(sf::Vector2f & position);
-
-    sf::FloatRect getBounds();
-    sf::Vector2f getPosition();
-
-    float getRotation();
 };
 
 }
 
-#endif //TOPFORCE_CHARACTER_HPP
+#endif //TOPFORCE_PLAYER_HPP

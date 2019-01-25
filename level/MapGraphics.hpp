@@ -9,7 +9,7 @@
 #include "../abstracts/ScreenObject.hpp"
 #include <tmxlite/Map.hpp>
 #include "SFMLOrthogonalLayer.hpp"
-#include "../character/Character.hpp"
+#include "../character/Player.hpp"
 
 namespace tf { namespace level {
 class MapGraphics : public tf::ScreenObject {
@@ -25,7 +25,7 @@ class MapGraphics : public tf::ScreenObject {
     public:
         MapGraphics(const std::string &mapName, sf::RenderWindow &window);
         void draw() const override;
-        bool intersects(tf::Character &character);
+        bool intersects(tf::Player &character);
         std::vector<sf::FloatRect> getHitboxes();
     };
 

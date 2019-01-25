@@ -61,7 +61,7 @@ void MapGraphics::draw() const {
 #endif
 }
 
-bool MapGraphics::intersects(tf::Character &character) {
+bool MapGraphics::intersects(tf::Player &character) {
     for (const auto &hitbox : hitboxes) {
         if (hitbox.intersects(character.getBounds())) {
             return true;

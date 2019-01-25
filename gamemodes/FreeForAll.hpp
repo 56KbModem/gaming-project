@@ -11,7 +11,7 @@
 #include "../Topforce.hpp"
 #include "../gui/TopforceWindow.hpp"
 #include "../level/MapGraphics.hpp"
-#include "../character/Character.hpp"
+#include "../character/Player.hpp"
 #include "../Action.hpp"
 #include "../abstracts/GameMode.hpp"
 #include "../networking/Client.hpp"
