@@ -7,22 +7,19 @@
 namespace tf{ namespace gamemode{
     FreeForAll::FreeForAll(tf::TopforceWindow & window, const std::string & mapName, sf::IpAddress & serverIp):
         GameMode(window, mapName),
-        client(53000,serverIp,53000),
-        enemy01(window,view,level.getHitboxes()),
-        enemy02(window,view,level.getHitboxes()),
+        client(53000, serverIp, 53000),
         sendThread(&tf::gamemode::FreeForAll::send, this)
     {
+        ownPlayer.setHitboxes(level.getHitboxes());
         view.setSize(1920.f, 1080.f);
         sendThread.detach();
         mSObjects.push_back(&ownPlayer);
         sObjects.push_back(&level);
-        sObjects.push_back(&enemy01);
     }
     FreeForAll::~FreeForAll() {}
     void FreeForAll::run() {
-        // DEBUG STUFF
-        packet.PlayerId = 2;
-        packet.playerName = "DebugPlayer2";
+        packet.PlayerId = ownPlayer.playerID;
+        packet.playerName = sf::IpAddress::getLocalAddress().toString();
 
         // ---- Free-For-All gameloop ----
         while (window.isOpen()) {

@@ -28,21 +28,27 @@ private:
                         Action([&](){return currentPosition == getPosition();}, [&](){setTexture(Texture::Stationary);})
     };
 public:
-    Character(sf::RenderWindow &window, sf::View & view, const std::vector<sf::FloatRect> & levelHitboxes);
+    Character(sf::RenderWindow &window, sf::View & view, const int &playerID);
+    const int playerID;
 
     void draw() const override;
-    void move(const sf::Vector2f & position);
     void update() override;
 
-    void setTexture(const Texture & animation);
+    void move(const sf::Vector2f & position);
     void shoot(const float & rotation);
     void lookAtMouse();
-    sf::FloatRect getBounds();
-    sf::Vector2f getPosition();
-    void setPosition(sf::Vector2f & position);
-    float getRotation();
+
+    void setTexture(const Texture & animation);
     void setRotation(float & rotation);
     void setTime(const tf::TimePacket & packet);
+    void setPosition(sf::Vector2f & position);
+    void setHitboxes(const std::vector<sf::FloatRect> & levelHitboxes);
+
+    sf::FloatRect getBounds();
+    sf::Vector2f getPosition();
+
+    float getRotation();
+
 };
 
 }

@@ -22,9 +22,7 @@ namespace tf{ namespace gamemode{
         tf::network::Client client;
         tf::PlayerPacket packet;
         tf::PlayerPacket serverPacket;
-
-        tf::Character enemy01;
-        tf::Character enemy02;
+        std::vector<tf::Character> enemies;
         std::thread sendThread;
 
         std::vector<MoveableScreenObject*> mSObjects;

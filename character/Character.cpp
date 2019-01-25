@@ -2,12 +2,12 @@
 #include "Character.hpp"
 
 namespace tf {
-Character::Character(sf::RenderWindow &window, sf::View & view, const std::vector<sf::FloatRect> & levelHitboxes):
+Character::Character(sf::RenderWindow &window, sf::View & view, const int &playerID):
     MoveableScreenObject(window),
     view(view),
-    levelHitboxes(levelHitboxes),
     myWeapon(window, levelHitboxes),
-    hud(window, view)
+    hud(window, view),
+    playerID(playerID)
 {
     mySprite.setTexture(imageManager.getTexture(Texture::Stationary));
     mySprite.setPosition(1700.0, 375.0);
@@ -95,4 +95,7 @@ void Character::setTime(const tf::TimePacket & packet) {
     hud.setTime(packet);
 }
 
+void Character::setHitboxes(const std::vector<sf::FloatRect> &levelHitboxes) {
+    this->levelHitboxes = levelHitboxes;
+}
 } // End namespace tf
