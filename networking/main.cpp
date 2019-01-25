@@ -25,9 +25,9 @@ int main(int argc, char ** argv){
     std::istringstream iss_1(argv[1]);
     std::istringstream iss_2(argv[2]);
 
-    int minute;
-    int second;
-    if (iss_1 >> minute && iss_2 >> second){ // test if conversion happened
+    int minutes;
+    int seconds;
+    if (iss_1 >> minutes && iss_2 >> seconds){ // test if conversion happened
         NETWORK_INFO("Command line parsed correctly");
     }
     else {
@@ -38,7 +38,7 @@ int main(int argc, char ** argv){
 
 
     NETWORK_INFO("Starting main");
-    Server my_server(gamePort, minute, second);
+    Server my_server(gamePort, minutes, seconds);
     TF_INFO("Server created");
     my_server.run();
     TF_INFO("Topforce server shutting down!...");

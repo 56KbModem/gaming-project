@@ -8,7 +8,7 @@
 
 #include <set>
 #include <algorithm>
-#include "../topforce.hpp"
+#include "../Topforce.hpp"
 
 
 class Server
@@ -26,7 +26,7 @@ class Server
     int secondToPlay;
 
 public:
-    Server(const unsigned short & ServerPort, int & minuteToPlay, int & secondToPlay);
+    Server(const unsigned short & ServerPort, int & minutes, int & seconds);
     sf::Socket::Status ServerReceive();
     sf::Socket::Status playerSend();
     sf::Socket::Status timeSend();

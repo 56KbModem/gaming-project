@@ -1,12 +1,16 @@
 #include "Server.hpp"
 
 
-Server::Server(const unsigned short & ServerPort, int & minuteToPlay, int & secondToPlay):
-minuteToPlay(minuteToPlay),
-secondToPlay(secondToPlay)
+Server::Server(const unsigned short & ServerPort, int & minutes, int & seconds):
+minuteToPlay(minutes),
+secondToPlay(seconds)
 {
+    /* revert time back */
     if (secondToPlay > 60)
         secondToPlay = 59;
+
+    if (minuteToPlay > 60)
+        minuteToPlay = 59;
 
     socket.bind(ServerPort);
     socket.setBlocking(0); // just drop datagrams instead of trying to catch all of them
