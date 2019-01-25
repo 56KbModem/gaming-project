@@ -5,13 +5,13 @@
 #include "Client.hpp"
 
 namespace tf {namespace network{
-Client::Client(const unsigned short &myPort, sf::IpAddress &serverIp, const unsigned short &serverPort):
+Client::Client(sf::IpAddress &serverIp):
         serverIp(serverIp),
-        serverPort(serverPort),
+        serverPort(port),
         thread(&tf::network::Client::receive, this)
 
 {
-    socket.bind(myPort);
+    socket.bind(port);
     socket.setBlocking(0);
     thread.detach();
     NETWORK_INFO("Client created");

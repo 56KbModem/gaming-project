@@ -8,7 +8,7 @@ namespace tf {
 GameMode::GameMode(tf::TopforceWindow &window, const std::string &mapName, sf::IpAddress & serverIp):
     window(window),
     level(mapName, window),
-    client(53000, serverIp, 53000),
+    client(serverIp),
     ownPlayer(window, sf::IpAddress::getLocalAddress().toInteger(), view, level.getHitboxes())
 {
     view.setSize(1920.f, 1080.f);

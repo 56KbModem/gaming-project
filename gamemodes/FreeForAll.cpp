@@ -5,6 +5,7 @@
 #include "FreeForAll.hpp"
 
 namespace tf{ namespace gamemode{
+
 FreeForAll::FreeForAll(tf::TopforceWindow & window, const std::string & mapName, sf::IpAddress & serverIp):
     GameMode(window, mapName, serverIp),
     sendThread(&FreeForAll::send, this)
