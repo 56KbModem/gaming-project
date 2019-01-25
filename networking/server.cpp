@@ -20,7 +20,6 @@ secondToPlay(seconds)
 
 
 sf::Socket::Status Server::ServerReceive() {
-
     if (socket.receive(playerPacket, lastIp, lastPort) != sf::Socket::Done) {
 #if DEBUG
         //NETWORK_INFO("received nothing");

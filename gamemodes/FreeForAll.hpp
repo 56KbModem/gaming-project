@@ -17,23 +17,17 @@
 #include "../networking/Client.hpp"
 
 namespace tf{ namespace gamemode{
-    class FreeForAll : public GameMode {
-    private:
-        tf::network::Client client;
-        tf::PlayerPacket packet;
-        tf::PlayerPacket serverPacket;
-
-        tf::Character enemy01;
-        tf::Character enemy02;
-        std::thread sendThread;
-
-        std::vector<MoveableScreenObject*> mSObjects;
-        std::vector<ScreenObject*> sObjects;
-    public:
-        FreeForAll(tf::TopforceWindow & window, const std::string & mapName, sf::IpAddress & serverIp);
-        void run() override;
-        void send();
-    };
+class FreeForAll : public GameMode {
+private:
+    std::thread sendThread;
+    tf::PlayerPacket packet;
+    tf::PlayerPacket serverPacket;
+public:
+    FreeForAll(tf::TopforceWindow & window, const std::string & mapName, sf::IpAddress & serverIp);
+    void run() override;
+    void send();
+    ~FreeForAll();
+};
 }}
 
 

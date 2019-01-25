@@ -14,7 +14,6 @@ If you already cloned the repo without `--recursive` param<br>
   * Ramon van Bemmel
   * Nathan Hoekstra
   * Cris van der Nolle
-  * Wessel de Bruijn
   * Nick Snel
   
 ## Dependencies

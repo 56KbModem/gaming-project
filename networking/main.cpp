@@ -1,5 +1,5 @@
-// This is the server main file, it will
-// be a dedicated server and must be
+// This is the Server main file, it will
+// be a dedicated Server and must be
 // compiled as a seperate executable!
 
 #include "Server.hpp"
@@ -36,11 +36,10 @@ int main(int argc, char ** argv){
     }
 
 
-
     NETWORK_INFO("Starting main");
     Server my_server(gamePort, minutes, seconds);
     TF_INFO("Server created");
     my_server.run();
-    TF_INFO("Topforce server shutting down!...");
+    TF_INFO("Topforce Server shutting down!...");
     return 0;
 }

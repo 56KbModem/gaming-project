@@ -12,6 +12,7 @@ class MoveableScreenObject : public ScreenObject {
 public:
     MoveableScreenObject(sf::RenderWindow & window);
     virtual void update() = 0;
+    virtual ~MoveableScreenObject() = 0;
 };
 }
 

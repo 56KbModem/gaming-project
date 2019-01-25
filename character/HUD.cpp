@@ -106,7 +106,9 @@ bool HUD::hasAmmo(){
 }
 
 void HUD::setTime(const tf::TimePacket &packet) {
+#if DEBUG
     TF_INFO("Packet: {}",packet.seconds);
+#endif
     std::stringstream seconds;
     std::stringstream minutes;
     seconds <<std::setw(2) <<std::setfill('0') <<packet.seconds ;

@@ -28,9 +28,13 @@ namespace tf {
         sf::Vector2i position = sf::Mouse::getPosition(*this);
         sf::Vector2f worldPos = mapPixelToCoords(position);
         cursor.setPosition(sf::Vector2f(worldPos.x - 20, worldPos.y - 20));
+        cursor.move(cos((cursorRotation + 212) * (PI / 180)) *- 20, (sin((cursorRotation + 212) * (PI / 180)) *- 20));
     }
 
     sf::Sprite TopforceWindow::getCursorSprite() {
         return cursor;
+    }
+    void TopforceWindow::setRotation(const float & rotation){
+        cursorRotation = rotation;
     }
 }
