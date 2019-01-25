@@ -33,6 +33,7 @@ namespace tf{ namespace gamemode{
 
             //Cursor position calculation
             window.setSpritePosition();
+            window.setRotation(ownPlayer.getRotation());
 
             // Set enemy position
             if(serverPacket.PlayerId == 1){

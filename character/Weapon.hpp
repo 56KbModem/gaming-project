@@ -13,6 +13,7 @@ private:
     sf::RenderWindow & window;
     std::vector<sf::FloatRect> levelHitboxes;
     sf::RectangleShape bulletHit;
+    sf::RectangleShape weaponLocation;
     sf::FloatRect bounds;
     tf::SoundManager & soundManager = tf::SoundManager::getInstance();
     bool emptyMag = 0;
@@ -21,7 +22,8 @@ public:
     void shoot(const sf::Vector2f & position, const float & rotation, tf::HUD & hud);
     void drawShootLine(const sf::Vector2f & position, const float & rotation);
     void moveBullet(const float & rotation);
-
+    void setWeaponLocation(const sf::Vector2f & position, const float & rotation);
+    sf::Vector2f getWeaponLocation();
 };
 }
 
