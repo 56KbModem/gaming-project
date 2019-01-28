@@ -56,6 +56,18 @@ sf::Socket::Status Client::send(const tf::PlayerPacket &packet) {
     }
 }
 
+sf::Socket::Status Client::send(const tf::DamagePacket &packet){
+    sf::Packet rawPacket;
+    if (rawPacket << "damage" << packet.hitById <<packet.playerId << packet.damage) {
+
+        return (socket.send(rawPacket, serverIp, serverPort));
+    }
+    else {
+        return sf::Socket::Error;
+    }
+}
+}
+
 tf::PlayerPacket Client::getLastPacket() {
     return lastReceived;
 }

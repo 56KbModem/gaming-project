@@ -21,9 +21,11 @@ public:
     Client(sf::IpAddress &serverIp );
     sf::Socket::Status receive();
     sf::Socket::Status send(const tf::PlayerPacket &packet);
+    sf::Socket::Status send(const tf::DamagePacket &packet);
     tf::PlayerPacket getLastPacket();
     tf::TimePacket getTime();
     tf::DamagePacket getDamage();
+
 };
 }}
 
