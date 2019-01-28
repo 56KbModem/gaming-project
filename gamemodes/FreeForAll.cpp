@@ -54,7 +54,7 @@ void FreeForAll::run() {
         GameMode::window.setSpritePosition();
         GameMode::window.setRotation(ownPlayer.getRotation());
 
-        if (!GameMode::playerExists(serverPacket)) {
+        if (!GameMode::playerExists(serverPacket) && serverPacket.PlayerId != 0) {
             GameMode::enemies.push_back(Character(window, serverPacket.PlayerId));
         }
         // set position, rotation, shooting ... etc

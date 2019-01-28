@@ -46,7 +46,7 @@ namespace tf {
         float rotation;
         bool walking;
         bool firing = false;
-        sf::Uint32 PlayerId;
+        sf::Uint32 PlayerId = 0;
     };
 
     struct TimePacket {
