@@ -94,5 +94,6 @@ void Server::run() {
             timeSend();
             timerClock.restart(); // restart the clock
         }
+       sf::sleep(sf::milliseconds(1));
     }
 }
