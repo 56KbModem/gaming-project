@@ -69,6 +69,7 @@ void FreeForAll::run() {
                 GameMode::window.close();
             }
         }
+        packet.firing = false;
     }
 }
 
@@ -77,7 +78,6 @@ void FreeForAll::send(){
         packet.rotation = ownPlayer.getRotation();
         packet.position = ownPlayer.getPosition();
         client.send(packet);
-        packet.firing = false;
         sf::sleep(sf::milliseconds(5));
     }
 }
