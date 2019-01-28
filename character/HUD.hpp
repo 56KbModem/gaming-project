@@ -32,8 +32,10 @@ public:
     void update() override;
     void draw() const override;
     void setTime(const tf::TimePacket& packet);
+    void setHealth(const int & health);
     void decreaseAmmo(const int& amount);
     void decreaseHealth(const int& amount);
+
     void reload();
     bool hasAmmo();
     int getHealth();

@@ -65,6 +65,19 @@ void Player::decreaseHealth(const unsigned int &damage) {
     hud.decreaseHealth(damage);
 }
 
+int Player::getHealth() {
+    return hud.getHealth();
+}
+
+void Player::setHealth(const int &health) {
+    hud.setHealth(health);
+}
+
+void Player::setPosition(const sf::Vector2f &position) {
+    Character::setPosition(position);
+    view.setCenter(mySprite.getPosition());
+}
+
 sf::Uint32 Player::getEnemyID() {
     sf::Uint32 enemy = enemyID;
     enemyID = 0;

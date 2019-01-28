@@ -39,6 +39,10 @@ public:
     void lookAtMouse();
 
     void decreaseHealth(const unsigned int & damage);
+    int getHealth();
+    void setHealth(const int & health);
+
+    void setPosition(const sf::Vector2f& position) override;
 
     sf::Uint32 getEnemyID();
     void setTime(const tf::TimePacket & packet);

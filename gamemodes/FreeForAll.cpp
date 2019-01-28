@@ -3,7 +3,6 @@
 //
 
 #include "FreeForAll.hpp"
-
 namespace tf{ namespace gamemode{
 
 FreeForAll::FreeForAll(tf::TopforceWindow & window, const std::string & mapName, sf::IpAddress & serverIp):
@@ -22,12 +21,26 @@ void FreeForAll::run() {
     GameMode::damagePacket.hitById = ownPlayer.playerID;
     GameMode::damagePacket.damage = 15;
     sf::Clock clock1;
+
+    sf::Vector2f spawnPoints[] = {sf::Vector2f(3165,1760),
+                                  sf::Vector2f(3485,2985),
+                                  sf::Vector2f(1845,3150),
+                                  sf::Vector2f(1275,2485),
+                                  sf::Vector2f(815,1955),
+                                  sf::Vector2f(895,480),
+                                  sf::Vector2f(1700,370),
+                                  sf::Vector2f(2470,2135)
+    };
     // ---- Free-For-All gameloop ----
     while (window.isOpen()) {
         // Recieve Server packets
         GameMode::serverPacket = client.getLastPacket();
 
         GameMode::ownPlayer.decreaseHealth(client.getDamage().damage);
+        if(ownPlayer.getHealth() < 0){
+            ownPlayer.setPosition(spawnPoints[std::rand() % 8]);
+            ownPlayer.setHealth(100);
+        }
 
         if(serverPacket.firing && clock1.getElapsedTime().asMilliseconds() > 100){
             soundManager.play(tf::Sounds::FireWeapon);

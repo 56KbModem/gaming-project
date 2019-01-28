@@ -26,7 +26,7 @@ public:
 
     sf::FloatRect getBounds();
     sf::Vector2f getPosition();
-    void setPosition(const sf::Vector2f& position);
+    virtual void setPosition(const sf::Vector2f& position);
     float getRotation();
     void setRotation(const float& rotation);
 };

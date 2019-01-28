@@ -117,6 +117,10 @@ void HUD::setTime(const tf::TimePacket &packet) {
     }
 }
 
+void HUD::setHealth(const int &health) {
+    currentHealth = health;
+}
+
 int HUD::getHealth() {
     return currentHealth;
 }
