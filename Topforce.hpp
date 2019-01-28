@@ -54,5 +54,12 @@ namespace tf {
         int minutes;
         int seconds;
     };
+
+    struct DamagePacket{
+        std::string header;
+        int hitById;
+        int playerId;
+        int damage;
+    };
 }
 #endif //TOPFORCE_HEADERS_HPP

@@ -21,16 +21,23 @@ sf::Socket::Status Client::receive() {
     while(true) {
         sf::Packet rawPacket;
         sf::IpAddress tmpIp;
+        std::string header;
         unsigned short tmpPort;
         if (socket.receive(rawPacket, tmpIp, tmpPort) != sf::Socket::Done) {
         }
-        if (rawPacket >> lastReceived.header) {
-            if (lastReceived.header == "player") {
+        if (rawPacket >> header) {
+            if (header == "player") {
                 rawPacket >> lastReceived.playerName >> lastReceived.position.x >> lastReceived.position.y
                           >> lastReceived.rotation >> lastReceived.walking >> lastReceived.firing
                           >> lastReceived.PlayerId;
-            } else if (lastReceived.header == "time") {
+                lastReceived.header=header;
+            } else if (header == "time") {
                 rawPacket >> timeReceived.minutes >> timeReceived.seconds;
+                timeReceived.header=header;
+            }
+            else if (header=="damage"){
+                lastDamagePacket.header=header;
+                rawPacket >>  lastDamagePacket.hitById >>lastDamagePacket.playerId >>lastDamagePacket.damage;
             }
         }
         sf::sleep(sf::milliseconds(5));
@@ -55,5 +62,13 @@ tf::PlayerPacket Client::getLastPacket() {
 
 tf::TimePacket Client::getTime(){
     return timeReceived ;
+}
+
+tf::DamagePacket Client::getDamage(){
+    if (lastDamagePacket.header=="damage"){
+        tf::DamagePacket tmp= lastDamagePacket;
+        lastDamagePacket.header="readed";
+        return tmp;
+    }
 }
 }}
