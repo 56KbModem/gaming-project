@@ -6,7 +6,6 @@ Player::Player(tf::TopforceWindow &window, const sf::Uint32 &playerID, sf::View 
     Character(window, playerID),
     view(view),
     levelHitboxes(levelHitboxes),
-    enemies(enemies),
     myWeapon(window, levelHitboxes, enemies),
     hud(window, view),
     playerPacket(playerPacket)
@@ -31,11 +30,6 @@ void Player::setTexture(const Texture & texture){
 void Player::move(const sf::Vector2f & position) {
     mySprite.move(position);
     hitbox.setPosition(mySprite.getPosition().x -25, mySprite.getPosition().y - 25);
-    for(auto & enemy : enemies){
-        if(enemy.getBounds().intersects(getBounds())){
-            mySprite.move(-position);
-        }
-    }
     for(auto & hitbox : levelHitboxes){
         if(hitbox.intersects(getBounds())){
             mySprite.move(-position);
