@@ -57,9 +57,9 @@ namespace tf {
 
     struct DamagePacket{
         std::string header;
-        int hitById;
-        int playerId;
-        int damage;
+        sf::Uint32 hitById;
+        sf::Uint32 playerId;
+        unsigned int damage;
     };
 }
 #endif //TOPFORCE_HEADERS_HPP
