@@ -76,7 +76,7 @@ tf::TimePacket Client::getTime(){
 }
 
 tf::DamagePacket Client::getDamage(){
-    if (lastDamagePacket.header=="damage"&& lastDamagePacket.playerId == sf::IpAddress::LocalHost.toInteger()  ){
+    if (lastDamagePacket.header=="damage" && lastDamagePacket.playerId == sf::IpAddress::getLocalAddress().toInteger()){
         tf::DamagePacket tmp= lastDamagePacket;
         lastDamagePacket.header="readed";
         return tmp;

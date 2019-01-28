@@ -26,7 +26,7 @@ void FreeForAll::run() {
     while (window.isOpen()) {
         // Recieve Server packets
         serverPacket = client.getLastPacket();
-
+        
         ownPlayer.decreaseHealth(client.getDamage().damage);
 
         //Cursor position calculation
@@ -57,6 +57,7 @@ void FreeForAll::run() {
         if(enemyID > 0){
             damagePacket.playerId = enemyID;
             client.send(damagePacket);
+            TF_INFO("Damage done! package has been send!");
         }
 
         ownPlayer.setTime(client.getTime());
