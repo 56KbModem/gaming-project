@@ -26,7 +26,7 @@ private:
     };
     void setTexture(const Texture & animation) override;
 public:
-    Player(tf::TopforceWindow& window, const int &playerID, sf::View & view, const std::vector<sf::FloatRect> & levelHitboxes);
+    Player(tf::TopforceWindow& window, const int &playerID, sf::View & view, const std::vector<sf::FloatRect> & levelHitboxes, std::vector<tf::Character> & enemies);
     ~Player(){};
 
     void draw() const override;

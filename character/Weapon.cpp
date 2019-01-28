@@ -5,9 +5,10 @@
 #include "Weapon.hpp"
 
 namespace tf {
-Weapon::Weapon(sf::RenderWindow & window, const std::vector<sf::FloatRect> & levelHitboxes):
+Weapon::Weapon(sf::RenderWindow & window, const std::vector<sf::FloatRect> & levelHitboxes, std::vector<tf::Character> & enemies):
     window(window),
     levelHitboxes(levelHitboxes),
+    enemies(enemies),
     bulletHit(sf::Vector2f(1, 1)),
     weaponLocation(sf::Vector2f(10, 10))
 {
@@ -43,11 +44,14 @@ void Weapon::drawShootLine(const sf::Vector2f &position, const float & rotation)
     while(!hit) {
         moveBullet(rotation);
         bounds = bulletHit.getGlobalBounds();
+        for(auto &enemy : enemies){
+            if(enemy.getBounds().intersects(bounds)){
+                hit = 1;
+                break;
+            }
+        }
         for (auto &hitbox : levelHitboxes){
             if (hitbox.intersects(bounds)){
-#if DEBUG
-                TF_INFO("object hit!");
-#endif
                 hit = 1;
                 break;
             }

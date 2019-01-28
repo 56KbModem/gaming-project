@@ -2,11 +2,11 @@
 #include "Player.hpp"
 
 namespace tf {
-Player::Player(tf::TopforceWindow &window, const int &playerID, sf::View & view, const std::vector<sf::FloatRect> & levelHitboxes):
+Player::Player(tf::TopforceWindow &window, const int &playerID, sf::View & view, const std::vector<sf::FloatRect> & levelHitboxes, std::vector<tf::Character> & enemies):
     Character(window, playerID),
     view(view),
     levelHitboxes(levelHitboxes),
-    myWeapon(window, levelHitboxes),
+    myWeapon(window, levelHitboxes, enemies),
     hud(window, view)
 {
     view.setCenter(mySprite.getPosition());
