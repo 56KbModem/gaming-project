@@ -11,7 +11,6 @@ Character::Character(tf::TopforceWindow &window, const sf::Uint32 &playerID):
     playerID(playerID)
 {
     mySprite.setTexture(imageManager.getTexture(tf::Texture::EnemyStationary));
-    mySprite.setPosition(1700.0, 375.0);
     sf::FloatRect bounds = mySprite.getGlobalBounds();
     mySprite.setOrigin(bounds.width / 2, bounds.height / 2);
     hitbox.setSize({55.0f, 55.0f});
