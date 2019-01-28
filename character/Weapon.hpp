@@ -21,8 +21,8 @@ private:
     bool emptyMag = 0;
 public:
     Weapon(sf::RenderWindow &window, const std::vector<sf::FloatRect> & levelHitboxes, std::vector<tf::Character> & enemies);
-    void shoot(const sf::Vector2f & position, const float & rotation, tf::HUD & hud);
-    void drawShootLine(const sf::Vector2f & position, const float & rotation);
+    void shoot(const sf::Vector2f & position, const float & rotation, tf::HUD & hud, sf::Uint32 & playerID);
+    void drawShootLine(const sf::Vector2f & position, const float & rotation, sf::Uint32 & playerID);
     void moveBullet(const float & rotation);
     void setWeaponLocation(const sf::Vector2f & position, const float & rotation);
     sf::Vector2f getWeaponLocation();

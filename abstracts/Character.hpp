@@ -18,8 +18,8 @@ protected:
 
     virtual void setTexture(const Texture & animation);
 public:
-    Character(tf::TopforceWindow& window, const int& playerID);
-    const int playerID;
+    Character(tf::TopforceWindow& window, const sf::Uint32 & playerID);
+    const sf::Uint32 playerID;
 
     void draw() const override;
     void update() override;

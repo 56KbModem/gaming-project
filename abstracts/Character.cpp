@@ -6,7 +6,7 @@
 
 namespace tf {
 
-Character::Character(tf::TopforceWindow &window, const int &playerID):
+Character::Character(tf::TopforceWindow &window, const sf::Uint32 &playerID):
     tf::MoveableScreenObject(window),
     playerID(playerID)
 {

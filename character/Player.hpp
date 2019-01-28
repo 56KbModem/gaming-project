@@ -15,28 +15,29 @@ private:
     tf::Weapon myWeapon;
     sf::Vector2f currentPosition;
     tf::HUD hud;
+    sf::Uint32 enemyID = 0;
     Action actions[8] = {Action([&](){currentPosition = getPosition(); lookAtMouse();} ),
                         Action(sf::Keyboard::W, [&](){setTexture(Texture::Walking); move( sf::Vector2f{ 0.0f, -5.0f } );}),
                         Action(sf::Keyboard::A, [&](){setTexture(Texture::Walking); move( sf::Vector2f{ -5.0f, 0.0f } );}),
                         Action(sf::Keyboard::S, [&](){setTexture(Texture::Walking); move( sf::Vector2f{ 0.0f, 5.0f } ); }),
                         Action(sf::Keyboard::D, [&](){setTexture(Texture::Walking); move( sf::Vector2f{ 5.0f, 0.0f } ); }),
                         Action(sf::Keyboard::R, [&](){hud.reload();}),
-                        Action(sf::Mouse::Left, [&](){if(currentPosition == getPosition()){ shoot(getRotation());} }),
+                        Action(sf::Mouse::Left, [&](){if(currentPosition == getPosition()){ shoot(getRotation(), enemyID);} }),
                         Action([&](){return currentPosition == getPosition();}, [&](){setTexture(Texture::Stationary);})
     };
     void setTexture(const Texture & animation) override;
 public:
-    Player(tf::TopforceWindow& window, const int &playerID, sf::View & view, const std::vector<sf::FloatRect> & levelHitboxes, std::vector<tf::Character> & enemies);
+    Player(tf::TopforceWindow& window, const sf::Uint32 &playerID, sf::View & view, const std::vector<sf::FloatRect> & levelHitboxes, std::vector<tf::Character> & enemies);
     ~Player(){};
 
     void draw() const override;
     void update() override;
 
     void move(const sf::Vector2f & position);
-    void shoot(const float & rotation);
+    void shoot(const float & rotation, sf::Uint32 & playerID);
     void lookAtMouse();
 
-
+    sf::Uint32 getEnemyID();
     void setTime(const tf::TimePacket & packet);
 };
 

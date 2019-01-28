@@ -20,13 +20,13 @@ Weapon::Weapon(sf::RenderWindow & window, const std::vector<sf::FloatRect> & lev
     soundManager.setWeapon("weap_g3.wav");
 }
 
-void Weapon::shoot(const sf::Vector2f & position, const float & rotation, tf::HUD & hud){
+void Weapon::shoot(const sf::Vector2f & position, const float & rotation, tf::HUD & hud, sf::Uint32 & playerID){
     if(shootClock.getElapsedTime().asMilliseconds() > 100){
         if(hud.hasAmmo()) {
             emptyMag = 0;
             hud.decreaseAmmo(1);
             soundManager.play(tf::Sounds::FireWeapon);
-            drawShootLine(position, rotation);
+            drawShootLine(position, rotation, playerID);
             shootClock.restart();
         }
         else if(emptyMag == 0 && !hud.hasAmmo()){
@@ -36,7 +36,7 @@ void Weapon::shoot(const sf::Vector2f & position, const float & rotation, tf::HU
     }
 }
 
-void Weapon::drawShootLine(const sf::Vector2f &position, const float & rotation) {
+void Weapon::drawShootLine(const sf::Vector2f &position, const float & rotation, sf::Uint32 & playerID) {
     shootLine[0] = sf::Vertex(getWeaponLocation());
     bulletHit.setPosition(getWeaponLocation());
     weaponLocation.setPosition(position);
@@ -47,6 +47,7 @@ void Weapon::drawShootLine(const sf::Vector2f &position, const float & rotation)
         for(auto &enemy : enemies){
             if(enemy.getBounds().intersects(bounds)){
                 hit = 1;
+                playerID = enemy.playerID;
                 break;
             }
         }

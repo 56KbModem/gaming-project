@@ -48,6 +48,11 @@ void FreeForAll::run() {
             enemy.draw();
         }
 
+        sf::Uint32 enemyID = ownPlayer.getEnemyID();
+        if(enemyID > 0){
+            TF_INFO("Shot player: {}",enemyID);
+        }
+
         ownPlayer.setTime(client.getTime());
         window.draw(window.getCursorSprite());
         window.display();

@@ -2,7 +2,7 @@
 #include "Player.hpp"
 
 namespace tf {
-Player::Player(tf::TopforceWindow &window, const int &playerID, sf::View & view, const std::vector<sf::FloatRect> & levelHitboxes, std::vector<tf::Character> & enemies):
+Player::Player(tf::TopforceWindow &window, const sf::Uint32 &playerID, sf::View & view, const std::vector<sf::FloatRect> & levelHitboxes, std::vector<tf::Character> & enemies):
     Character(window, playerID),
     view(view),
     levelHitboxes(levelHitboxes),
@@ -44,8 +44,8 @@ void Player::update(){
     hud.update();
 }
 
-void Player::shoot(const float & rotation){
-    myWeapon.shoot(mySprite.getPosition(), mySprite.getRotation(), hud);
+void Player::shoot(const float & rotation, sf::Uint32 & playerID){
+    myWeapon.shoot(mySprite.getPosition(), mySprite.getRotation(), hud, playerID);
 }
 
 void Player::lookAtMouse() {
@@ -57,6 +57,12 @@ void Player::lookAtMouse() {
     float rotation = float((atan2(dy, dx)) * 180 / PI) + 180;
     myWeapon.setWeaponLocation(curPos, getRotation());
     mySprite.setRotation(rotation);
+}
+
+sf::Uint32 Player::getEnemyID() {
+    sf::Uint32 enemy = enemyID;
+    enemyID = 0;
+    return enemy;
 }
 
 void Player::setTime(const tf::TimePacket & packet) {
