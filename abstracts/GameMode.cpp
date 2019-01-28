@@ -9,7 +9,7 @@ GameMode::GameMode(tf::TopforceWindow &window, const std::string &mapName, sf::I
     window(window),
     level(mapName, window),
     client(serverIp),
-    ownPlayer(window, sf::IpAddress::getLocalAddress().toInteger(), view, level.getHitboxes(), enemies)
+    ownPlayer(window, sf::IpAddress::getLocalAddress().toInteger(), view, level.getHitboxes(), enemies, packet)
 {
     view.setSize(1920.f, 1080.f);
 }

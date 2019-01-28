@@ -29,6 +29,9 @@ void FreeForAll::run() {
 
         GameMode::ownPlayer.decreaseHealth(client.getDamage().damage);
 
+        if(serverPacket.firing){
+            soundManager.play(tf::Sounds::FireWeapon);
+        }
         //Cursor position calculation
         GameMode::window.setSpritePosition();
         GameMode::window.setRotation(ownPlayer.getRotation());
@@ -74,6 +77,7 @@ void FreeForAll::send(){
         packet.rotation = ownPlayer.getRotation();
         packet.position = ownPlayer.getPosition();
         client.send(packet);
+        packet.firing = false;
         sf::sleep(sf::milliseconds(5));
     }
 }

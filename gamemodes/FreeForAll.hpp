@@ -20,6 +20,7 @@ namespace tf{ namespace gamemode{
 class FreeForAll : public GameMode {
 private:
     std::thread sendThread;
+    tf::SoundManager & soundManager = tf::SoundManager::getInstance();
 public:
     FreeForAll(tf::TopforceWindow & window, const std::string & mapName, sf::IpAddress & serverIp);
     void run() override;
