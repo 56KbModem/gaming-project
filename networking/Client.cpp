@@ -81,5 +81,6 @@ tf::DamagePacket Client::getDamage(){
         lastDamagePacket.header="readed";
         return tmp;
     }
+    return {"damage",0,0,0}; 
 }
 }}
