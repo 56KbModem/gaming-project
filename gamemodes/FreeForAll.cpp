@@ -21,6 +21,7 @@ void FreeForAll::run() {
     GameMode::damagePacket.hitById = ownPlayer.playerID;
     GameMode::damagePacket.damage = 15;
     sf::Clock clock1;
+    sf::Clock deathClock;
 
     sf::Vector2f spawnPoints[] = {sf::Vector2f(3165,1760),
                                   sf::Vector2f(3485,2985),
@@ -44,6 +45,10 @@ void FreeForAll::run() {
             ownPlayer.setPosition(spawnPoints[std::rand() % 8]);
             ownPlayer.setHealth(100);
             ownPlayer.giveFullAmmo();
+            deathClock.restart();
+        }
+        if(deathClock.getElapsedTime().asMilliseconds() < 2000 ){
+            ownPlayer.setHealth(100);
         }
 
         if(serverPacket.firing && clock1.getElapsedTime().asMilliseconds() > 100){
@@ -84,6 +89,7 @@ void FreeForAll::run() {
         sf::Event event;
         while (GameMode::window.pollEvent(event)) {
             if (event.type == sf::Event::Closed) {
+                packet.firing = false;
                 GameMode::window.close();
             }
         }
