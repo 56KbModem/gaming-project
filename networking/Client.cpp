@@ -66,7 +66,6 @@ sf::Socket::Status Client::send(const tf::DamagePacket &packet){
         return sf::Socket::Error;
     }
 }
-}
 
 tf::PlayerPacket Client::getLastPacket() {
     return lastReceived;

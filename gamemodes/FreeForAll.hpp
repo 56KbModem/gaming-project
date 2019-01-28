@@ -22,6 +22,7 @@ private:
     std::thread sendThread;
     tf::PlayerPacket packet;
     tf::PlayerPacket serverPacket;
+    tf::DamagePacket damagePacket;
 public:
     FreeForAll(tf::TopforceWindow & window, const std::string & mapName, sf::IpAddress & serverIp);
     void run() override;

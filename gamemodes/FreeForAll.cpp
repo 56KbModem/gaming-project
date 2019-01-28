@@ -19,10 +19,15 @@ void FreeForAll::run() {
     packet.PlayerId = ownPlayer.playerID;
     packet.playerName = sf::IpAddress::getLocalAddress().toString();
 
+    damagePacket.hitById = ownPlayer.playerID;
+    damagePacket.damage = 15;
+
     // ---- Free-For-All gameloop ----
     while (window.isOpen()) {
         // Recieve Server packets
         serverPacket = client.getLastPacket();
+
+        ownPlayer.decreaseHealth(client.getDamage().damage);
 
         //Cursor position calculation
         window.setSpritePosition();
@@ -50,7 +55,8 @@ void FreeForAll::run() {
 
         sf::Uint32 enemyID = ownPlayer.getEnemyID();
         if(enemyID > 0){
-            TF_INFO("Shot player: {}",enemyID);
+            damagePacket.playerId = enemyID;
+            client.send(damagePacket);
         }
 
         ownPlayer.setTime(client.getTime());

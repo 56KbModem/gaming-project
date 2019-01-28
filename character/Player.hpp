@@ -37,6 +37,8 @@ public:
     void shoot(const float & rotation, sf::Uint32 & playerID);
     void lookAtMouse();
 
+    void decreaseHealth(const unsigned int & damage);
+
     sf::Uint32 getEnemyID();
     void setTime(const tf::TimePacket & packet);
 };

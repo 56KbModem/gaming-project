@@ -59,6 +59,10 @@ void Player::lookAtMouse() {
     mySprite.setRotation(rotation);
 }
 
+void Player::decreaseHealth(const unsigned int &damage) {
+    hud.decreaseHealth(damage);
+}
+
 sf::Uint32 Player::getEnemyID() {
     sf::Uint32 enemy = enemyID;
     enemyID = 0;
@@ -68,4 +72,5 @@ sf::Uint32 Player::getEnemyID() {
 void Player::setTime(const tf::TimePacket & packet) {
     hud.setTime(packet);
 }
+
 } // End namespace tf

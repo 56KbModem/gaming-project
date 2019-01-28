@@ -106,9 +106,6 @@ bool HUD::hasAmmo(){
 }
 
 void HUD::setTime(const tf::TimePacket &packet) {
-#if DEBUG
-    TF_INFO("Packet: {}",packet.seconds);
-#endif
     if(packet.minutes > 200 || packet.minutes < 0){
         timeLeft.setString("Time left: 10:00");
     }else{
