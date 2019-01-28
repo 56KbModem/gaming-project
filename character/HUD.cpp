@@ -85,6 +85,12 @@ void HUD::decreaseAmmo(const int &amount) {
     currentAmmo -= amount;
 }
 
+void HUD::setAmmo(const int &currentAmmo, const int &totalAmmo) {
+    this->currentAmmo = currentAmmo;
+    this->totalAmmo = totalAmmo;
+}
+
+
 void HUD::reload() {
     if (currentAmmo != clipSize) {
         if (totalAmmo != 0) {

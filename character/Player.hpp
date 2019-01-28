@@ -44,6 +44,8 @@ public:
 
     void setPosition(const sf::Vector2f& position) override;
 
+    void giveFullAmmo();
+
     sf::Uint32 getEnemyID();
     void setTime(const tf::TimePacket & packet);
 };

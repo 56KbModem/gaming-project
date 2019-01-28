@@ -35,6 +35,7 @@ public:
     void setHealth(const int & health);
     void decreaseAmmo(const int& amount);
     void decreaseHealth(const int& amount);
+    void setAmmo(const int &currentAmmo, const int &totalAmmo);
 
     void reload();
     bool hasAmmo();

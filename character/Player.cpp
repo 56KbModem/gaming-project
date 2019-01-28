@@ -78,6 +78,10 @@ void Player::setPosition(const sf::Vector2f &position) {
     view.setCenter(mySprite.getPosition());
 }
 
+void Player::giveFullAmmo() {
+    hud.setAmmo(30,90);
+}
+
 sf::Uint32 Player::getEnemyID() {
     sf::Uint32 enemy = enemyID;
     enemyID = 0;

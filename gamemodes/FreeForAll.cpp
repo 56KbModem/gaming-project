@@ -40,6 +40,7 @@ void FreeForAll::run() {
         if(ownPlayer.getHealth() < 0){
             ownPlayer.setPosition(spawnPoints[std::rand() % 8]);
             ownPlayer.setHealth(100);
+            ownPlayer.giveFullAmmo();
         }
 
         if(serverPacket.firing && clock1.getElapsedTime().asMilliseconds() > 100){
