@@ -30,7 +30,7 @@ void FreeForAll::run() {
         GameMode::ownPlayer.decreaseHealth(client.getDamage().damage);
 
         if(serverPacket.firing){
-            soundManager.play(tf::Sounds::FireWeapon);
+            soundManager.play(tf::Sounds::FireWeapon,10);
         }
         //Cursor position calculation
         GameMode::window.setSpritePosition();

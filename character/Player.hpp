@@ -12,6 +12,7 @@ class Player: public tf::Character {
 private:
     sf::View & view;
     std::vector<sf::FloatRect> levelHitboxes;
+    std::vector<tf::Character> & enemies;
     tf::Weapon myWeapon;
     sf::Vector2f currentPosition;
     tf::HUD hud;

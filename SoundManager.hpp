@@ -32,7 +32,7 @@ private:
 public:
     static SoundManager & getInstance();
     void setWeapon(const std::string & weaponFile);
-    void play(const tf::Sounds& sounds, bool loop = false);
+    void play(const tf::Sounds& sounds, const float & volume = 100, bool loop = false);
 };
 
 }
