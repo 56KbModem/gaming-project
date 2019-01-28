@@ -31,6 +31,8 @@ void FreeForAll::run() {
                                   sf::Vector2f(1700,370),
                                   sf::Vector2f(2470,2135)
     };
+    // Create random seed based on current time
+    std::srand(std::time(nullptr));
     ownPlayer.setPosition(spawnPoints[std::rand() % 8]);
     // ---- Free-For-All gameloop ----
     while (window.isOpen()) {
