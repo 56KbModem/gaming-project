@@ -109,10 +109,14 @@ void HUD::setTime(const tf::TimePacket &packet) {
 #if DEBUG
     TF_INFO("Packet: {}",packet.seconds);
 #endif
-    std::stringstream seconds;
-    std::stringstream minutes;
-    seconds <<std::setw(2) <<std::setfill('0') <<packet.seconds ;
-    minutes <<std::setw(2) <<std::setfill('0') <<packet.minutes;
-    timeLeft.setString("Time left: " + minutes.str() + ':' + seconds.str());
+    if(packet.minutes > 200 || packet.minutes < 0){
+        timeLeft.setString("Time left: 10:00");
+    }else{
+        std::stringstream seconds;
+        std::stringstream minutes;
+        seconds <<std::setw(2) <<std::setfill('0') <<packet.seconds ;
+        minutes <<std::setw(2) <<std::setfill('0') <<packet.minutes;
+        timeLeft.setString("Time left: " + minutes.str() + ':' + seconds.str());
+    }
 }
 } // namespace tf

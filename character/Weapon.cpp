@@ -5,9 +5,10 @@
 #include "Weapon.hpp"
 
 namespace tf {
-Weapon::Weapon(sf::RenderWindow & window, const std::vector<sf::FloatRect> & levelHitboxes):
+Weapon::Weapon(sf::RenderWindow & window, const std::vector<sf::FloatRect> & levelHitboxes, std::vector<tf::Character> & enemies):
     window(window),
     levelHitboxes(levelHitboxes),
+    enemies(enemies),
     bulletHit(sf::Vector2f(1, 1)),
     weaponLocation(sf::Vector2f(10, 10))
 {
@@ -19,13 +20,13 @@ Weapon::Weapon(sf::RenderWindow & window, const std::vector<sf::FloatRect> & lev
     soundManager.setWeapon("weap_g3.wav");
 }
 
-void Weapon::shoot(const sf::Vector2f & position, const float & rotation, tf::HUD & hud){
+void Weapon::shoot(const sf::Vector2f & position, const float & rotation, tf::HUD & hud, sf::Uint32 & playerID){
     if(shootClock.getElapsedTime().asMilliseconds() > 100){
         if(hud.hasAmmo()) {
             emptyMag = 0;
             hud.decreaseAmmo(1);
             soundManager.play(tf::Sounds::FireWeapon);
-            drawShootLine(position, rotation);
+            drawShootLine(position, rotation, playerID);
             shootClock.restart();
         }
         else if(emptyMag == 0 && !hud.hasAmmo()){
@@ -35,7 +36,7 @@ void Weapon::shoot(const sf::Vector2f & position, const float & rotation, tf::HU
     }
 }
 
-void Weapon::drawShootLine(const sf::Vector2f &position, const float & rotation) {
+void Weapon::drawShootLine(const sf::Vector2f &position, const float & rotation, sf::Uint32 & playerID) {
     shootLine[0] = sf::Vertex(getWeaponLocation());
     bulletHit.setPosition(getWeaponLocation());
     weaponLocation.setPosition(position);
@@ -43,11 +44,15 @@ void Weapon::drawShootLine(const sf::Vector2f &position, const float & rotation)
     while(!hit) {
         moveBullet(rotation);
         bounds = bulletHit.getGlobalBounds();
+        for(auto &enemy : enemies){
+            if(enemy.getBounds().intersects(bounds)){
+                hit = 1;
+                playerID = enemy.playerID;
+                break;
+            }
+        }
         for (auto &hitbox : levelHitboxes){
             if (hitbox.intersects(bounds)){
-#if DEBUG
-                TF_INFO("object hit!");
-#endif
                 hit = 1;
                 break;
             }

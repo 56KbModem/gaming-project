@@ -13,14 +13,16 @@ namespace tf{
 enum class Texture {
     Stationary,
     Walking,
-    MenuBG
+    MenuBG,
+    EnemyStationary,
+    EnemyWalking
 };
 
 class ImageManager {
 private:
     ImageManager();
     const std::string PATH =  "assets/images/";
-    sf::Texture textureArray[3];
+    sf::Texture textureArray[5];
     sf::Image icon;
 public:
     static ImageManager & getInstance();

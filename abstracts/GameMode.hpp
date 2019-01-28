@@ -17,7 +17,7 @@ namespace tf {
         tf::level::MapGraphics level;
         sf::View view;
         tf::network::Client client;
-        tf::Character ownPlayer;
+        tf::Player ownPlayer;
         std::vector<tf::Character> enemies;
 
         bool playerExists(const tf::PlayerPacket & packet);

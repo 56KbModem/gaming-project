@@ -8,7 +8,7 @@
 //#include <iostream>
 
 namespace tf { namespace network{
-    const short port= 53000;
+    const unsigned short port = 53000;
 class Client {
     sf::IpAddress serverIp;
     unsigned short serverPort;
