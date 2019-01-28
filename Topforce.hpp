@@ -45,7 +45,7 @@ namespace tf {
         sf::Vector2f position;
         float rotation;
         bool walking;
-        bool firing;
+        bool firing = false;
         sf::Uint32 PlayerId;
     };
 

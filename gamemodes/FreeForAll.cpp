@@ -21,7 +21,7 @@ void FreeForAll::run() {
 
     GameMode::damagePacket.hitById = ownPlayer.playerID;
     GameMode::damagePacket.damage = 15;
-
+    sf::Clock clock1;
     // ---- Free-For-All gameloop ----
     while (window.isOpen()) {
         // Recieve Server packets
@@ -29,8 +29,9 @@ void FreeForAll::run() {
 
         GameMode::ownPlayer.decreaseHealth(client.getDamage().damage);
 
-        if(serverPacket.firing){
+        if(serverPacket.firing && clock1.getElapsedTime().asMilliseconds() > 100){
             soundManager.play(tf::Sounds::FireWeapon);
+            clock1.restart();
         }
         //Cursor position calculation
         GameMode::window.setSpritePosition();
