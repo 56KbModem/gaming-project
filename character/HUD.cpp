@@ -116,4 +116,8 @@ void HUD::setTime(const tf::TimePacket &packet) {
         timeLeft.setString("Time left: " + minutes.str() + ':' + seconds.str());
     }
 }
+
+int HUD::getHealth() {
+    return currentHealth;
+}
 } // namespace tf
