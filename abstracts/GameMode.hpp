@@ -20,8 +20,15 @@ namespace tf {
         tf::Player ownPlayer;
         std::vector<tf::Character> enemies;
 
+        tf::PlayerPacket packet;
+        tf::PlayerPacket serverPacket;
+        tf::DamagePacket damagePacket;
+
         bool playerExists(const tf::PlayerPacket & packet);
         void setEnemyParams(tf::PlayerPacket & packet);
+
+        void sendDamage();
+
     public:
         virtual void run() = 0;
         GameMode(tf::TopforceWindow& window, const std::string& mapName, sf::IpAddress & serverIp);

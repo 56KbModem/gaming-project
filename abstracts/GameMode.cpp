@@ -36,4 +36,11 @@ void GameMode::setEnemyParams(tf::PlayerPacket & packet) {
         }
     }
 }
+void GameMode::sendDamage() {
+    sf::Uint32 enemyID = ownPlayer.getEnemyID();
+    if(enemyID > 0){
+        damagePacket.playerId = enemyID;
+        client.send(damagePacket);
+    }
+}
 }

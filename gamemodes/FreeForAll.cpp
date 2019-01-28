@@ -16,59 +16,54 @@ FreeForAll::FreeForAll(tf::TopforceWindow & window, const std::string & mapName,
 FreeForAll::~FreeForAll() {}
 
 void FreeForAll::run() {
-    packet.PlayerId = ownPlayer.playerID;
-    packet.playerName = sf::IpAddress::getLocalAddress().toString();
+    GameMode::packet.PlayerId = ownPlayer.playerID;
+    GameMode::packet.playerName = sf::IpAddress::getLocalAddress().toString();
 
-    damagePacket.hitById = ownPlayer.playerID;
-    damagePacket.damage = 15;
+    GameMode::damagePacket.hitById = ownPlayer.playerID;
+    GameMode::damagePacket.damage = 15;
 
     // ---- Free-For-All gameloop ----
     while (window.isOpen()) {
         // Recieve Server packets
-        serverPacket = client.getLastPacket();
-        
-        ownPlayer.decreaseHealth(client.getDamage().damage);
+        GameMode::serverPacket = client.getLastPacket();
+
+        GameMode::ownPlayer.decreaseHealth(client.getDamage().damage);
 
         //Cursor position calculation
-        window.setSpritePosition();
-        window.setRotation(ownPlayer.getRotation());
+        GameMode::window.setSpritePosition();
+        GameMode::window.setRotation(ownPlayer.getRotation());
 
-        if (!playerExists(serverPacket)) {
-            enemies.push_back(Character(window, serverPacket.PlayerId));
+        if (!GameMode::playerExists(serverPacket)) {
+            GameMode::enemies.push_back(Character(window, serverPacket.PlayerId));
         }
         // set position, rotation, shooting ... etc
-        setEnemyParams(serverPacket);
+        GameMode::setEnemyParams(serverPacket);
 
-        window.clear(sf::Color::Black);
-        window.setView(view);
+        GameMode::window.clear(sf::Color::Black);
+        GameMode::window.setView(view);
 
         //Cursor position calculation
-        window.setSpritePosition();
+        GameMode::window.setSpritePosition();
 
         // Draw objects
-        level.draw();
-        ownPlayer.draw();
-        ownPlayer.update();
-        for (const auto& enemy : enemies) {
+        GameMode::level.draw();
+        GameMode::ownPlayer.draw();
+        GameMode::ownPlayer.update();
+        for (const auto& enemy : GameMode::enemies) {
             enemy.draw();
         }
 
-        sf::Uint32 enemyID = ownPlayer.getEnemyID();
-        if(enemyID > 0){
-            damagePacket.playerId = enemyID;
-            client.send(damagePacket);
-            TF_INFO("Damage done! package has been send!");
-        }
+        GameMode::sendDamage();
 
-        ownPlayer.setTime(client.getTime());
-        window.draw(window.getCursorSprite());
-        window.display();
+        GameMode::ownPlayer.setTime(GameMode::client.getTime());
+        GameMode::window.draw(GameMode::window.getCursorSprite());
+        GameMode::window.display();
 
         // Handle pollEvents
         sf::Event event;
-        while (window.pollEvent(event)) {
+        while (GameMode::window.pollEvent(event)) {
             if (event.type == sf::Event::Closed) {
-                window.close();
+                GameMode::window.close();
             }
         }
     }
