@@ -62,6 +62,19 @@ void FreeForAll::run() {
         if (!GameMode::playerExists(serverPacket) && serverPacket.PlayerId != 0) {
             GameMode::enemies.push_back(Character(window, serverPacket.PlayerId));
         }
+
+        sf::IpAddress tmpleaved= client.getLastLeaved() ;
+        if (tmpleaved != nullptr){
+            for (unsigned int i =0; i <enemies.size()+1; i++){
+                if (enemies[i].playerID==tmpleaved.toInteger()){
+                    delete &enemies[i];
+                    enemies.shrink_to_fit();
+                }
+            }
+        }
+
+
+
         // set position, rotation, shooting ... etc
         GameMode::setEnemyParams(serverPacket);
 
@@ -90,6 +103,8 @@ void FreeForAll::run() {
         while (GameMode::window.pollEvent(event)) {
             if (event.type == sf::Event::Closed) {
                 packet.firing = false;
+                tf::PlayerPacket leave={"leave"};
+                client.send(leave);
                 GameMode::window.close();
             }
         }
