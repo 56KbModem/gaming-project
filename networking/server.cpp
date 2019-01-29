@@ -20,17 +20,24 @@ secondToPlay(seconds)
 
 
 sf::Socket::Status Server::ServerReceive() {
+    std::string tmpHeader;
     if (socket.receive(playerPacket, lastIp, lastPort) != sf::Socket::Done) {
 #if DEBUG
         //NETWORK_INFO("received nothing");
 #endif // DEBUG
         return sf::Socket::NotReady;
     }
+    playerPacket>>tmpHeader ;
+    if (tmpHeader == "leave"){
+        clientIps.erase(lastIp);
+    }
+    else{
 #if DEBUG
    // NETWORK_INFO("Received data");
 #endif // DEBUG
     clientIps.insert(lastIp);
-    return sf::Socket::Done; 
+    return sf::Socket::Done;
+    }
 }
 
 sf::Socket::Status Server::playerSend() {
