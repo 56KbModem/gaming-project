@@ -80,8 +80,13 @@ void FreeForAll::run() {
         GameMode::level.draw();
         GameMode::ownPlayer.draw();
         GameMode::ownPlayer.update();
-        for (const auto& enemy : GameMode::enemies) {
+        for (auto& enemy : GameMode::enemies) {
             enemy.draw();
+            if(serverPacket.firing && serverPacket.PlayerId == enemy.playerID){
+                sf::Vector2f tmpLocation = enemy.getPosition();
+                enemy.setShootLine(tmpLocation, enemy.firePosition);
+                enemy.drawShootline();
+            }
         }
 
         GameMode::sendDamage();
@@ -106,6 +111,7 @@ void FreeForAll::send(){
     while(true) {
         packet.rotation = ownPlayer.getRotation();
         packet.position = ownPlayer.getPosition();
+        packet.firePos = ownPlayer.getBulletCollisionPoint();
         client.send(packet);
         sf::sleep(sf::milliseconds(5));
     }

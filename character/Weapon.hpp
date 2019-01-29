@@ -17,6 +17,7 @@ private:
     sf::RectangleShape bulletHit;
     sf::RectangleShape weaponLocation;
     sf::FloatRect bounds;
+    sf::Vector2f bulletCollisionPoint;
     tf::SoundManager & soundManager = tf::SoundManager::getInstance();
     bool emptyMag = 0;
 public:
@@ -26,6 +27,8 @@ public:
     void moveBullet(const float & rotation);
     void setWeaponLocation(const sf::Vector2f & position, const float & rotation);
     sf::Vector2f getWeaponLocation();
+    sf::Vector2f getBulletCollisionPoint();
+    void setBulletCollisionPoint(const sf::Vector2f & bulletColPoint);
 };
 }
 

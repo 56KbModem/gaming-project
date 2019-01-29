@@ -15,6 +15,7 @@ private:
     std::vector<sf::FloatRect> levelHitboxes;
     tf::Weapon myWeapon;
     sf::Vector2f currentPosition;
+    sf::Vector2f bulletCollisionPoint;
     tf::HUD hud;
     tf::ScoreBoard scoreBoard;
     sf::Uint32 enemyID = 0;
@@ -40,6 +41,8 @@ public:
     void move(const sf::Vector2f & position);
     void shoot(sf::Uint32 & playerID);
     void lookAtMouse();
+    sf::Vector2f getBulletCollisionPoint();
+    void setBulletCollisionPoint(sf::Vector2f & bulletPoint);
 
     void decreaseHealth(const unsigned int & damage);
     int getHealth();

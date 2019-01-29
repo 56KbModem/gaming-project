@@ -63,6 +63,10 @@ void Player::lookAtMouse() {
     mySprite.setRotation(rotation);
 }
 
+sf::Vector2f Player::getBulletCollisionPoint(){
+    return myWeapon.getBulletCollisionPoint();
+}
+
 void Player::decreaseHealth(const unsigned int &damage) {
     hud.decreaseHealth(damage);
 }
