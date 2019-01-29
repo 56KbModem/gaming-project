@@ -4,7 +4,6 @@
 
 #ifndef TOPFORCE_SCOREBOX_HPP
 #define TOPFORCE_SCOREBOX_HPP
-#define FONT "assets/fonts/BankGothicMediumBT.ttf"
 
 #include "../Topforce.hpp"
 #include "../abstracts/MoveableScreenObject.hpp"
@@ -16,17 +15,17 @@ struct Scores {
     int score, kills, deaths;
 };
 
-class ScoreBox : public sf::RectangleShape, public tf::MoveableScreenObject {
+class ScoreBox : public tf::MoveableScreenObject {
 private:
-    sf::Font font;
+    sf::RectangleShape box;
     sf::Text text[4];
 public:
     const std::string playerName;
-    ScoreBox(sf::RenderWindow & window, const std::string& playerName);
+    ScoreBox(sf::RenderWindow & window, sf::Font & font, const std::string& playerName);
     void setScore(const Scores& score);
+    void setPosition(const sf::Vector2f & position);
     void draw() const override;
     void update() override;
-
 };
 }
 

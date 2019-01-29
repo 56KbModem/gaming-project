@@ -7,21 +7,17 @@
 namespace tf {
 
 
-ScoreBox::ScoreBox(sf::RenderWindow & window, const std::string& playerName):
+ScoreBox::ScoreBox(sf::RenderWindow & window, sf::Font & font, const std::string& playerName):
     MoveableScreenObject(window),
     playerName(playerName)
 {
-    if (!font.loadFromFile(FONT)) {
-        TF_ERROR("Failed to load from file");
-    }
-    for (auto& t : text) {
+    for(auto & t : text){
         t.setFont(font);
         t.setCharacterSize(30);
         t.setString("0");
     }
-
-    sf::RectangleShape::setFillColor(sf::Color(206,79,70, 150));
-    sf::RectangleShape::setSize(sf::Vector2f(960, 25));
+    box.setFillColor(sf::Color(206,79,70, 150));
+    box.setSize(sf::Vector2f(960, 35));
     text[0].setString(playerName);
 }
 
@@ -32,15 +28,21 @@ void ScoreBox::setScore(const Scores& score) {
 }
 
 void ScoreBox::draw() const {
-    window.draw(*this);
+    window.draw(box);
+    for(const auto & t : text){
+        window.draw(t);
+    }
+}
 
+void ScoreBox::setPosition(const sf::Vector2f & position){
+    box.setPosition(position);
 }
 
 void ScoreBox::update() {
-    sf::Vector2f location = sf::RectangleShape::getPosition();
-    text[0].setPosition(sf::Vector2f(location.x, location.y));
-    text[1].setPosition(sf::Vector2f(location.x + 150, location.y));
-    text[2].setPosition(sf::Vector2f(location.x + 200, location.y));
-    text[3].setPosition(sf::Vector2f(location.x + 250, location.y));
+    sf::Vector2f location = box.getPosition();
+    text[0].setPosition(sf::Vector2f(location.x + 10, location.y-5));
+    text[1].setPosition(sf::Vector2f(location.x + 580, location.y-5));
+    text[2].setPosition(sf::Vector2f(location.x + 730, location.y-5));
+    text[3].setPosition(sf::Vector2f(location.x + 880, location.y-5));
 }
 }

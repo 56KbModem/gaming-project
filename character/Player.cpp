@@ -12,7 +12,6 @@ Player::Player(tf::TopforceWindow &window, const sf::Uint32 &playerID, sf::View 
     playerPacket(playerPacket)
 {
     view.setCenter(mySprite.getPosition());
-    //scoreBoard.setScore("iTzz-SKiLsZxXx", tf::Scores{0, 0, 0});
 }
 
 void Player::draw() const {
@@ -79,6 +78,10 @@ void Player::setHealth(const int &health) {
 void Player::setPosition(const sf::Vector2f &position) {
     Character::setPosition(position);
     view.setCenter(mySprite.getPosition());
+}
+
+void Player::setScore(const std::string &playerName, const tf::Scores &score) {
+    scoreBoard.setScore(playerName, score);
 }
 
 void Player::giveFullAmmo() {

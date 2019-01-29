@@ -47,6 +47,8 @@ public:
 
     void setPosition(const sf::Vector2f& position) override;
 
+    void setScore(const std::string& playerName, const Scores& score);
+
     void giveFullAmmo();
 
     sf::Uint32 getEnemyID();

@@ -35,6 +35,11 @@ void FreeForAll::run() {
     // Create random seed based on current time
     std::srand(std::time(nullptr));
     ownPlayer.setPosition(spawnPoints[std::rand() % 8]);
+
+    ownPlayer.setScore("Mr.SKiLzZ", tf::Scores{1000, 10, 0});
+    ownPlayer.setScore("Kaazerne", tf::Scores{200, 2, 10});
+    ownPlayer.setScore("Cris", tf::Scores{0, 0, 2});
+
     // ---- Free-For-All gameloop ----
     while (window.isOpen()) {
         // Recieve Server packets

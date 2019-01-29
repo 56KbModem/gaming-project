@@ -11,10 +11,22 @@ ScoreBoard::ScoreBoard(tf::TopforceWindow& window, sf::View& view):
     MoveableScreenObject(window),
     view(view)
 {
-    rectangles.push_back(tf::ScoreBox(window, "kaas"));
+    if(!font.loadFromFile(FONT)){
+        TF_INFO("Unable to load font: {}",FONT);
+    }
+    for (auto & t : text){
+        t.setFont(font);
+        t.setCharacterSize(20);
+    }
+    text[0].setString("Score");
+    text[1].setString("Kills");
+    text[2].setString("Deaths");
 }
 
 void ScoreBoard::draw() const {
+    for (const auto& t : text){
+        window.draw(t);
+    }
     for (const auto& rect : rectangles) {
         rect.draw();
     }
@@ -22,31 +34,28 @@ void ScoreBoard::draw() const {
 
 void ScoreBoard::update() {
     int offset = 0;
+    int textOffset = 0;
+    for (auto& t : text){
+        t.setPosition(sf::Vector2f(view.getCenter().x + 100 + textOffset, view.getCenter().y - 300));
+        textOffset += 145;
+    }
+    for (auto& rect : rectangles) {
+        rect.setPosition(sf::Vector2f(view.getCenter().x - 480, view.getCenter().y - 270 + offset));
+        offset += 45;
+        rect.update();
+    }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Tab)) {
-        for (auto& rect : rectangles) {
-            rect.setPosition(view.getCenter().x - 480, view.getCenter().y - 270 + offset);
-            offset += 35;
-            rect.update();
-        }
         ScoreBoard::draw();
     }
 }
 
 void ScoreBoard::setScore(const std::string& playerName, const Scores& score) {
     scores[playerName] = score;
+    rectangles.clear();
     int index = 0;
-    if (rectangles.size() == 0) {
-        rectangles.push_back(tf::ScoreBox(window, playerName));
-        return;
-    }
-    for (auto& s : scores) {
-        if (rectangles[index].playerName != s.first) {
-            rectangles.push_back(tf::ScoreBox(window, s.first));
-            rectangles[index].setScore(s.second);
-        }
-        else {
-            rectangles[index].setScore(s.second);
-        }
+    for(const auto s : scores){
+        rectangles.push_back(tf::ScoreBox(window,font,s.first));
+        rectangles[index].setScore(s.second);
         index++;
     }
 }
