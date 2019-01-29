@@ -6,13 +6,14 @@
 #define TOPFORCE_SCREENOBJECT_HPP
 
 #include "../Topforce.hpp"
+#include "../gui/TopforceWindow.hpp"
 
 namespace tf {
     class ScreenObject {
     protected:
-        sf::RenderWindow& window;
+        sf::RenderWindow & window;
     public:
-        ScreenObject(sf::RenderWindow& window);
+        ScreenObject(sf::RenderWindow & window);
         virtual void draw() const = 0;
     };
 }

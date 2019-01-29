@@ -2,6 +2,7 @@
 #include "Weapon.hpp"
 #include "../Action.hpp"
 #include "../gui/HUD.hpp"
+#include "../gui/ScoreBoard.hpp"
 
 #ifndef TOPFORCE_PLAYER_HPP
 #define TOPFORCE_PLAYER_HPP
@@ -15,6 +16,7 @@ private:
     tf::Weapon myWeapon;
     sf::Vector2f currentPosition;
     tf::HUD hud;
+    tf::ScoreBoard scoreBoard;
     sf::Uint32 enemyID = 0;
     tf::PlayerPacket & playerPacket;
     Action actions[8] = {Action([&](){currentPosition = getPosition(); lookAtMouse();} ),
@@ -26,6 +28,7 @@ private:
                         Action(sf::Mouse::Left, [&](){if(currentPosition == getPosition()){ shoot(enemyID);} }),
                         Action([&](){return currentPosition == getPosition();}, [&](){setTexture(Texture::Stationary);})
     };
+
     void setTexture(const Texture & animation) override;
 public:
     Player(tf::TopforceWindow& window, const sf::Uint32 &playerID, sf::View & view, const std::vector<sf::FloatRect> & levelHitboxes, std::vector<tf::Character> & enemies, tf::PlayerPacket & playerPacket);

@@ -6,6 +6,7 @@
 #define TOPFORCE_MOVEABLE_SCREEN_OBJECT_HPP
 
 #include "ScreenObject.hpp"
+#include "../gui/TopforceWindow.hpp"
 
 namespace tf{
 class MoveableScreenObject : public ScreenObject {
