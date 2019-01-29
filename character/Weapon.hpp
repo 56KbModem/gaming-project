@@ -1,5 +1,5 @@
 #include "../Topforce.hpp"
-#include "../character/HUD.hpp"
+#include "../gui/HUD.hpp"
 #include "../abstracts/Character.hpp"
 
 #ifndef TOPFORCE_WEAPON_HPP

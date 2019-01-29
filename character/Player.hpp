@@ -1,7 +1,7 @@
 #include "../abstracts/Character.hpp"
 #include "Weapon.hpp"
 #include "../Action.hpp"
-#include "HUD.hpp"
+#include "../gui/HUD.hpp"
 
 #ifndef TOPFORCE_PLAYER_HPP
 #define TOPFORCE_PLAYER_HPP
