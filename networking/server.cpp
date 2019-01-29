@@ -66,6 +66,10 @@ sf::Socket::Status Server::timeSend(){
     } else if (secondToPlay <= 0 && minuteToPlay <= 0) {
         timePacket.clear();
         timePacket << "time" << 0 << 0; // stop the clients
+        std::for_each(clientIps.begin(), clientIps.end(), [&](sf::IpAddress client) {
+            socket.send(timePacket, client, 53000);
+        });
+
         exit(1);
     }
 
