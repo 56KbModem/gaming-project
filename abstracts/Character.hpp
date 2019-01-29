@@ -20,6 +20,7 @@ protected:
 public:
     Character(tf::TopforceWindow& window, const sf::Uint32 & playerID);
     const sf::Uint32 playerID;
+    sf::Vector2f firePos;
 
     void draw() const override;
     void update() override;

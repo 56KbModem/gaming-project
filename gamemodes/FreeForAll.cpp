@@ -77,7 +77,8 @@ void FreeForAll::run() {
         GameMode::ownPlayer.update();
         for (const auto& enemy : GameMode::enemies) {
             enemy.draw();
-            if(serverPacket.firing){
+            if(serverPacket.firing)
+                enemy.setShootLine(enemy.getPosition(), enemy.firePos);
                 enemy.drawShootline();
             }
         }

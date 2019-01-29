@@ -32,6 +32,7 @@ void GameMode::setEnemyParams(tf::PlayerPacket & packet) {
         if (enemy.playerID == packet.PlayerId) {
             enemy.setPosition(packet.position);
             enemy.setRotation(packet.rotation);
+            enemy.firePos = packet.firePos;
             return;
         }
     }
