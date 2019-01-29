@@ -106,7 +106,7 @@ void FreeForAll::send(){
     while(true) {
         packet.rotation = ownPlayer.getRotation();
         packet.position = ownPlayer.getPosition();
-        packet.firePos = sf::Vector2f(sf::Mouse::getPosition(window));
+        packet.firePos = ownPlayer.getMouseLocation();
         client.send(packet);
         sf::sleep(sf::milliseconds(5));
     }

@@ -37,6 +37,7 @@ public:
     void move(const sf::Vector2f & position);
     void shoot(sf::Uint32 & playerID);
     void lookAtMouse();
+    sf::Vector2f getMouseLocation();
 
     void decreaseHealth(const unsigned int & damage);
     int getHealth();
