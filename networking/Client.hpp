@@ -17,6 +17,7 @@ class Client {
     tf::TimePacket timeReceived;
     tf::DamagePacket lastDamagePacket;
     std::thread thread;
+    sf::IpAddress lastLeaved;
 public:
     Client(sf::IpAddress &serverIp );
     sf::Socket::Status receive();
@@ -25,6 +26,7 @@ public:
     tf::PlayerPacket getLastPacket();
     tf::TimePacket getTime();
     tf::DamagePacket getDamage();
+    sf::IpAddress getLastLeaved();
 
 };
 }}

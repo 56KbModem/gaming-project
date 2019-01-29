@@ -29,15 +29,19 @@ sf::Socket::Status Client::receive() {
             if (header == "player") {
                 rawPacket >> lastReceived.playerName >> lastReceived.position.x >> lastReceived.position.y
                           >> lastReceived.rotation >> lastReceived.walking >> lastReceived.firing
-                          >> lastReceived.PlayerId;
+                          >> lastReceived.PlayerId >> lastReceived.firePos.x >>lastReceived.firePos.y;
                 lastReceived.header=header;
-            } else if (header == "time") {
+            }
+            else if (header == "time") {
                 rawPacket >> timeReceived.minutes >> timeReceived.seconds;
                 timeReceived.header=header;
             }
             else if (header=="damage"){
                 lastDamagePacket.header=header;
                 rawPacket >>  lastDamagePacket.hitById >>lastDamagePacket.playerId >>lastDamagePacket.damage;
+            }
+            else if(header=="leave"){
+                lastLeaved = tmpIp ;
             }
         }
         sf::sleep(sf::milliseconds(5));
@@ -47,7 +51,8 @@ sf::Socket::Status Client::receive() {
 
 sf::Socket::Status Client::send(const tf::PlayerPacket &packet) {
     sf::Packet rawPacket;
-    if (rawPacket << "player" << packet.playerName <<packet.position.x << packet.position.y << packet.rotation << packet.walking << packet.firing <<packet.PlayerId) {
+    if (rawPacket << "player" << packet.playerName <<packet.position.x << packet.position.y << packet.rotation << packet.walking
+    << packet.firing <<packet.PlayerId << packet.firePos.x <<packet.firePos.y) {
 
         return (socket.send(rawPacket, serverIp, serverPort));
     }
@@ -82,5 +87,11 @@ tf::DamagePacket Client::getDamage(){
         return tmp;
     }
     return {"damage",0,0,0}; 
+}
+
+sf::IpAddress Client::getLastLeaved(){
+    sf::IpAddress tmp = lastLeaved;
+    lastLeaved = nullptr;
+    return tmp;
 }
 }}

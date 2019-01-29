@@ -62,5 +62,7 @@ namespace tf {
         sf::Uint32 playerId;
         unsigned int damage;
     };
+
+
 }
 #endif //TOPFORCE_HEADERS_HPP
