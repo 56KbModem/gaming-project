@@ -20,13 +20,13 @@ protected:
 public:
     Character(tf::TopforceWindow& window, const sf::Uint32 & playerID);
     const sf::Uint32 playerID;
-    sf::Vector2f firePos;
+    sf::Vector2f firePosition;
 
     void draw() const override;
     void update() override;
 
     sf::FloatRect getBounds();
-    sf::Vector2f getPosition();
+    sf::Vector2f getPosition() const;
     virtual void setPosition(const sf::Vector2f& position);
     float getRotation();
     void setRotation(const float& rotation);
