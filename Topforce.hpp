@@ -47,6 +47,7 @@ namespace tf {
         bool walking;
         bool firing = false;
         sf::Uint32 PlayerId = 0;
+        sf::Vector2f firePos;
     };
 
     struct TimePacket {

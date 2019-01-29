@@ -77,6 +77,9 @@ void FreeForAll::run() {
         GameMode::ownPlayer.update();
         for (const auto& enemy : GameMode::enemies) {
             enemy.draw();
+            if(serverPacket.firing){
+                enemy.drawShootline();
+            }
         }
 
         GameMode::sendDamage();
@@ -101,6 +104,7 @@ void FreeForAll::send(){
     while(true) {
         packet.rotation = ownPlayer.getRotation();
         packet.position = ownPlayer.getPosition();
+        packet.firePos = sf::Vector2f(sf::Mouse::getPosition());
         client.send(packet);
         sf::sleep(sf::milliseconds(5));
     }
