@@ -43,7 +43,7 @@ sf::FloatRect Character::getBounds() {
     return hitbox.getGlobalBounds();
 }
 
-sf::Vector2f Character::getPosition() const {
+sf::Vector2f Character::getPosition() {
     return mySprite.getPosition();
 }
 

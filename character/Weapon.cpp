@@ -48,12 +48,14 @@ void Weapon::drawShootLine(const sf::Vector2f &position, const float & rotation,
             if(enemy.getBounds().intersects(bounds)){
                 hit = 1;
                 playerID = enemy.playerID;
+                setBulletCollisionPoint(bulletHit.getPosition());
                 break;
             }
         }
         for (auto &hitbox : levelHitboxes){
             if (hitbox.intersects(bounds)){
                 hit = 1;
+                setBulletCollisionPoint(bulletHit.getPosition());
                 break;
             }
         }
@@ -77,6 +79,14 @@ void Weapon::setWeaponLocation(const sf::Vector2f & position, const float & rota
 
 sf::Vector2f Weapon::getWeaponLocation(){
     return weaponLocation.getPosition();
+}
+
+sf::Vector2f Weapon::getBulletCollisionPoint() {
+    return bulletCollisionPoint;
+}
+
+void Weapon::setBulletCollisionPoint(const sf::Vector2f &bulletColPoint) {
+    bulletCollisionPoint = bulletColPoint;
 }
 
 }

@@ -26,7 +26,7 @@ public:
     void update() override;
 
     sf::FloatRect getBounds();
-    sf::Vector2f getPosition() const;
+    sf::Vector2f getPosition();
     virtual void setPosition(const sf::Vector2f& position);
     float getRotation();
     void setRotation(const float& rotation);

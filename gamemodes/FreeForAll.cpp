@@ -106,7 +106,7 @@ void FreeForAll::send(){
     while(true) {
         packet.rotation = ownPlayer.getRotation();
         packet.position = ownPlayer.getPosition();
-        packet.firePos = ownPlayer.getMouseLocation();
+        packet.firePos = ownPlayer.getBulletCollisionPoint();
         client.send(packet);
         sf::sleep(sf::milliseconds(5));
     }

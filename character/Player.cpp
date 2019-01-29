@@ -61,10 +61,8 @@ void Player::lookAtMouse() {
     mySprite.setRotation(rotation);
 }
 
-sf::Vector2f Player::getMouseLocation(){
-    sf::Vector2i position = sf::Mouse::getPosition(window);
-    sf::Vector2f worldPos = window.mapPixelToCoords(position);
-    return worldPos;
+sf::Vector2f Player::getBulletCollisionPoint(){
+    return myWeapon.getBulletCollisionPoint();
 }
 
 void Player::decreaseHealth(const unsigned int &damage) {
