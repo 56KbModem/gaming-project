@@ -91,7 +91,7 @@ tf::DamagePacket Client::getDamage(){
 
 sf::IpAddress Client::getLastLeaved(){
     sf::IpAddress tmp = lastLeaved;
-    lastLeaved = nullptr;
+    lastLeaved = "";
     return tmp;
 }
 }}

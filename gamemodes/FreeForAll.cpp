@@ -63,10 +63,10 @@ void FreeForAll::run() {
             GameMode::enemies.push_back(Character(window, serverPacket.PlayerId));
         }
 
-        sf::IpAddress tmpleaved= client.getLastLeaved() ;
-        if (tmpleaved != nullptr){
+        auto tmpleaved= client.getLastLeaved() ;
+        if (tmpleaved!="" && !enemies.empty()){
             for (unsigned int i =0; i <enemies.size()+1; i++){
-                if (enemies[i].playerID==tmpleaved.toInteger()){
+                if (enemies[i].playerID==tmpleaved.toInteger() ){
                     delete &enemies[i];
                     enemies.shrink_to_fit();
                 }

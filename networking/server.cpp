@@ -28,7 +28,7 @@ sf::Socket::Status Server::ServerReceive() {
         return sf::Socket::NotReady;
     }
     playerPacket>>tmpHeader ;
-    if (tmpHeader == "leave"){
+    if (tmpHeader == "leave"&& !clientIps.empty()){
         clientIps.erase(lastIp);
     }
     else{
