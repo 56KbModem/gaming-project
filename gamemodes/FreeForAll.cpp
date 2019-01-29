@@ -77,7 +77,7 @@ void FreeForAll::run() {
         GameMode::ownPlayer.update();
         for (auto& enemy : GameMode::enemies) {
             enemy.draw();
-            if(serverPacket.firing){
+            if(serverPacket.firing && serverPacket.PlayerId == enemy.playerID){
                 sf::Vector2f tmpLocation = enemy.getPosition();
                 enemy.setShootLine(tmpLocation, enemy.firePosition);
                 enemy.drawShootline();
