@@ -18,6 +18,7 @@ class Client {
     tf::DamagePacket lastDamagePacket;
     std::thread thread;
     sf::IpAddress lastLeaved;
+    bool stopThread = false;
 public:
     Client(sf::IpAddress &serverIp );
     ~Client();

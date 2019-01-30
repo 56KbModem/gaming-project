@@ -19,10 +19,12 @@ Client::Client(sf::IpAddress &serverIp):
 
 Client::~Client() {
     socket.unbind();
+    stopThread = true;
+    thread.join();
 }
 
 sf::Socket::Status Client::receive() {
-    while(true) {
+    while(!stopThread) {
         sf::Packet rawPacket;
         sf::IpAddress tmpIp;
         std::string header;
