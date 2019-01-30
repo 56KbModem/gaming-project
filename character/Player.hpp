@@ -53,7 +53,7 @@ public:
     void setScore(const std::string& playerName, const Scores& score);
 
     void giveFullAmmo();
-
+    bool isTimeOver();
     sf::Uint32 getEnemyID();
     void setTime(const tf::TimePacket & packet);
 };
