@@ -2,6 +2,7 @@
 #include "Weapon.hpp"
 #include "../Action.hpp"
 #include "../gui/HUD.hpp"
+#include "../gui/ScoreBoard.hpp"
 
 #ifndef TOPFORCE_PLAYER_HPP
 #define TOPFORCE_PLAYER_HPP
@@ -16,6 +17,7 @@ private:
     sf::Vector2f currentPosition;
     sf::Vector2f bulletCollisionPoint;
     tf::HUD hud;
+    tf::ScoreBoard scoreBoard;
     sf::Uint32 enemyID = 0;
     tf::PlayerPacket & playerPacket;
     Action actions[8] = {Action([&](){currentPosition = getPosition(); lookAtMouse();} ),
@@ -27,6 +29,7 @@ private:
                         Action(sf::Mouse::Left, [&](){if(currentPosition == getPosition()){ shoot(enemyID);} }),
                         Action([&](){return currentPosition == getPosition();}, [&](){setTexture(Texture::Stationary);})
     };
+
     void setTexture(const Texture & animation) override;
 public:
     Player(tf::TopforceWindow& window, const sf::Uint32 &playerID, sf::View & view, const std::vector<sf::FloatRect> & levelHitboxes, std::vector<tf::Character> & enemies, tf::PlayerPacket & playerPacket);
@@ -46,6 +49,8 @@ public:
     void setHealth(const int & health);
 
     void setPosition(const sf::Vector2f& position) override;
+
+    void setScore(const std::string& playerName, const Scores& score);
 
     void giveFullAmmo();
 

@@ -8,6 +8,7 @@ Player::Player(tf::TopforceWindow &window, const sf::Uint32 &playerID, sf::View 
     levelHitboxes(levelHitboxes),
     myWeapon(window, levelHitboxes, enemies),
     hud(window, view),
+    scoreBoard(window, view),
     playerPacket(playerPacket)
 {
     view.setCenter(mySprite.getPosition());
@@ -39,6 +40,7 @@ void Player::move(const sf::Vector2f & position) {
 }
 
 void Player::update(){
+    scoreBoard.update();
     for(auto & action : actions) {
         action();
     }
@@ -80,6 +82,10 @@ void Player::setHealth(const int &health) {
 void Player::setPosition(const sf::Vector2f &position) {
     Character::setPosition(position);
     view.setCenter(mySprite.getPosition());
+}
+
+void Player::setScore(const std::string &playerName, const tf::Scores &score) {
+    scoreBoard.setScore(playerName, score);
 }
 
 void Player::giveFullAmmo() {

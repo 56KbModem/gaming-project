@@ -6,6 +6,6 @@
 
 
 namespace tf {
-    ScreenObject::ScreenObject(sf::RenderWindow& window):
+    ScreenObject::ScreenObject(sf::RenderWindow & window):
         window(window){}
 }
