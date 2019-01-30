@@ -13,9 +13,6 @@ int main(){
 #endif
 
     tf::TopforceWindow window; // customized window
-    window.setWindowIcon();
-    window.setCursorIcon("crosshair.png");
-
     // ---- Main Menu ----
     tf::GameModes selectedMode;
     tf::gui::MainMenu menu(window);
