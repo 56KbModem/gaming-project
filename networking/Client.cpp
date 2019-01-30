@@ -44,7 +44,9 @@ void Client::receive() {
             }
             else if (header=="damage"){
                 lastDamagePacket.header=header;
-                rawPacket >> lastDamagePacket.died >> lastDamagePacket.hitById >> lastDamagePacket.playerId >>lastDamagePacket.damage;
+                rawPacket >> lastDamagePacket.died >> lastDamagePacket.hitById
+                >> lastDamagePacket.hitByName >> lastDamagePacket.playerId
+                >> lastDamagePacket.playerName >> lastDamagePacket.damage;
             }
             else if(header=="leave"){
                 lastLeaved = tmpIp ;
@@ -69,7 +71,8 @@ sf::Socket::Status Client::send(const tf::PlayerPacket &packet) {
 
 sf::Socket::Status Client::send(const tf::DamagePacket &packet){
     sf::Packet rawPacket;
-    if (rawPacket << "damage" << packet.died << packet.hitById <<packet.playerId << packet.damage) {
+    if (rawPacket << "damage" << packet.died << packet.hitById <<
+    packet.hitByName << packet.playerId << packet.playerName << packet.damage) {
 
         return (socket.send(rawPacket, serverIp, serverPort));
     }
@@ -87,12 +90,13 @@ tf::TimePacket Client::getTime(){
 }
 
 tf::DamagePacket Client::getDamage(){
-    if (lastDamagePacket.header=="damage" && lastDamagePacket.playerId == sf::IpAddress::getLocalAddress().toInteger()){
+    if (lastDamagePacket.header=="damage"){
         tf::DamagePacket tmp= lastDamagePacket;
         lastDamagePacket.header="readed";
         return tmp;
     }
-    return {"damage",0,0,0}; 
+    return tf::DamagePacket{"damage",false,0,"",0,"",0}; //
+    //return {"damage",0,0,0};
 }
 
 sf::IpAddress Client::getLastLeaved(){

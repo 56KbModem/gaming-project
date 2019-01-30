@@ -47,15 +47,20 @@ void FreeForAll::run() {
         // Recieve Server packets
         GameMode::serverPacket = client.getLastPacket();
 
-
-        GameMode::ownPlayer.decreaseHealth(client.getDamage().damage);
+        auto damage = client.getDamage();
+        if(damage.playerId == sf::IpAddress::getLocalAddress().toInteger()){
+            GameMode::ownPlayer.decreaseHealth(damage.damage);
+        }
         if(ownPlayer.getHealth() < 0){
             /* let everyone know that we died! */
-            GameMode::IDied.header = "damage";
-            GameMode::IDied.died = true;
-            GameMode::IDied.playerId = ownPlayer.playerID;
-            GameMode::IDied.hitById = damagePacket.hitById;
-            GameMode::IDied.damage = 0; // we don't need to set damage, we died
+            tf::DamagePacket IDied;
+            IDied.header = "damage";
+            IDied.died = true;
+            IDied.playerId = ownPlayer.playerID;
+            IDied.playerName = packet.playerName;
+            IDied.hitById = damage.hitById;
+            IDied.hitByName = damage.hitByName;
+            IDied.damage = 0; // we don't need to set damage, we died
             client.send(IDied);
 
             ownPlayer.setPosition(spawnPoints[std::rand() % 8]);
@@ -68,9 +73,10 @@ void FreeForAll::run() {
             ownPlayer.setHealth(100);
         }
 
-        if (client.getDamage().died){ // someone has died.. update scoreboard.
-            ownPlayer.setScore(std::to_string(client.getDamage().hitById), tf::Scores{100, 1, 0}); // AAN MARC VRAGEN, NAMEN OF ID'S?
-            ownPlayer.setScore(std::to_string(client.getDamage().playerId), tf::Scores{0,0,1});
+        if (damage.died){ // someone has died.. update scoreboard.
+            TF_INFO("SOMEONE HAS DIED");
+            ownPlayer.setScore(damage.hitByName, tf::Scores{100, 1, 0}); // AAN MARC VRAGEN, NAMEN OF ID'S?
+            ownPlayer.setScore(damage.playerName, tf::Scores{0,0,1});
         }
 
         if(serverPacket.firing && clock1.getElapsedTime().asMilliseconds() > 100){
