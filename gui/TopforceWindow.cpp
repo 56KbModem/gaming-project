@@ -11,13 +11,15 @@ namespace tf {
         sf::RenderWindow::create(sf::VideoMode(1920, 1080), "Topforce", sf::Style::Titlebar | sf::Style::Close, settings);
         sf::RenderWindow::setVerticalSyncEnabled(true);
         sf::RenderWindow::setFramerateLimit(60);
+        setWindowIcon();
+        setCursorIcon();
     }
 
     void TopforceWindow::setWindowIcon() {
         sf::RenderWindow::setIcon(512, 512, imageManager.getWindowIcon());
     }
 
-    void TopforceWindow::setCursorIcon(const std::string &filename) {
+    void TopforceWindow::setCursorIcon() {
         sf::RenderWindow::setMouseCursorVisible(false);
         cursorTexture.loadFromFile("assets/images/crosshair.png");
         cursor = sf::Sprite(cursorTexture);

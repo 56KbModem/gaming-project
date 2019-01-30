@@ -15,10 +15,10 @@ private:
     sf::Sprite cursor;
     tf::ImageManager & imageManager = tf::ImageManager::getInstance();
     float cursorRotation = 0;
+    void setWindowIcon();
+    void setCursorIcon();
 public:
     TopforceWindow();
-    void setWindowIcon();
-    void setCursorIcon(const std::string &filename);
     void setSpritePosition();
     sf::Sprite getCursorSprite();
     void setRotation(const float & rotation);

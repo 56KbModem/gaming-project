@@ -13,16 +13,16 @@ int main(){
 #endif
 
     tf::TopforceWindow window; // customized window
-    window.setWindowIcon();
-    window.setCursorIcon("crosshair.png");
-
     // ---- Main Menu ----
     tf::GameModes selectedMode;
     tf::gui::MainMenu menu(window);
     //sf::IpAddress ipAddress("wodan.wifi.hu.nl");
     //sf::IpAddress ipAddress("145.89.78.92");
     sf::IpAddress ipAddress("145.89.79.178");
+
+
     std::unique_ptr<tf::GameMode> gameMode;
+
     while (window.isOpen()) {
         selectedMode = menu.run();
         switch (selectedMode) {

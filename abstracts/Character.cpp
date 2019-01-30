@@ -47,6 +47,14 @@ sf::Vector2f Character::getPosition() {
     return mySprite.getPosition();
 }
 
+sf::Vector2f Character::getWeaponPosition() {
+    float rotation = mySprite.getRotation();
+    sf::Vector2f weaponLocation = mySprite.getPosition();
+    weaponLocation.x += cos((rotation + 212) * (PI / 180)) *- 20;
+    weaponLocation.y += sin((rotation + 212) * (PI / 180)) *- 20;
+    return weaponLocation;
+}
+
 void Character::setPosition(const sf::Vector2f &position) {
     mySprite.setPosition(position);
     hitbox.setPosition(mySprite.getPosition().x -25, mySprite.getPosition().y - 25);
@@ -64,6 +72,7 @@ void Character::setRotation(const float &rotation) {
 void Character::setShootLine(const sf::Vector2f & ownPos, const sf::Vector2f & firePos) {
     shootLine[0] = sf::Vertex(ownPos);
     shootLine[1] = sf::Vertex(firePos);
+    shootLine->color = sf::Color::Yellow;
 }
 
 void Character::drawShootline() const {
