@@ -23,7 +23,7 @@ Client::~Client() {
     thread.join();
 }
 
-sf::Socket::Status Client::receive() {
+void Client::receive() {
     while(!stopThread) {
         sf::Packet rawPacket;
         sf::IpAddress tmpIp;

@@ -22,7 +22,7 @@ class Client {
 public:
     Client(sf::IpAddress &serverIp );
     ~Client();
-    sf::Socket::Status receive();
+    void receive();
     sf::Socket::Status send(const tf::PlayerPacket &packet);
     sf::Socket::Status send(const tf::DamagePacket &packet);
     tf::PlayerPacket getLastPacket();

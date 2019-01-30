@@ -21,11 +21,12 @@ class FreeForAll : public GameMode {
 private:
     std::thread sendThread;
     tf::SoundManager & soundManager = tf::SoundManager::getInstance();
+    bool stopThread = false;
 public:
     FreeForAll(tf::TopforceWindow & window, const std::string & mapName, sf::IpAddress & serverIp);
+    ~FreeForAll();
     void run() override;
     void send();
-    ~FreeForAll();
 };
 }}
 

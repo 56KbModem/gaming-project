@@ -12,7 +12,10 @@ FreeForAll::FreeForAll(tf::TopforceWindow & window, const std::string & mapName,
     view.setSize(1920.f, 1080.f);
     sendThread.detach();
 }
-FreeForAll::~FreeForAll() {}
+FreeForAll::~FreeForAll() {
+    stopThread = true;
+    sendThread.join();
+}
 
 void FreeForAll::run() {
     GameMode::packet.PlayerId = ownPlayer.playerID;
@@ -124,7 +127,7 @@ void FreeForAll::run() {
 }
 
 void FreeForAll::send(){
-    while(true) {
+    while(!stopThread) {
         packet.rotation = ownPlayer.getRotation();
         packet.position = ownPlayer.getPosition();
         packet.firePos = ownPlayer.getBulletCollisionPoint();
