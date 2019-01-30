@@ -17,6 +17,10 @@ Client::Client(sf::IpAddress &serverIp):
     NETWORK_INFO("Client created");
 }
 
+Client::~Client() {
+    socket.unbind();
+}
+
 sf::Socket::Status Client::receive() {
     while(true) {
         sf::Packet rawPacket;

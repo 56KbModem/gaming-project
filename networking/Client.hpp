@@ -20,6 +20,7 @@ class Client {
     sf::IpAddress lastLeaved;
 public:
     Client(sf::IpAddress &serverIp );
+    ~Client();
     sf::Socket::Status receive();
     sf::Socket::Status send(const tf::PlayerPacket &packet);
     sf::Socket::Status send(const tf::DamagePacket &packet);
@@ -27,7 +28,6 @@ public:
     tf::TimePacket getTime();
     tf::DamagePacket getDamage();
     sf::IpAddress getLastLeaved();
-
 };
 }}
 
