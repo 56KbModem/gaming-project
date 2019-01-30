@@ -102,4 +102,8 @@ void Player::setTime(const tf::TimePacket & packet) {
     hud.setTime(packet);
 }
 
+bool Player::isTimeOver() {
+    return hud.isTimeOver();
+}
+
 } // End namespace tf

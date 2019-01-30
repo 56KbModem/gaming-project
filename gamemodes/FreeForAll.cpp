@@ -41,7 +41,7 @@ void FreeForAll::run() {
     ownPlayer.setScore("Cris", tf::Scores{0, 0, 2});
 
     // ---- Free-For-All gameloop ----
-    while (window.isOpen()) {
+    while (window.isOpen() && !ownPlayer.isTimeOver()) {
         // Recieve Server packets
         GameMode::serverPacket = client.getLastPacket();
 
@@ -105,6 +105,7 @@ void FreeForAll::run() {
         }
         packet.firing = false;
     }
+    window.setView(window.getDefaultView());
 }
 
 void FreeForAll::send(){

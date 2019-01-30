@@ -120,6 +120,8 @@ void HUD::setTime(const tf::TimePacket &packet) {
         seconds <<std::setw(2) <<std::setfill('0') <<packet.seconds ;
         minutes <<std::setw(2) <<std::setfill('0') <<packet.minutes;
         timeLeft.setString("Time left: " + minutes.str() + ':' + seconds.str());
+        this->minutes = packet.minutes;
+        this->seconds = packet.seconds;
     }
 }
 
@@ -129,5 +131,9 @@ void HUD::setHealth(const int &health) {
 
 int HUD::getHealth() {
     return currentHealth;
+}
+
+bool HUD::isTimeOver() {
+    return minutes == 0 && seconds == 0;
 }
 } // namespace tf
