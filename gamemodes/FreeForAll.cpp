@@ -70,18 +70,6 @@ void FreeForAll::run() {
             GameMode::enemies.push_back(Character(window, serverPacket.PlayerId));
         }
 
-        auto tmpleaved= client.getLastLeaved() ;
-        if (tmpleaved!="" && !enemies.empty()){
-            for (unsigned int i =0; i <enemies.size()+1; i++){
-                if (enemies[i].playerID==tmpleaved.toInteger() ){
-                    delete &enemies[i];
-                    enemies.shrink_to_fit();
-                }
-            }
-        }
-
-
-
         // set position, rotation, shooting ... etc
         GameMode::setEnemyParams(serverPacket);
 
