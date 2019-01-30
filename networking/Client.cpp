@@ -6,6 +6,7 @@
 
 namespace tf {namespace network{
 Client::Client(sf::IpAddress &serverIp):
+
         serverIp(serverIp),
         serverPort(port),
         thread(&tf::network::Client::receive, this)
@@ -20,7 +21,6 @@ Client::Client(sf::IpAddress &serverIp):
 Client::~Client() {
     socket.unbind();
     stopThread = true;
-    thread.join();
 }
 
 void Client::receive() {

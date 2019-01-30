@@ -34,6 +34,7 @@ int main(){
             default:
                 break;
         }
+        gameMode.reset();
     }
     return 0;
 }

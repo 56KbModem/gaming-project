@@ -11,6 +11,8 @@ HUD::HUD(sf::RenderWindow &window, sf::View& view) :
     currentAmmo(30),
     totalAmmo(90),
     currentHealth(100),
+    minutes(10),
+    seconds(0),
     clipSize(30),
     view(view)
     {

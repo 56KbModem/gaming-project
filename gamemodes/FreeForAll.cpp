@@ -14,7 +14,6 @@ FreeForAll::FreeForAll(tf::TopforceWindow & window, const std::string & mapName,
 }
 FreeForAll::~FreeForAll() {
     stopThread = true;
-    sendThread.join();
 }
 
 void FreeForAll::run() {
