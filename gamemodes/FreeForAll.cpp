@@ -50,18 +50,13 @@ void FreeForAll::run() {
 
 
         GameMode::ownPlayer.decreaseHealth(client.getDamage().damage);
-        if (client.getDamage().died){ // someone has died.. update scoreboard.
-            ownPlayer.setScore(std::to_string(client.getDamage().hitById), tf::Scores{100, 1, 0}); // AAN MARC VRAGEN, NAMEN OF ID'S?
-            ownPlayer.setScore(std::to_string(client.getDamage().playerId), tf::Scores{0,0,1});
-        }
         if(ownPlayer.getHealth() < 0){
             /* let everyone know that we died! */
-            tf::DamagePacket IDied;
-            IDied.header = "damage";
-            IDied.died = true;
-            IDied.playerId = ownPlayer.playerID;
-            IDied.hitById = damagePacket.hitById;
-            IDied.damage = 0; // we don't need to set damage, we died
+            GameMode::IDied.header = "damage";
+            GameMode::IDied.died = true;
+            GameMode::IDied.playerId = ownPlayer.playerID;
+            GameMode::IDied.hitById = damagePacket.hitById;
+            GameMode::IDied.damage = 0; // we don't need to set damage, we died
             client.send(IDied);
 
             ownPlayer.setPosition(spawnPoints[std::rand() % 8]);
@@ -71,6 +66,11 @@ void FreeForAll::run() {
         }
         if(deathClock.getElapsedTime().asMilliseconds() < 2000 ){
             ownPlayer.setHealth(100);
+        }
+
+        if (client.getDamage().died){ // someone has died.. update scoreboard.
+            ownPlayer.setScore(std::to_string(client.getDamage().hitById), tf::Scores{100, 1, 0}); // AAN MARC VRAGEN, NAMEN OF ID'S?
+            ownPlayer.setScore(std::to_string(client.getDamage().playerId), tf::Scores{0,0,1});
         }
 
         if(serverPacket.firing && clock1.getElapsedTime().asMilliseconds() > 100){

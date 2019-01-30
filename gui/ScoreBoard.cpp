@@ -50,7 +50,14 @@ void ScoreBoard::update() {
 }
 
 void ScoreBoard::setScore(const std::string& playerName, const Scores& score) {
-    scores[playerName] = score;
+    // updating scoreboard.
+    if (scores.find(playerName) == scores.end() ){
+        scores[playerName] = Scores{0,0,0};
+    }
+
+    scores[playerName].kills += score.kills;
+    scores[playerName].deaths += score.deaths;
+    scores[playerName].score += score.score;
     rectangles.clear();
     int index = 0;
     for(const auto s : scores){
