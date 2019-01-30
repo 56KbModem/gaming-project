@@ -1,4 +1,4 @@
-#include "Server.hpp"
+#include "server.hpp"
 
 
 Server::Server(const unsigned short & ServerPort, int & minutes, int & seconds):
@@ -22,28 +22,20 @@ secondToPlay(seconds)
 sf::Socket::Status Server::ServerReceive() {
     std::string tmpHeader;
     if (socket.receive(playerPacket, lastIp, lastPort) != sf::Socket::Done) {
-#if DEBUG
-        //NETWORK_INFO("received nothing");
-#endif // DEBUG
         return sf::Socket::NotReady;
     }
     playerPacket>>tmpHeader ;
-    if (tmpHeader == "leave"){
+    if (tmpHeader == "leave" && !clientIps.empty()){
         clientIps.erase(lastIp);
     }
     else{
-#if DEBUG
-   // NETWORK_INFO("Received data");
-#endif // DEBUG
-    clientIps.insert(lastIp);
-    return sf::Socket::Done;
+        clientIps.insert(lastIp);
+        return sf::Socket::Done;
     }
+    return sf::Socket::Error;
 }
 
 sf::Socket::Status Server::playerSend() {
-#if DEBUG
-    //NETWORK_INFO("Server send function");
-#endif // DEBUG
     std::for_each(clientIps.begin(), clientIps.end(), [&](sf::IpAddress client){
         if (client != lastIp) {
             if (socket.send(playerPacket, client, lastPort) != sf::Socket::Done) {
@@ -51,6 +43,7 @@ sf::Socket::Status Server::playerSend() {
                 return sf::Socket::Error;
             }
         }
+        return sf::Socket::Error;
     });
     return sf::Socket::Done;
 }
@@ -66,6 +59,10 @@ sf::Socket::Status Server::timeSend(){
     } else if (secondToPlay <= 0 && minuteToPlay <= 0) {
         timePacket.clear();
         timePacket << "time" << 0 << 0; // stop the clients
+        std::for_each(clientIps.begin(), clientIps.end(), [&](sf::IpAddress client) {
+            socket.send(timePacket, client, 53000);
+        });
+
         exit(1);
     }
 
@@ -88,7 +85,9 @@ sf::Socket::Status Server::timeSend(){
 #endif // DEBUG
             return sf::Socket::Error;
        }
+        return sf::Socket::Error;
     });
+    return sf::Socket::Error;
 }
 
 void Server::run() {

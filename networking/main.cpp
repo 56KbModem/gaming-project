@@ -2,7 +2,7 @@
 // be a dedicated Server and must be
 // compiled as a seperate executable!
 
-#include "Server.hpp"
+#include "server.hpp"
 int main(int argc, char ** argv){
     // Setup logger
     tf::Log::init();

@@ -12,7 +12,9 @@ FreeForAll::FreeForAll(tf::TopforceWindow & window, const std::string & mapName,
     view.setSize(1920.f, 1080.f);
     sendThread.detach();
 }
-FreeForAll::~FreeForAll() {}
+FreeForAll::~FreeForAll() {
+    stopThread = true;
+}
 
 void FreeForAll::run() {
     GameMode::packet.PlayerId = ownPlayer.playerID;
@@ -67,6 +69,19 @@ void FreeForAll::run() {
         if (!GameMode::playerExists(serverPacket) && serverPacket.PlayerId != 0) {
             GameMode::enemies.push_back(Character(window, serverPacket.PlayerId));
         }
+
+        auto tmpleaved= client.getLastLeaved() ;
+        if (tmpleaved!="" && !enemies.empty()){
+            for (unsigned int i =0; i <enemies.size()+1; i++){
+                if (enemies[i].playerID==tmpleaved.toInteger() ){
+                    delete &enemies[i];
+                    enemies.shrink_to_fit();
+                }
+            }
+        }
+
+
+
         // set position, rotation, shooting ... etc
         GameMode::setEnemyParams(serverPacket);
 
@@ -100,6 +115,8 @@ void FreeForAll::run() {
         while (GameMode::window.pollEvent(event)) {
             if (event.type == sf::Event::Closed) {
                 packet.firing = false;
+                tf::PlayerPacket leave={"leave"};
+                client.send(leave);
                 GameMode::window.close();
             }
         }
@@ -109,7 +126,7 @@ void FreeForAll::run() {
 }
 
 void FreeForAll::send(){
-    while(true) {
+    while(!stopThread) {
         packet.rotation = ownPlayer.getRotation();
         packet.position = ownPlayer.getPosition();
         packet.firePos = ownPlayer.getBulletCollisionPoint();

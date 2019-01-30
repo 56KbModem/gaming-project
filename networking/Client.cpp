@@ -6,6 +6,7 @@
 
 namespace tf {namespace network{
 Client::Client(sf::IpAddress &serverIp):
+
         serverIp(serverIp),
         serverPort(port),
         thread(&tf::network::Client::receive, this)
@@ -17,8 +18,13 @@ Client::Client(sf::IpAddress &serverIp):
     NETWORK_INFO("Client created");
 }
 
-sf::Socket::Status Client::receive() {
-    while(true) {
+Client::~Client() {
+    socket.unbind();
+    stopThread = true;
+}
+
+void Client::receive() {
+    while(!stopThread) {
         sf::Packet rawPacket;
         sf::IpAddress tmpIp;
         std::string header;
@@ -91,7 +97,7 @@ tf::DamagePacket Client::getDamage(){
 
 sf::IpAddress Client::getLastLeaved(){
     sf::IpAddress tmp = lastLeaved;
-    lastLeaved = nullptr;
+    lastLeaved = "";
     return tmp;
 }
 }}

@@ -8,8 +8,8 @@
 //#include <iostream>
 
 namespace tf { namespace network{
-    const unsigned short port = 53000;
 class Client {
+    const unsigned short port = 53000;
     sf::IpAddress serverIp;
     unsigned short serverPort;
     sf::UdpSocket socket;
@@ -18,16 +18,17 @@ class Client {
     tf::DamagePacket lastDamagePacket;
     std::thread thread;
     sf::IpAddress lastLeaved;
+    bool stopThread = false;
 public:
     Client(sf::IpAddress &serverIp );
-    sf::Socket::Status receive();
+    ~Client();
+    void receive();
     sf::Socket::Status send(const tf::PlayerPacket &packet);
     sf::Socket::Status send(const tf::DamagePacket &packet);
     tf::PlayerPacket getLastPacket();
     tf::TimePacket getTime();
     tf::DamagePacket getDamage();
     sf::IpAddress getLastLeaved();
-
 };
 }}
 
