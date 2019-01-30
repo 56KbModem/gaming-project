@@ -6,12 +6,12 @@
 
 namespace tf {namespace network{
 Client::Client(sf::IpAddress &serverIp):
-
-        serverIp(serverIp),
-        serverPort(port),
-        thread(&tf::network::Client::receive, this)
-
+    serverIp(serverIp),
+    serverPort(port),
+    thread(&tf::network::Client::receive, this)
 {
+    timeReceived.minutes = 10;
+    timeReceived.seconds = 10;
     socket.bind(port);
     socket.setBlocking(0);
     thread.detach();
@@ -83,7 +83,7 @@ tf::PlayerPacket Client::getLastPacket() {
 }
 
 tf::TimePacket Client::getTime(){
-    return timeReceived ;
+    return timeReceived;
 }
 
 tf::DamagePacket Client::getDamage(){

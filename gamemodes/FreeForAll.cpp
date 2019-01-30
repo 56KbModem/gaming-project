@@ -42,7 +42,6 @@ void FreeForAll::run() {
     //ownPlayer.setScore("Mr.SKiLzZ", tf::Scores{1000, 10, 0});
     //ownPlayer.setScore("Kaazerne", tf::Scores{200, 2, 10});
     //ownPlayer.setScore("Cris", tf::Scores{0, 0, 2});
-
     // ---- Free-For-All gameloop ----
     while (window.isOpen() && !ownPlayer.isTimeOver()) {
         // Recieve Server packets
@@ -62,6 +61,7 @@ void FreeForAll::run() {
             ownPlayer.setPosition(spawnPoints[std::rand() % 8]);
             ownPlayer.setHealth(100);
             ownPlayer.giveFullAmmo();
+            ownPlayer.setScore(packet.playerName, Scores{0,0,1});
             deathClock.restart();
         }
         if(deathClock.getElapsedTime().asMilliseconds() < 2000 ){
@@ -83,6 +83,7 @@ void FreeForAll::run() {
 
         if (!GameMode::playerExists(serverPacket) && serverPacket.PlayerId != 0) {
             GameMode::enemies.push_back(Character(window, serverPacket.PlayerId));
+            ownPlayer.setScore(serverPacket.playerName, Scores{0,0,0});
         }
 
         // set position, rotation, shooting ... etc

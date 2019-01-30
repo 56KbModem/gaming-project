@@ -12,7 +12,7 @@ GameMode::GameMode(tf::TopforceWindow &window, const std::string &mapName, sf::I
     ownPlayer(window, sf::IpAddress::getLocalAddress().toInteger(), view, level.getHitboxes(), enemies, packet)
 {
     view.setSize(1920.f, 1080.f);
-    ownPlayer.setScore(std::to_string(ownPlayer.playerID), Scores{0,0,0});
+    ownPlayer.setScore(sf::IpAddress::getLocalAddress().toString(), Scores{0,0,0});
 }
 
 GameMode::~GameMode() {
