@@ -44,7 +44,7 @@ void Client::receive() {
             }
             else if (header=="damage"){
                 lastDamagePacket.header=header;
-                rawPacket >>  lastDamagePacket.hitById >>lastDamagePacket.playerId >>lastDamagePacket.damage;
+                rawPacket >> lastDamagePacket.died >> lastDamagePacket.hitById >> lastDamagePacket.playerId >>lastDamagePacket.damage;
             }
             else if(header=="leave"){
                 lastLeaved = tmpIp ;
@@ -69,7 +69,7 @@ sf::Socket::Status Client::send(const tf::PlayerPacket &packet) {
 
 sf::Socket::Status Client::send(const tf::DamagePacket &packet){
     sf::Packet rawPacket;
-    if (rawPacket << "damage" << packet.hitById <<packet.playerId << packet.damage) {
+    if (rawPacket << "damage" << packet.died << packet.hitById <<packet.playerId << packet.damage) {
 
         return (socket.send(rawPacket, serverIp, serverPort));
     }
