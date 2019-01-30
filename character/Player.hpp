@@ -13,6 +13,7 @@ class Player: public tf::Character {
 private:
     sf::View & view;
     std::vector<sf::FloatRect> levelHitboxes;
+    sf::Clock reloadClock;
     tf::Weapon myWeapon;
     sf::Vector2f currentPosition;
     sf::Vector2f bulletCollisionPoint;
@@ -25,8 +26,8 @@ private:
                         Action(sf::Keyboard::A, [&](){setTexture(Texture::Walking); move( sf::Vector2f{ -5.0f, 0.0f } );}),
                         Action(sf::Keyboard::S, [&](){setTexture(Texture::Walking); move( sf::Vector2f{ 0.0f, 5.0f } ); }),
                         Action(sf::Keyboard::D, [&](){setTexture(Texture::Walking); move( sf::Vector2f{ 5.0f, 0.0f } ); }),
-                        Action(sf::Keyboard::R, [&](){hud.reload();}),
-                        Action(sf::Mouse::Left, [&](){if(currentPosition == getPosition()){ shoot(enemyID);} }),
+                        Action(sf::Keyboard::R, [&](){hud.reload(); reloadClock.restart();}),
+                        Action(sf::Mouse::Left, [&](){if(currentPosition == getPosition() && reloadClock.getElapsedTime().asMilliseconds() > 1'000){ shoot(enemyID);} }),
                         Action([&](){return currentPosition == getPosition();}, [&](){setTexture(Texture::Stationary);})
     };
 
