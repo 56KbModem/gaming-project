@@ -59,4 +59,15 @@ float Character::getRotation() {
 void Character::setRotation(const float &rotation) {
     mySprite.setRotation(rotation);
 }
+
+
+void Character::setShootLine(const sf::Vector2f & ownPos, const sf::Vector2f & firePos) {
+    shootLine[0] = sf::Vertex(ownPos);
+    shootLine[1] = sf::Vertex(firePos);
+}
+
+void Character::drawShootline() const {
+    window.draw(shootLine, 2, sf::Lines);
+}
+
 }

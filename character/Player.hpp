@@ -2,6 +2,7 @@
 #include "Weapon.hpp"
 #include "../Action.hpp"
 #include "../gui/HUD.hpp"
+#include "../gui/ScoreBoard.hpp"
 
 #ifndef TOPFORCE_PLAYER_HPP
 #define TOPFORCE_PLAYER_HPP
@@ -14,7 +15,9 @@ private:
     std::vector<sf::FloatRect> levelHitboxes;
     tf::Weapon myWeapon;
     sf::Vector2f currentPosition;
+    sf::Vector2f bulletCollisionPoint;
     tf::HUD hud;
+    tf::ScoreBoard scoreBoard;
     sf::Uint32 enemyID = 0;
     tf::PlayerPacket & playerPacket;
     Action actions[8] = {Action([&](){currentPosition = getPosition(); lookAtMouse();} ),
@@ -26,6 +29,7 @@ private:
                         Action(sf::Mouse::Left, [&](){if(currentPosition == getPosition()){ shoot(enemyID);} }),
                         Action([&](){return currentPosition == getPosition();}, [&](){setTexture(Texture::Stationary);})
     };
+
     void setTexture(const Texture & animation) override;
 public:
     Player(tf::TopforceWindow& window, const sf::Uint32 &playerID, sf::View & view, const std::vector<sf::FloatRect> & levelHitboxes, std::vector<tf::Character> & enemies, tf::PlayerPacket & playerPacket);
@@ -37,6 +41,8 @@ public:
     void move(const sf::Vector2f & position);
     void shoot(sf::Uint32 & playerID);
     void lookAtMouse();
+    sf::Vector2f getBulletCollisionPoint();
+    void setBulletCollisionPoint(sf::Vector2f & bulletPoint);
 
     void decreaseHealth(const unsigned int & damage);
     int getHealth();
@@ -44,8 +50,10 @@ public:
 
     void setPosition(const sf::Vector2f& position) override;
 
-    void giveFullAmmo();
+    void setScore(const std::string& playerName, const Scores& score);
 
+    void giveFullAmmo();
+    bool isTimeOver();
     sf::Uint32 getEnemyID();
     void setTime(const tf::TimePacket & packet);
 };

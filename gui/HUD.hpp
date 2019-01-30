@@ -12,7 +12,7 @@
 namespace tf {
 class HUD : public MoveableScreenObject {
 private:
-    int currentAmmo, totalAmmo, currentHealth;
+    int currentAmmo, totalAmmo, currentHealth, minutes, seconds;
     const int clipSize;
     sf::Font font;
     sf::View& view;
@@ -36,7 +36,7 @@ public:
     void decreaseAmmo(const int& amount);
     void decreaseHealth(const int& amount);
     void setAmmo(const int &currentAmmo, const int &totalAmmo);
-
+    bool isTimeOver();
     void reload();
     bool hasAmmo();
     int getHealth();

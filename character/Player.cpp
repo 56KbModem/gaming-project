@@ -8,6 +8,7 @@ Player::Player(tf::TopforceWindow &window, const sf::Uint32 &playerID, sf::View 
     levelHitboxes(levelHitboxes),
     myWeapon(window, levelHitboxes, enemies),
     hud(window, view),
+    scoreBoard(window, view),
     playerPacket(playerPacket)
 {
     view.setCenter(mySprite.getPosition());
@@ -39,6 +40,7 @@ void Player::move(const sf::Vector2f & position) {
 }
 
 void Player::update(){
+    scoreBoard.update();
     for(auto & action : actions) {
         action();
     }
@@ -61,6 +63,10 @@ void Player::lookAtMouse() {
     mySprite.setRotation(rotation);
 }
 
+sf::Vector2f Player::getBulletCollisionPoint(){
+    return myWeapon.getBulletCollisionPoint();
+}
+
 void Player::decreaseHealth(const unsigned int &damage) {
     hud.decreaseHealth(damage);
 }
@@ -78,6 +84,10 @@ void Player::setPosition(const sf::Vector2f &position) {
     view.setCenter(mySprite.getPosition());
 }
 
+void Player::setScore(const std::string &playerName, const tf::Scores &score) {
+    scoreBoard.setScore(playerName, score);
+}
+
 void Player::giveFullAmmo() {
     hud.setAmmo(30,90);
 }
@@ -90,6 +100,10 @@ sf::Uint32 Player::getEnemyID() {
 
 void Player::setTime(const tf::TimePacket & packet) {
     hud.setTime(packet);
+}
+
+bool Player::isTimeOver() {
+    return hud.isTimeOver();
 }
 
 } // End namespace tf

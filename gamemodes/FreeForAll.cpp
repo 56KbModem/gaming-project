@@ -35,8 +35,13 @@ void FreeForAll::run() {
     // Create random seed based on current time
     std::srand(std::time(nullptr));
     ownPlayer.setPosition(spawnPoints[std::rand() % 8]);
+
+    ownPlayer.setScore("Mr.SKiLzZ", tf::Scores{1000, 10, 0});
+    ownPlayer.setScore("Kaazerne", tf::Scores{200, 2, 10});
+    ownPlayer.setScore("Cris", tf::Scores{0, 0, 2});
+
     // ---- Free-For-All gameloop ----
-    while (window.isOpen()) {
+    while (window.isOpen() && !ownPlayer.isTimeOver()) {
         // Recieve Server packets
         GameMode::serverPacket = client.getLastPacket();
 
@@ -88,8 +93,13 @@ void FreeForAll::run() {
         GameMode::level.draw();
         GameMode::ownPlayer.draw();
         GameMode::ownPlayer.update();
-        for (const auto& enemy : GameMode::enemies) {
+        for (auto& enemy : GameMode::enemies) {
             enemy.draw();
+            if(serverPacket.firing && serverPacket.PlayerId == enemy.playerID){
+                sf::Vector2f tmpLocation = enemy.getPosition();
+                enemy.setShootLine(tmpLocation, enemy.firePosition);
+                enemy.drawShootline();
+            }
         }
 
         GameMode::sendDamage();
@@ -110,12 +120,14 @@ void FreeForAll::run() {
         }
         packet.firing = false;
     }
+    window.setView(window.getDefaultView());
 }
 
 void FreeForAll::send(){
     while(true) {
         packet.rotation = ownPlayer.getRotation();
         packet.position = ownPlayer.getPosition();
+        packet.firePos = ownPlayer.getBulletCollisionPoint();
         client.send(packet);
         sf::sleep(sf::milliseconds(5));
     }
