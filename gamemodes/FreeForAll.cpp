@@ -64,6 +64,7 @@ void FreeForAll::run() {
             ownPlayer.setPosition(spawnPoints[std::rand() % 8]);
             ownPlayer.setHealth(100);
             ownPlayer.giveFullAmmo();
+            ownPlayer.setScore(damage.hitByName, tf::Scores{100, 1, 0});
             ownPlayer.setScore(packet.playerName, Scores{0,0,1});
             deathClock.restart();
         }
@@ -72,8 +73,8 @@ void FreeForAll::run() {
         }
 
         if (damage.died){ // someone has died.. update scoreboard.
-            TF_INFO("SOMEONE HAS DIED");
-            ownPlayer.setScore(damage.hitByName, tf::Scores{100, 1, 0}); // AAN MARC VRAGEN, NAMEN OF ID'S?
+            TF_INFO("Hit by: {}",damage.hitByName);
+            ownPlayer.setScore(damage.hitByName, tf::Scores{100, 1, 0});
             ownPlayer.setScore(damage.playerName, tf::Scores{0,0,1});
         }
 
