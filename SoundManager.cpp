@@ -18,6 +18,8 @@ SoundManager::SoundManager() {
     sound[4].setBuffer(buffer[4]);
     buffer[5].loadFromFile(PATH + "damage_sound.wav");
     sound[5].setBuffer(buffer[5]);
+    buffer[6].loadFromFile(PATH + "spawn.wav");
+    sound[6].setBuffer(buffer[6]);
 }
 
 SoundManager& SoundManager::getInstance() {
@@ -64,6 +66,9 @@ void SoundManager::play(const tf::Sounds& sounds, const float & volume, bool loo
         case Sounds::Damage:
             sound[5].play();
             sound[5].setVolume(volume);
+        case Sounds::Spawn:
+            sound[6].play();
+            sound[6].setVolume(volume);
     }
 }
 }

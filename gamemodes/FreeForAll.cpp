@@ -29,6 +29,7 @@ void FreeForAll::run() {
     // Create random seed based on current time
     std::srand(std::time(nullptr));
     ownPlayer.setPosition(spawnPoints[std::rand() % 8]);
+    soundManager.play(Sounds::Spawn);
 
     // ---- Free-For-All gameloop ----
     while (window.isOpen() && !ownPlayer.isTimeOver()) {
