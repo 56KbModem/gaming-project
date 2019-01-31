@@ -27,7 +27,7 @@ private:
 
     Action actions[6] = {
             Action([&]() { return damage.playerId == sf::IpAddress::getLocalAddress().toInteger(); }, [&]() {
-                ownPlayer.decreaseHealth(damage.damage); }),
+                ownPlayer.decreaseHealth(damage.damage); soundManager.play(Sounds::Damage);}),
             Action([&]() { return ownPlayer.getHealth() <= 0; }, [&]() {
                 handleDeathEvent(damage); }),
             Action([&]() { return deathClock.getElapsedTime().asMilliseconds() < 2000; }, [&]() {
@@ -37,7 +37,7 @@ private:
                 ownPlayer.setScore(damage.playerName, tf::Scores{0,0,1});
             }),
             Action([&]() { return serverPacket.firing && clock1.getElapsedTime().asMilliseconds() > 100; }, [&]() {
-                soundManager.play(tf::Sounds::FireWeapon); clock1.restart(); }),
+                soundManager.play(tf::Sounds::FireWeapon, 10); clock1.restart(); }),
             Action([&]() { return !GameMode::playerExists(serverPacket) && serverPacket.PlayerId != 0; }, [&]() {
                 GameMode::enemies.push_back(Character(window, serverPacket.PlayerId));
                 ownPlayer.setScore(serverPacket.playerName);
