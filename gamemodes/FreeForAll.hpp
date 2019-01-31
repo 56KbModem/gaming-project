@@ -27,7 +27,7 @@ private:
 
     Action actions[6] = {
             Action([&]() { return damage.playerId == sf::IpAddress::getLocalAddress().toInteger(); }, [&]() {
-                ownPlayer.decreaseHealth(damage.damage); soundManager.play(Sounds::Damage);}),
+                ownPlayer.decreaseHealth(damage.damage);}),
             Action([&]() { return ownPlayer.getHealth() <= 0; }, [&]() {
                 handleDeathEvent(damage); }),
             Action([&]() { return deathClock.getElapsedTime().asMilliseconds() < 2000; }, [&]() {

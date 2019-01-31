@@ -8,7 +8,7 @@ namespace tf {
     {
         sf::ContextSettings settings;
         settings.antialiasingLevel = 8;
-        sf::RenderWindow::create(sf::VideoMode(1920, 1080), "Topforce", sf::Style::Titlebar | sf::Style::Close, settings);
+        sf::RenderWindow::create(sf::VideoMode(1920, 1080), "Topforce " + sf::IpAddress::getLocalAddress().toString(), sf::Style::Titlebar | sf::Style::Close, settings);
         sf::RenderWindow::setVerticalSyncEnabled(true);
         sf::RenderWindow::setFramerateLimit(60);
         setWindowIcon();
