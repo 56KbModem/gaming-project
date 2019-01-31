@@ -22,6 +22,7 @@ void FreeForAll::run() {
 
     GameMode::damagePacket.hitById = ownPlayer.playerID;
     GameMode::damagePacket.damage = 15;
+    GameMode::damagePacket.hitByName = packet.playerName;
     GameMode::damagePacket.died = false; // we haven't died
     sf::Clock clock1;
     sf::Clock deathClock;
@@ -39,9 +40,6 @@ void FreeForAll::run() {
     std::srand(std::time(nullptr));
     ownPlayer.setPosition(spawnPoints[std::rand() % 8]);
 
-    //ownPlayer.setScore("Mr.SKiLzZ", tf::Scores{1000, 10, 0});
-    //ownPlayer.setScore("Kaazerne", tf::Scores{200, 2, 10});
-    //ownPlayer.setScore("Cris", tf::Scores{0, 0, 2});
     // ---- Free-For-All gameloop ----
     while (window.isOpen() && !ownPlayer.isTimeOver()) {
         // Recieve Server packets
