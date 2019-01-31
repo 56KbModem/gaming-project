@@ -51,7 +51,7 @@ public:
 
     void setPosition(const sf::Vector2f& position) override;
 
-    void setScore(const std::string& playerName, const Scores& score);
+    void setScore(const std::string& playerName, const Scores& score = Scores{0, 0, 0});
 
     void giveFullAmmo();
     bool isTimeOver();

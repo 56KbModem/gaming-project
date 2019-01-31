@@ -24,18 +24,8 @@ void FreeForAll::run() {
     GameMode::damagePacket.damage = 15;
     GameMode::damagePacket.hitByName = packet.playerName;
     GameMode::damagePacket.died = false; // we haven't died
-    sf::Clock clock1;
-    sf::Clock deathClock;
 
-    sf::Vector2f spawnPoints[] = {sf::Vector2f(3165,1760),
-                                  sf::Vector2f(3485,2985),
-                                  sf::Vector2f(1845,3150),
-                                  sf::Vector2f(1275,2485),
-                                  sf::Vector2f(815,1955),
-                                  sf::Vector2f(895,480),
-                                  sf::Vector2f(1700,370),
-                                  sf::Vector2f(2470,2135)
-    };
+
     // Create random seed based on current time
     std::srand(std::time(nullptr));
     ownPlayer.setPosition(spawnPoints[std::rand() % 8]);
@@ -44,52 +34,15 @@ void FreeForAll::run() {
     while (window.isOpen() && !ownPlayer.isTimeOver()) {
         // Recieve Server packets
         GameMode::serverPacket = client.getLastPacket();
+        damage = client.getDamage();
 
-        auto damage = client.getDamage();
-        if(damage.playerId == sf::IpAddress::getLocalAddress().toInteger()){
-            GameMode::ownPlayer.decreaseHealth(damage.damage);
-        }
-        if(ownPlayer.getHealth() < 0){
-            /* let everyone know that we died! */
-            tf::DamagePacket IDied;
-            IDied.header = "damage";
-            IDied.died = true;
-            IDied.playerId = ownPlayer.playerID;
-            IDied.playerName = packet.playerName;
-            IDied.hitById = damage.hitById;
-            IDied.hitByName = damage.hitByName;
-            IDied.damage = 0; // we don't need to set damage, we died
-            client.send(IDied);
-
-            ownPlayer.setPosition(spawnPoints[std::rand() % 8]);
-            ownPlayer.setHealth(100);
-            ownPlayer.giveFullAmmo();
-            ownPlayer.setScore(damage.hitByName, tf::Scores{100, 1, 0});
-            ownPlayer.setScore(packet.playerName, Scores{0,0,1});
-            deathClock.restart();
-        }
-        if(deathClock.getElapsedTime().asMilliseconds() < 2000 ){
-            ownPlayer.setHealth(100);
+        for (auto& action : actions) {
+            action();
         }
 
-        if (damage.died){ // someone has died.. update scoreboard.
-            TF_INFO("Hit by: {}",damage.hitByName);
-            ownPlayer.setScore(damage.hitByName, tf::Scores{100, 1, 0});
-            ownPlayer.setScore(damage.playerName, tf::Scores{0,0,1});
-        }
-
-        if(serverPacket.firing && clock1.getElapsedTime().asMilliseconds() > 100){
-            soundManager.play(tf::Sounds::FireWeapon);
-            clock1.restart();
-        }
         //Cursor position calculation
         GameMode::window.setSpritePosition();
         GameMode::window.setRotation(ownPlayer.getRotation());
-
-        if (!GameMode::playerExists(serverPacket) && serverPacket.PlayerId != 0) {
-            GameMode::enemies.push_back(Character(window, serverPacket.PlayerId));
-            ownPlayer.setScore(serverPacket.playerName, Scores{0,0,0});
-        }
 
         // set position, rotation, shooting ... etc
         GameMode::setEnemyParams(serverPacket);
