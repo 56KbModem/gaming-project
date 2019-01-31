@@ -16,6 +16,8 @@ SoundManager::SoundManager() {
     music.openFromFile(PATH + "gui/menu_sound.wav");
     buffer[4].loadFromFile(PATH + "weap_reload.wav");
     sound[4].setBuffer(buffer[4]);
+    buffer[5].loadFromFile(PATH + "damage_sound.wav");
+    sound[5].setBuffer(buffer[5]);
 }
 
 SoundManager& SoundManager::getInstance() {
@@ -59,6 +61,9 @@ void SoundManager::play(const tf::Sounds& sounds, const float & volume, bool loo
         case Sounds::StopMenu:
             music.stop();
             break;
+        case Sounds::Damage:
+            sound[5].play();
+            sound[5].setVolume(volume);
     }
 }
 }

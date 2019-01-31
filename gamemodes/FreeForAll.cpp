@@ -22,53 +22,27 @@ void FreeForAll::run() {
 
     GameMode::damagePacket.hitById = ownPlayer.playerID;
     GameMode::damagePacket.damage = 15;
-    sf::Clock clock1;
-    sf::Clock deathClock;
+    GameMode::damagePacket.hitByName = packet.playerName;
+    GameMode::damagePacket.died = false; // we haven't died
 
-    sf::Vector2f spawnPoints[] = {sf::Vector2f(3165,1760),
-                                  sf::Vector2f(3485,2985),
-                                  sf::Vector2f(1845,3150),
-                                  sf::Vector2f(1275,2485),
-                                  sf::Vector2f(815,1955),
-                                  sf::Vector2f(895,480),
-                                  sf::Vector2f(1700,370),
-                                  sf::Vector2f(2470,2135)
-    };
+
     // Create random seed based on current time
     std::srand(std::time(nullptr));
     ownPlayer.setPosition(spawnPoints[std::rand() % 8]);
-
-    ownPlayer.setScore("Mr.SKiLzZ", tf::Scores{1000, 10, 0});
-    ownPlayer.setScore("Kaazerne", tf::Scores{200, 2, 10});
-    ownPlayer.setScore("Cris", tf::Scores{0, 0, 2});
 
     // ---- Free-For-All gameloop ----
     while (window.isOpen() && !ownPlayer.isTimeOver()) {
         // Recieve Server packets
         GameMode::serverPacket = client.getLastPacket();
+        damage = client.getDamage();
 
-        GameMode::ownPlayer.decreaseHealth(client.getDamage().damage);
-        if(ownPlayer.getHealth() < 0){
-            ownPlayer.setPosition(spawnPoints[std::rand() % 8]);
-            ownPlayer.setHealth(100);
-            ownPlayer.giveFullAmmo();
-            deathClock.restart();
-        }
-        if(deathClock.getElapsedTime().asMilliseconds() < 2000 ){
-            ownPlayer.setHealth(100);
+        for (auto& action : actions) {
+            action();
         }
 
-        if(serverPacket.firing && clock1.getElapsedTime().asMilliseconds() > 100){
-            soundManager.play(tf::Sounds::FireWeapon);
-            clock1.restart();
-        }
         //Cursor position calculation
         GameMode::window.setSpritePosition();
         GameMode::window.setRotation(ownPlayer.getRotation());
-
-        if (!GameMode::playerExists(serverPacket) && serverPacket.PlayerId != 0) {
-            GameMode::enemies.push_back(Character(window, serverPacket.PlayerId));
-        }
 
         // set position, rotation, shooting ... etc
         GameMode::setEnemyParams(serverPacket);

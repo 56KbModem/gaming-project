@@ -58,8 +58,11 @@ namespace tf {
 
     struct DamagePacket{
         std::string header;
+        bool died;
         sf::Uint32 hitById;
+        std::string hitByName;
         sf::Uint32 playerId;
+        std::string playerName;
         unsigned int damage;
     };
 

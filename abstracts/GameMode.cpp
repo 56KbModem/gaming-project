@@ -12,6 +12,7 @@ GameMode::GameMode(tf::TopforceWindow &window, const std::string &mapName, sf::I
     ownPlayer(window, sf::IpAddress::getLocalAddress().toInteger(), view, level.getHitboxes(), enemies, packet)
 {
     view.setSize(1920.f, 1080.f);
+    ownPlayer.setScore(sf::IpAddress::getLocalAddress().toString());
 }
 
 GameMode::~GameMode() {
@@ -43,5 +44,26 @@ void GameMode::sendDamage() {
         damagePacket.playerId = enemyID;
         client.send(damagePacket);
     }
+}
+
+void GameMode::handleDeathEvent(const tf::DamagePacket& damage) {
+    tf::DamagePacket IDied;
+    IDied.header = "damage";
+    IDied.died = true;
+    IDied.playerId = ownPlayer.playerID;
+    IDied.playerName = packet.playerName;
+    IDied.hitById = damage.hitById;
+    IDied.hitByName = damage.hitByName;
+    IDied.damage = 0; // we don't need to set damage, we died
+    client.send(IDied);
+
+    ownPlayer.setPosition(spawnPoints[std::rand() % 8]);
+    ownPlayer.setHealth(100);
+    ownPlayer.giveFullAmmo();
+    ownPlayer.setScore(damage.hitByName, tf::Scores{100, 1, 0});
+    ownPlayer.setScore(packet.playerName, Scores{0,0,1});
+    deathClock.restart();
+
+
 }
 }
