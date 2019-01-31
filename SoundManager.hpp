@@ -21,15 +21,16 @@ enum class Sounds {
     StopMenu,
     Menu,
     Damage,
-    Spawn
+    Spawn,
+    VoiceReloading
 };
 
 class SoundManager {
 private:
     SoundManager();
     const std::string PATH =  "assets/sounds/";
-    sf::SoundBuffer buffer[7];
-    sf::Sound sound[7];
+    sf::SoundBuffer buffer[11];
+    sf::Sound sound[11];
     sf::Music music;
 public:
     static SoundManager & getInstance();

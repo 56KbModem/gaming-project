@@ -20,6 +20,14 @@ SoundManager::SoundManager() {
     sound[5].setBuffer(buffer[5]);
     buffer[6].loadFromFile(PATH + "spawn.wav");
     sound[6].setBuffer(buffer[6]);
+    buffer[7].loadFromFile(PATH + "reloading_coverme.wav");
+    sound[7].setBuffer(buffer[7]);
+    buffer[8].loadFromFile(PATH + "reloading_coverme_scream.wav");
+    sound[8].setBuffer(buffer[8]);
+    buffer[9].loadFromFile(PATH + "reloading_scream.wav");
+    sound[9].setBuffer(buffer[9]);
+    buffer[10].loadFromFile(PATH + "reloading_normal.wav");
+    sound[10].setBuffer(buffer[10]);
 }
 
 SoundManager& SoundManager::getInstance() {
@@ -66,9 +74,16 @@ void SoundManager::play(const tf::Sounds& sounds, const float & volume, bool loo
         case Sounds::Damage:
             sound[5].play();
             sound[5].setVolume(volume);
+            break;
         case Sounds::Spawn:
             sound[6].play();
             sound[6].setVolume(volume);
+            break;
+        case Sounds::VoiceReloading:
+            int random = std::rand() % (10 - 7 + 1) + 7;
+            sound[random].play();
+            sound[random].setVolume(volume);
+            break;
     }
 }
 }
