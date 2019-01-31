@@ -43,7 +43,6 @@ public:
     void shoot(sf::Uint32 & playerID);
     void lookAtMouse();
     sf::Vector2f getBulletCollisionPoint();
-    void setBulletCollisionPoint(sf::Vector2f & bulletPoint);
 
     void decreaseHealth(const unsigned int & damage);
     int getHealth();
