@@ -40,7 +40,6 @@ void Player::move(const sf::Vector2f & position) {
 }
 
 void Player::update(){
-    scoreBoard.update();
     for(auto & action : actions) {
         action();
     }
@@ -86,6 +85,10 @@ void Player::setPosition(const sf::Vector2f &position) {
 
 void Player::setScore(const std::string &playerName, const tf::Scores &score) {
     scoreBoard.setScore(playerName, score);
+}
+
+void Player::showScoreboard() {
+    scoreBoard.update();
 }
 
 void Player::giveFullAmmo() {

@@ -44,9 +44,7 @@ void ScoreBoard::update() {
         offset += 45;
         rect.update();
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Tab)) {
-        ScoreBoard::draw();
-    }
+    ScoreBoard::draw();
 }
 
 void ScoreBoard::setScore(const std::string& playerName, const Scores& score) {

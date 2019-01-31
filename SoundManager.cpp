@@ -6,6 +6,8 @@
 
 namespace tf{
 SoundManager::SoundManager() {
+    mainMenu.openFromFile(PATH + "gui/menu_sound.wav");
+    backgroundNoise.openFromFile(PATH + "background_noise.wav");
     sound[0].setVolume(20);
     buffer[1].loadFromFile(PATH + "gui/ui_hover.wav");
     sound[1].setBuffer(buffer[1]);
@@ -13,7 +15,6 @@ SoundManager::SoundManager() {
     sound[2].setBuffer(buffer[2]);
     buffer[3].loadFromFile(PATH + "weap_dryfire.wav");
     sound[3].setBuffer(buffer[3]);
-    music.openFromFile(PATH + "gui/menu_sound.wav");
     buffer[4].loadFromFile(PATH + "weap_reload.wav");
     sound[4].setBuffer(buffer[4]);
     buffer[5].loadFromFile(PATH + "damage_sound.wav");
@@ -65,11 +66,11 @@ void SoundManager::play(const tf::Sounds& sounds, const float & volume, bool loo
             sound[4].setVolume(volume);
             break;
         case Sounds::Menu:
-            music.play();
-            music.setLoop(loop);
+            mainMenu.play();
+            mainMenu.setLoop(loop);
             break;
         case Sounds::StopMenu:
-            music.stop();
+            mainMenu.stop();
             break;
         case Sounds::Damage:
             sound[5].play();
@@ -79,10 +80,18 @@ void SoundManager::play(const tf::Sounds& sounds, const float & volume, bool loo
             sound[6].play();
             sound[6].setVolume(volume);
             break;
-        case Sounds::VoiceReloading:
+        case Sounds::VoiceReloading: {
             int random = std::rand() % (10 - 7 + 1) + 7;
             sound[random].play();
             sound[random].setVolume(volume);
+            break;
+        }
+        case Sounds::BackgroundNoise:
+            backgroundNoise.play();
+            backgroundNoise.setLoop(loop);
+            break;
+        case Sounds::StopNoise:
+            backgroundNoise.stop();
             break;
     }
 }

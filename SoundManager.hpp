@@ -22,7 +22,9 @@ enum class Sounds {
     Menu,
     Damage,
     Spawn,
-    VoiceReloading
+    VoiceReloading,
+    BackgroundNoise,
+    StopNoise
 };
 
 class SoundManager {
@@ -31,7 +33,8 @@ private:
     const std::string PATH =  "assets/sounds/";
     sf::SoundBuffer buffer[11];
     sf::Sound sound[11];
-    sf::Music music;
+    sf::Music mainMenu;
+    sf::Music backgroundNoise;
 public:
     static SoundManager & getInstance();
     void setWeapon(const std::string & weaponFile);

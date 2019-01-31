@@ -21,7 +21,8 @@ private:
     tf::ScoreBoard scoreBoard;
     sf::Uint32 enemyID = 0;
     tf::PlayerPacket & playerPacket;
-    Action actions[8] = {Action([&](){currentPosition = getPosition(); lookAtMouse();} ),
+    Action actions[9] = {Action(sf::Keyboard::Tab, [&](){scoreBoard.update();}),
+                        Action([&](){currentPosition = getPosition(); lookAtMouse();} ),
                         Action(sf::Keyboard::W, [&](){setTexture(Texture::Walking); move( sf::Vector2f{ 0.0f, -5.0f } );}),
                         Action(sf::Keyboard::A, [&](){setTexture(Texture::Walking); move( sf::Vector2f{ -5.0f, 0.0f } );}),
                         Action(sf::Keyboard::S, [&](){setTexture(Texture::Walking); move( sf::Vector2f{ 0.0f, 5.0f } ); }),
@@ -51,7 +52,7 @@ public:
     void setPosition(const sf::Vector2f& position) override;
 
     void setScore(const std::string& playerName, const Scores& score = Scores{0, 0, 0});
-
+    void showScoreboard();
     void giveFullAmmo();
     bool isTimeOver();
     sf::Uint32 getEnemyID();

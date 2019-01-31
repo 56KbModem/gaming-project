@@ -30,14 +30,14 @@ void FreeForAll::run() {
     std::srand(std::time(nullptr));
     ownPlayer.setPosition(spawnPoints[std::rand() % 8]);
     soundManager.play(Sounds::Spawn);
-
+    soundManager.play(Sounds::BackgroundNoise, 100,true);
     // ---- Free-For-All gameloop ----
     while (window.isOpen() && !ownPlayer.isTimeOver()) {
         // Recieve Server packets
         GameMode::serverPacket = client.getLastPacket();
         damage = client.getDamage();
 
-        for (auto& action : actions) {
+        for (auto &action : actions) {
             action();
         }
 
@@ -58,9 +58,9 @@ void FreeForAll::run() {
         GameMode::level.draw();
         GameMode::ownPlayer.draw();
         GameMode::ownPlayer.update();
-        for (auto& enemy : GameMode::enemies) {
+        for (auto &enemy : GameMode::enemies) {
             enemy.draw();
-            if(serverPacket.firing && serverPacket.PlayerId == enemy.playerID){
+            if (serverPacket.firing && serverPacket.PlayerId == enemy.playerID) {
                 sf::Vector2f tmpLocation = enemy.getWeaponPosition();
                 enemy.setShootLine(tmpLocation, enemy.firePosition);
                 enemy.drawShootline();
@@ -78,13 +78,22 @@ void FreeForAll::run() {
         while (GameMode::window.pollEvent(event)) {
             if (event.type == sf::Event::Closed) {
                 packet.firing = false;
-                tf::PlayerPacket leave={"leave"};
+                tf::PlayerPacket leave = {"leave"};
                 client.send(leave);
+                soundManager.play(Sounds::StopNoise);
                 GameMode::window.close();
             }
         }
         packet.firing = false;
     }
+    sf::Clock scoreClock;
+    while (scoreClock.getElapsedTime().asMilliseconds() < 5000){
+        window.clear();
+        GameMode::level.draw();
+        ownPlayer.showScoreboard();
+        window.display();
+    }
+    soundManager.play(Sounds::StopNoise);
     window.setView(window.getDefaultView());
 }
 
