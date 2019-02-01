@@ -67,8 +67,10 @@ GameModes MainMenu::run() {
                     switch(main.getPressedItem()){
                         case 0:
                             //Play
-                            activeMenu = Menus::play;
-                            break;
+                            // When pressing play, go to FFA straight away (since other gamemodes are not implemented)
+                            return GameModes::Free_For_All;
+                            //activeMenu = Menus::play;
+                            //break;
                         case 1:
                             //Settings
                             activeMenu = Menus::settings;
