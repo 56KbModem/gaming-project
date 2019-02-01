@@ -87,7 +87,7 @@ void FreeForAll::run() {
         packet.firing = false;
     }
     sf::Clock scoreClock;
-    while (scoreClock.getElapsedTime().asMilliseconds() < 5000){
+    while (window.isOpen() && scoreClock.getElapsedTime().asMilliseconds() < 5000){
         window.clear();
         GameMode::level.draw();
         ownPlayer.showScoreboard();
