@@ -68,6 +68,7 @@ GameModes MainMenu::run() {
                         case 0:
                             //Play
                             // When pressing play, go to FFA straight away (since other gamemodes are not implemented)
+                            soundManager.play(tf::Sounds::StopMenu);
                             return GameModes::Free_For_All;
                             //activeMenu = Menus::play;
                             //break;
