@@ -36,7 +36,9 @@ private:
     sf::Music mainMenu;
     sf::Music backgroundNoise;
 public:
-    static SoundManager & getInstance();
+    SoundManager(const SoundManager & SoundManager) = delete;
+    void operator=(const SoundManager& SoundManager) = delete;
+    static SoundManager& getInstance();
     void setWeapon(const std::string & weaponFile);
     void play(const tf::Sounds& sounds, const float & volume = 100, bool loop = false);
 };
