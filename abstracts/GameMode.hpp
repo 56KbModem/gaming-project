@@ -34,7 +34,6 @@ namespace tf {
         tf::PlayerPacket packet;
         tf::PlayerPacket serverPacket;
         tf::DamagePacket damagePacket;
-        //tf::DamagePacket IDied;
 
         bool playerExists(const tf::PlayerPacket & packet);
         void setEnemyParams(tf::PlayerPacket & packet);
