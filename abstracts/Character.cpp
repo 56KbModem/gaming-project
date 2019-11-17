@@ -20,11 +20,11 @@ Character::Character(tf::TopforceWindow &window, const sf::Uint32 &playerID):
 #endif
 }
 
-void Character::setTexture(const Animation & texture){
-    if(texture == Animation::EnemyWalking && mySprite.getTexture() != &imageManager.getTexture(Animation::EnemyWalking)){
+void Character::setTexture (const Animation anim){
+    if(anim == Animation::EnemyWalking && mySprite.getTexture() != &imageManager.getTexture(Animation::EnemyWalking)){
         mySprite.setTexture(imageManager.getTexture(Animation::EnemyWalking), true);
     }
-    if(texture == Animation::EnemyStationary && mySprite.getTexture() != &imageManager.getTexture(Animation::EnemyStationary)){
+    if(anim == Animation::EnemyStationary && mySprite.getTexture() != &imageManager.getTexture(Animation::EnemyStationary)){
         mySprite.setTexture(imageManager.getTexture(Animation::EnemyStationary), true);
     }
 }
@@ -64,7 +64,7 @@ float Character::getRotation() {
     return mySprite.getRotation();
 }
 
-void Character::setRotation(const float &rotation) {
+void Character::setRotation(const float rotation) {
     mySprite.setRotation(rotation);
 }
 
@@ -75,7 +75,7 @@ void Character::setShootLine(const sf::Vector2f & ownPos, const sf::Vector2f & f
     shootLine->color = sf::Color::Yellow;
 }
 
-void Character::drawShootline() const {
+void Character::drawShootLine () const {
     window.draw(shootLine, 2, sf::Lines);
 }
 

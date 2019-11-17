@@ -12,21 +12,21 @@ private:
     sf::Clock shootClock;
     sf::Vertex shootLine[2];
     sf::RenderWindow & window;
-    std::vector<sf::FloatRect> levelHitboxes;
+    std::vector<sf::FloatRect> levelHitBoxes;
     std::vector<tf::Character> & enemies;
     sf::RectangleShape bulletHit;
     sf::RectangleShape weaponLocation;
     sf::FloatRect bounds;
     sf::Vector2f bulletCollisionPoint;
     tf::SoundManager & soundManager = tf::SoundManager::getInstance();
-    bool emptyMag = 0;
+    bool emptyMag = false;
     
-    void drawShootLine(const sf::Vector2f & position, const float & rotation, sf::Uint32 & playerID);
-    void moveBullet(const float & rotation);
+    void drawShootLine(const sf::Vector2f &position, float rotation, sf::Uint32 &playerID);
+    void moveBullet(float rotation);
 public:
-    Weapon(sf::RenderWindow &window, const std::vector<sf::FloatRect> & levelHitboxes, std::vector<tf::Character> & enemies);
-    void shoot(const sf::Vector2f & position, const float & rotation, tf::HUD & hud, sf::Uint32 & playerID);
-    void setWeaponLocation(const sf::Vector2f & position, const float & rotation);
+    Weapon(sf::RenderWindow &window, const std::vector<sf::FloatRect> & levelHitBoxes, std::vector<tf::Character> & enemies);
+    void shoot(const sf::Vector2f &position, float rotation, tf::HUD &hud, sf::Uint32 &playerID);
+    void setWeaponLocation(const sf::Vector2f &position, float rotation);
     sf::Vector2f getWeaponLocation();
     sf::Vector2f getBulletCollisionPoint();
     void setBulletCollisionPoint(const sf::Vector2f & bulletColPoint);

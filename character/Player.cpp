@@ -2,9 +2,9 @@
 #include "Player.hpp"
 
 namespace tf {
-Player::Player(tf::TopforceWindow &window, const sf::Uint32 &playerID, sf::View & view,
-        const std::vector<sf::FloatRect>& levelHitBoxes, std::vector<tf::Character> & enemies,
-        tf::PlayerPacket & playerPacket):
+Player::Player(tf::TopforceWindow &window, const sf::Uint32 playerID, sf::View &view,
+                const std::vector<sf::FloatRect> &levelHitBoxes, std::vector<tf::Character> &enemies,
+                tf::PlayerPacket &playerPacket):
     Character(window, playerID),
     view(view),
     levelHitBoxes(levelHitBoxes),
@@ -21,20 +21,24 @@ void Player::draw() const {
     tf::Character::draw();
 }
 
-void Player::setTexture(const Animation & texture){
-    if(texture == Animation::Walking && mySprite.getTexture() != &imageManager.getTexture(Animation::Walking)){
-        mySprite.setTexture(imageManager.getTexture(Animation::Walking), true);
-    }
-    if(texture == Animation::Stationary && mySprite.getTexture() != &imageManager.getTexture(Animation::Stationary)){
-        mySprite.setTexture(imageManager.getTexture(Animation::Stationary), true);
+void Player::setTexture(const Animation anim) {
+    static constexpr Animation animations[] = { Animation::Walking, Animation::Stationary };
+
+    for (const auto animation : animations) {
+        if (mySprite.getTexture() == &imageManager.getTexture(animation)) {
+            continue;
+        }
+        if (animation == anim) {
+            mySprite.setTexture(imageManager.getTexture(animation), true);
+        }
     }
 }
 
 void Player::move(const sf::Vector2f & position) {
     mySprite.move(position);
-    hitbox.setPosition(mySprite.getPosition().x -25, mySprite.getPosition().y - 25);
-    for(auto & hitBox : levelHitBoxes){
-        if(hitBox.intersects(getBounds())){
+    hitbox.setPosition(mySprite.getPosition().x - 25, mySprite.getPosition().y - 25);
+    for (auto & hitBox : levelHitBoxes) {
+        if (hitBox.intersects(getBounds())) {
             mySprite.move(-position);
         }
     }
@@ -42,13 +46,13 @@ void Player::move(const sf::Vector2f & position) {
 }
 
 void Player::update(){
-    for(auto & action : actions) {
+    for (auto & action : actions) {
         action();
     }
     hud.update();
 }
 
-void Player::shoot(sf::Uint32 & playerID){
+void Player::shoot(sf::Uint32& playerID){
     myWeapon.shoot(mySprite.getPosition(), mySprite.getRotation(), hud, playerID);
     playerPacket.firing = true;
 }
@@ -68,7 +72,7 @@ sf::Vector2f Player::getBulletCollisionPoint(){
     return myWeapon.getBulletCollisionPoint();
 }
 
-void Player::decreaseHealth (const unsigned int damage) {
+void Player::decreaseHealth(const unsigned int damage) {
     hud.decreaseHealth(damage);
 }
 

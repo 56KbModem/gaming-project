@@ -32,11 +32,11 @@ private:
                         Action([&](){return currentPosition == getPosition();}, [&](){setTexture(Animation::Stationary);})
     };
 
-    void setTexture(const Animation & animation) override;
+    void setTexture(Animation anim) override;
 public:
-    Player(tf::TopforceWindow& window, const sf::Uint32 &playerID, sf::View & view,
-            const std::vector<sf::FloatRect>& levelHitBoxes, std::vector<tf::Character> & enemies,
-            tf::PlayerPacket & playerPacket);
+    Player(tf::TopforceWindow &window, sf::Uint32 playerID, sf::View &view,
+            const std::vector<sf::FloatRect> &levelHitBoxes, std::vector<tf::Character> &enemies,
+            tf::PlayerPacket &playerPacket);
     ~Player() override = default;
 
     void draw() const override;

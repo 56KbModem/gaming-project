@@ -21,7 +21,7 @@ public:
     TopforceWindow();
     void setSpritePosition();
     sf::Sprite getCursorSprite();
-    void setRotation(const float & rotation);
+    void setRotation (const float rotation);
 };
 }
 

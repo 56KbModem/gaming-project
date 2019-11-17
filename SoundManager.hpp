@@ -18,8 +18,8 @@ enum class Sounds {
     UISelect,
     EmptyWeapon,
     ReloadWeapon,
+	Menu,
     StopMenu,
-    Menu,
     Damage,
     Spawn,
     VoiceReloading,
@@ -30,9 +30,23 @@ enum class Sounds {
 class SoundManager {
 private:
     SoundManager();
+
+    static constexpr const char* fileNames[] = {
+    		"gui/ui_hover.wav",
+		    "gui/ui_select.wav",
+		    "weap_dryfire.wav",
+		    "weap_reload.wav",
+		    "damage_sound.wav",
+		    "spawn.wav",
+		    "reloading_coverme.wav",
+		    "reloading_coverme_scream.wav",
+		    "reloading_scream.wav",
+		    "reloading_normal.wav"
+    };
+
     const std::string PATH =  "assets/sounds/";
-    sf::SoundBuffer buffer[11];
-    sf::Sound sound[11];
+    std::array<sf::SoundBuffer, 11> buffer;
+	std::array<sf::Sound, 11> sound;
     sf::Music mainMenu;
     sf::Music backgroundNoise;
 public:
@@ -40,7 +54,7 @@ public:
     void operator=(const SoundManager& SoundManager) = delete;
     static SoundManager& getInstance();
     void setWeapon(const std::string & weaponFile);
-    void play(const tf::Sounds& sounds, const float & volume = 100, bool loop = false);
+    void play(const tf::Sounds &sounds, float volume = 100, bool loop = false);
 };
 
 }

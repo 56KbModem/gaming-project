@@ -63,7 +63,7 @@ void FreeForAll::run() {
             if (serverPacket.firing && serverPacket.PlayerId == enemy.playerID) {
                 sf::Vector2f tmpLocation = enemy.getWeaponPosition();
                 enemy.setShootLine(tmpLocation, enemy.firePosition);
-                enemy.drawShootline();
+	            enemy.drawShootLine();
             }
         }
 

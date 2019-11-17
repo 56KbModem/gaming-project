@@ -8,7 +8,8 @@ namespace tf {
     {
         sf::ContextSettings settings;
         settings.antialiasingLevel = 8;
-        sf::RenderWindow::create(sf::VideoMode(1920, 1080), "Topforce " + sf::IpAddress::getLocalAddress().toString(), sf::Style::Titlebar | sf::Style::Close, settings);
+        sf::RenderWindow::create(sf::VideoMode(1920, 1080), "Topforce " +
+            sf::IpAddress::getLocalAddress().toString(), sf::Style::Titlebar | sf::Style::Close, settings);
         sf::RenderWindow::setVerticalSyncEnabled(true);
         sf::RenderWindow::setFramerateLimit(60);
         setWindowIcon();
@@ -30,13 +31,14 @@ namespace tf {
         sf::Vector2i position = sf::Mouse::getPosition(*this);
         sf::Vector2f worldPos = mapPixelToCoords(position);
         cursor.setPosition(sf::Vector2f(worldPos.x - 20, worldPos.y - 20));
-        cursor.move(cos((cursorRotation + 212) * (PI / 180)) *- 20, (sin((cursorRotation + 212) * (PI / 180)) *- 20));
+        cursor.move(static_cast<float>(cos((cursorRotation + 212) * (PI / 180)) *- 20),
+                    static_cast<float>(sin((cursorRotation + 212) * (PI / 180)) *- 20));
     }
 
     sf::Sprite TopforceWindow::getCursorSprite() {
         return cursor;
     }
-    void TopforceWindow::setRotation(const float & rotation){
+    void TopforceWindow::setRotation (const float rotation){
         cursorRotation = rotation;
     }
 }

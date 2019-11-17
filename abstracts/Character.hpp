@@ -16,7 +16,7 @@ protected:
     tf::ImageManager & imageManager = tf::ImageManager::getInstance();
     sf::RectangleShape hitbox;
     sf::Vertex shootLine[2];
-    virtual void setTexture(const Animation & animation);
+    virtual void setTexture(Animation anim);
 public:
     Character(tf::TopforceWindow& window, const sf::Uint32 & playerID);
     const sf::Uint32 playerID;
@@ -30,9 +30,9 @@ public:
     sf::Vector2f getWeaponPosition();
     virtual void setPosition(const sf::Vector2f& position);
     float getRotation();
-    void setRotation(const float& rotation);
+    void setRotation(float rotation);
     void setShootLine(const sf::Vector2f & ownPos, const sf::Vector2f & firePos);
-    void drawShootline() const;
+    void drawShootLine() const;
 };
 }
 
