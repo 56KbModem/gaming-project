@@ -21,19 +21,6 @@ void Player::draw() const {
     tf::Character::draw();
 }
 
-void Player::setTexture(const Animation anim) {
-    static constexpr Animation animations[] = { Animation::Walking, Animation::Stationary };
-
-    for (const auto animation : animations) {
-        if (mySprite.getTexture() == &imageManager.getTexture(animation)) {
-            continue;
-        }
-        if (animation == anim) {
-            mySprite.setTexture(imageManager.getTexture(animation), true);
-        }
-    }
-}
-
 void Player::move(const sf::Vector2f & position) {
     mySprite.move(position);
     hitbox.setPosition(mySprite.getPosition().x - 25, mySprite.getPosition().y - 25);

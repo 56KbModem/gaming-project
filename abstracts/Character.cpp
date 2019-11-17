@@ -20,12 +20,16 @@ Character::Character(tf::TopforceWindow &window, const sf::Uint32 &playerID):
 #endif
 }
 
-void Character::setTexture (const Animation anim){
-    if(anim == Animation::EnemyWalking && mySprite.getTexture() != &imageManager.getTexture(Animation::EnemyWalking)){
-        mySprite.setTexture(imageManager.getTexture(Animation::EnemyWalking), true);
-    }
-    if(anim == Animation::EnemyStationary && mySprite.getTexture() != &imageManager.getTexture(Animation::EnemyStationary)){
-        mySprite.setTexture(imageManager.getTexture(Animation::EnemyStationary), true);
+void Character::setTexture(const Animation anim){
+    static constexpr Animation animations[] = { Animation::Walking, Animation::Stationary };
+
+    for (const auto animation : animations) {
+        if (mySprite.getTexture() == &imageManager.getTexture(animation)) {
+            continue;
+        }
+        if (animation == anim) {
+            mySprite.setTexture(imageManager.getTexture(animation), true);
+        }
     }
 }
 
