@@ -9,44 +9,45 @@
 
 namespace tf{namespace level {
 MapGraphics::MapGraphics(const std::string &mapName, sf::RenderWindow &window) :
-        ScreenObject(window)
-    {
-        if (!map.load(PATH + mapName)) {
-            TF_ERROR("Unable to load map {}", mapName);
-        }
-        parseMapLayers();
+    ScreenObject(window)
+{
+    if (!map.load(PATH + mapName)) {
+        TF_ERROR("Unable to load map {}", mapName);
+    }
+    parseMapLayers();
 #if DEBUG
-        for (const auto & hitbox : hitboxes) {
-            hitboxVisuals.push_back(sf::RectangleShape(sf::Vector2f(hitbox.width,hitbox.height)));
-        }
-        int index = 0;
-        for (auto & hitbox : hitboxVisuals) {
-            hitbox.setPosition(hitboxes[index].left, hitboxes[index].top);
-            hitbox.setFillColor(sf::Color(0, 255, 0, 100)); // Set hitbox visuals to green with low opacity
-            index++;
-        }
-#endif
+    for (const auto & hitBox : hitBoxes) {
+        sf::RectangleShape rectangle(sf::Vector2f(hitBox.width, hitBox.height));
+        hitBoxVisuals.push_back(std::move(rectangle));
     }
 
-void MapGraphics::setHitboxes(const std::vector<tmx::Object> &objects) {
+    for (unsigned i = 0; i < hitBoxVisuals.size(); i++) {
+        hitBoxVisuals[i].setPosition(hitBoxes[i].left, hitBoxes[i].top);
+        hitBoxVisuals[i].setFillColor(sf::Color(0, 255, 0, 100));
+    }
+#endif
+}
+
+void MapGraphics::setHitBoxes(const std::vector<tmx::Object> &objects) {
     for (const auto& object : objects) {
-        tmx::FloatRect rect = object.getAABB();
-        hitboxes.emplace_back(sf::FloatRect(rect.left, rect.top, rect.width, rect.height));
+        const tmx::FloatRect& rect = object.getAABB();
+        hitBoxes.emplace_back(sf::FloatRect(rect.left, rect.top, rect.width, rect.height));
     }
 }
 
 void MapGraphics::parseMapLayers() {
     const auto& mapLayers = map.getLayers();
-    unsigned int layerLevel = 0;
-    for (const auto& mapLayer : mapLayers) {
-        if (mapLayer->getType() != tmx::Layer::Type::Object) {
-            layers.push_back(std::make_unique<MapLayer>(map, layerLevel));
+
+    for (unsigned i = 0; i < mapLayers.size(); i++) {
+        if (mapLayers[i]->getType() != tmx::Layer::Type::Object) {
+            layers.push_back(std::make_unique<MapLayer>(map, i));
         }
         else {
-            const std::vector<tmx::Object>& objects = mapLayer->getLayerAs<tmx::ObjectGroup>().getObjects();
-            setHitboxes(objects);
+            const std::vector<tmx::Object> &objects = mapLayers[i]
+            		->getLayerAs<tmx::ObjectGroup>()
+                    .getObjects();
+            setHitBoxes(objects);
         }
-        layerLevel++;
     }
 }
 
@@ -55,22 +56,22 @@ void MapGraphics::draw() const {
         window.draw(*layer);
     }
 #if DEBUG
-    for (const auto & hitbox : hitboxVisuals){
-        window.draw(hitbox);
+    for (const auto & hitBox : hitBoxVisuals){
+        window.draw(hitBox);
     }
 #endif
 }
 
 bool MapGraphics::intersects(tf::Player &character) {
-    for (const auto &hitbox : hitboxes) {
-        if (hitbox.intersects(character.getBounds())) {
+    for (const auto &hitBox : hitBoxes) {
+        if (hitBox.intersects(character.getBounds())) {
             return true;
         }
     }
     return false;
 }
 
-std::vector<sf::FloatRect> MapGraphics::getHitboxes(){
-    return hitboxes;
+const std::vector<sf::FloatRect>& MapGraphics::getHitBoxes(){
+    return hitBoxes;
 }
 }}

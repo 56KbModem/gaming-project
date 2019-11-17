@@ -13,21 +13,21 @@
 
 namespace tf { namespace level {
 class MapGraphics : public tf::ScreenObject {
-    private:
-        tmx::Map map;
-        std::vector<std::unique_ptr<MapLayer>> layers;
-        std::vector<sf::FloatRect> hitboxes;
+private:
+    tmx::Map map;
+    std::vector<std::unique_ptr<MapLayer>> layers;
+    std::vector<sf::FloatRect> hitBoxes;
 #if DEBUG
-        std::vector<sf::RectangleShape> hitboxVisuals;
+    std::vector<sf::RectangleShape> hitBoxVisuals;
 #endif
-        void setHitboxes(const std::vector<tmx::Object> &objects);
-        void parseMapLayers();
-    public:
-        MapGraphics(const std::string &mapName, sf::RenderWindow &window);
-        void draw() const override;
-        bool intersects(tf::Player &character);
-        std::vector<sf::FloatRect> getHitboxes();
-    };
+    void setHitBoxes(const std::vector<tmx::Object> &objects);
+    void parseMapLayers();
+public:
+    MapGraphics(const std::string &mapName, sf::RenderWindow &window);
+    void draw() const override;
+    bool intersects(tf::Player &character);
+    const std::vector<sf::FloatRect>& getHitBoxes ();
+};
 
 }}
 
