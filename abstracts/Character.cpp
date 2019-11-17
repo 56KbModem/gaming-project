@@ -10,7 +10,7 @@ Character::Character(tf::TopforceWindow &window, const sf::Uint32 &playerID):
     tf::MoveableScreenObject(window),
     playerID(playerID)
 {
-    mySprite.setTexture(imageManager.getTexture(tf::Texture::EnemyStationary));
+    mySprite.setTexture(imageManager.getTexture(tf::Animation::EnemyStationary));
     sf::FloatRect bounds = mySprite.getGlobalBounds();
     mySprite.setOrigin(bounds.width / 2, bounds.height / 2);
     hitbox.setSize({55.0f, 55.0f});
@@ -20,12 +20,12 @@ Character::Character(tf::TopforceWindow &window, const sf::Uint32 &playerID):
 #endif
 }
 
-void Character::setTexture(const Texture & texture){
-    if(texture == Texture::EnemyWalking && mySprite.getTexture() != &imageManager.getTexture(Texture::EnemyWalking)){
-        mySprite.setTexture(imageManager.getTexture(Texture::EnemyWalking), true);
+void Character::setTexture(const Animation & texture){
+    if(texture == Animation::EnemyWalking && mySprite.getTexture() != &imageManager.getTexture(Animation::EnemyWalking)){
+        mySprite.setTexture(imageManager.getTexture(Animation::EnemyWalking), true);
     }
-    if(texture == Texture::EnemyStationary && mySprite.getTexture() != &imageManager.getTexture(Texture::EnemyStationary)){
-        mySprite.setTexture(imageManager.getTexture(Texture::EnemyStationary), true);
+    if(texture == Animation::EnemyStationary && mySprite.getTexture() != &imageManager.getTexture(Animation::EnemyStationary)){
+        mySprite.setTexture(imageManager.getTexture(Animation::EnemyStationary), true);
     }
 }
 

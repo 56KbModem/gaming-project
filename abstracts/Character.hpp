@@ -16,7 +16,7 @@ protected:
     tf::ImageManager & imageManager = tf::ImageManager::getInstance();
     sf::RectangleShape hitbox;
     sf::Vertex shootLine[2];
-    virtual void setTexture(const Texture & animation);
+    virtual void setTexture(const Animation & animation);
 public:
     Character(tf::TopforceWindow& window, const sf::Uint32 & playerID);
     const sf::Uint32 playerID;
