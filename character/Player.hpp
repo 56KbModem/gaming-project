@@ -12,7 +12,7 @@ namespace tf{
 class Player: public tf::Character {
 private:
     sf::View & view;
-    std::vector<sf::FloatRect> levelHitboxes;
+    const std::vector<sf::FloatRect>& levelHitBoxes;
     sf::Clock reloadClock;
     tf::Weapon myWeapon;
     sf::Vector2f currentPosition;
@@ -23,19 +23,21 @@ private:
     tf::PlayerPacket & playerPacket;
     Action actions[9] = {Action(sf::Keyboard::Tab, [&](){scoreBoard.update();}),
                         Action([&](){currentPosition = getPosition(); lookAtMouse();} ),
-                        Action(sf::Keyboard::W, [&](){setTexture(Texture::Walking); move( sf::Vector2f{ 0.0f, -5.0f } );}),
-                        Action(sf::Keyboard::A, [&](){setTexture(Texture::Walking); move( sf::Vector2f{ -5.0f, 0.0f } );}),
-                        Action(sf::Keyboard::S, [&](){setTexture(Texture::Walking); move( sf::Vector2f{ 0.0f, 5.0f } ); }),
-                        Action(sf::Keyboard::D, [&](){setTexture(Texture::Walking); move( sf::Vector2f{ 5.0f, 0.0f } ); }),
+                        Action(sf::Keyboard::W, [&](){setTexture(Animation::Walking); move( sf::Vector2f{ 0.0f, -5.0f } );}),
+                        Action(sf::Keyboard::A, [&](){setTexture(Animation::Walking); move( sf::Vector2f{ -5.0f, 0.0f } );}),
+                        Action(sf::Keyboard::S, [&](){setTexture(Animation::Walking); move( sf::Vector2f{ 0.0f, 5.0f } ); }),
+                        Action(sf::Keyboard::D, [&](){setTexture(Animation::Walking); move( sf::Vector2f{ 5.0f, 0.0f } ); }),
                         Action(sf::Keyboard::R, [&](){hud.reload(); reloadClock.restart();}),
                         Action(sf::Mouse::Left, [&](){if(currentPosition == getPosition() && reloadClock.getElapsedTime().asMilliseconds() > 1'000){ shoot(enemyID);} }),
-                        Action([&](){return currentPosition == getPosition();}, [&](){setTexture(Texture::Stationary);})
+                        Action([&](){return currentPosition == getPosition();}, [&](){setTexture(Animation::Stationary);})
     };
 
-    void setTexture(const Texture & animation) override;
+    void setTexture(const Animation & animation) override;
 public:
-    Player(tf::TopforceWindow& window, const sf::Uint32 &playerID, sf::View & view, const std::vector<sf::FloatRect> & levelHitboxes, std::vector<tf::Character> & enemies, tf::PlayerPacket & playerPacket);
-    ~Player(){};
+    Player(tf::TopforceWindow& window, const sf::Uint32 &playerID, sf::View & view,
+            const std::vector<sf::FloatRect>& levelHitBoxes, std::vector<tf::Character> & enemies,
+            tf::PlayerPacket & playerPacket);
+    ~Player() override = default;
 
     void draw() const override;
     void update() override;
@@ -45,9 +47,9 @@ public:
     void lookAtMouse();
     sf::Vector2f getBulletCollisionPoint();
 
-    void decreaseHealth(const unsigned int & damage);
+    void decreaseHealth(unsigned int damage);
     int getHealth();
-    void setHealth(const int & health);
+    void setHealth(int health);
 
     void setPosition(const sf::Vector2f& position) override;
 

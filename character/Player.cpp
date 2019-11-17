@@ -2,11 +2,13 @@
 #include "Player.hpp"
 
 namespace tf {
-Player::Player(tf::TopforceWindow &window, const sf::Uint32 &playerID, sf::View & view, const std::vector<sf::FloatRect> & levelHitboxes, std::vector<tf::Character> & enemies, tf::PlayerPacket & playerPacket):
+Player::Player(tf::TopforceWindow &window, const sf::Uint32 &playerID, sf::View & view,
+        const std::vector<sf::FloatRect>& levelHitBoxes, std::vector<tf::Character> & enemies,
+        tf::PlayerPacket & playerPacket):
     Character(window, playerID),
     view(view),
-    levelHitboxes(levelHitboxes),
-    myWeapon(window, levelHitboxes, enemies),
+    levelHitBoxes(levelHitBoxes),
+    myWeapon(window, levelHitBoxes, enemies),
     hud(window, view),
     scoreBoard(window, view),
     playerPacket(playerPacket)
@@ -19,20 +21,20 @@ void Player::draw() const {
     tf::Character::draw();
 }
 
-void Player::setTexture(const Texture & texture){
-    if(texture == Texture::Walking && mySprite.getTexture() != &imageManager.getTexture(Texture::Walking)){
-        mySprite.setTexture(imageManager.getTexture(Texture::Walking), true);
+void Player::setTexture(const Animation & texture){
+    if(texture == Animation::Walking && mySprite.getTexture() != &imageManager.getTexture(Animation::Walking)){
+        mySprite.setTexture(imageManager.getTexture(Animation::Walking), true);
     }
-    if(texture == Texture::Stationary && mySprite.getTexture() != &imageManager.getTexture(Texture::Stationary)){
-        mySprite.setTexture(imageManager.getTexture(Texture::Stationary), true);
+    if(texture == Animation::Stationary && mySprite.getTexture() != &imageManager.getTexture(Animation::Stationary)){
+        mySprite.setTexture(imageManager.getTexture(Animation::Stationary), true);
     }
 }
 
 void Player::move(const sf::Vector2f & position) {
     mySprite.move(position);
     hitbox.setPosition(mySprite.getPosition().x -25, mySprite.getPosition().y - 25);
-    for(auto & hitbox : levelHitboxes){
-        if(hitbox.intersects(getBounds())){
+    for(auto & hitBox : levelHitBoxes){
+        if(hitBox.intersects(getBounds())){
             mySprite.move(-position);
         }
     }
@@ -57,7 +59,7 @@ void Player::lookAtMouse() {
     sf::Vector2f worldPos = window.mapPixelToCoords(position);
     float dx = curPos.x - worldPos.x;
     float dy = curPos.y - worldPos.y;
-    float rotation = float((atan2(dy, dx)) * 180 / PI) + 180;
+    float rotation = float((std::atan2(dy, dx)) * 180 / PI) + 180;
     myWeapon.setWeaponLocation(curPos, getRotation());
     mySprite.setRotation(rotation);
 }
@@ -66,7 +68,7 @@ sf::Vector2f Player::getBulletCollisionPoint(){
     return myWeapon.getBulletCollisionPoint();
 }
 
-void Player::decreaseHealth(const unsigned int &damage) {
+void Player::decreaseHealth (const unsigned int damage) {
     hud.decreaseHealth(damage);
 }
 
@@ -74,7 +76,7 @@ int Player::getHealth() {
     return hud.getHealth();
 }
 
-void Player::setHealth(const int &health) {
+void Player::setHealth (const int health) {
     hud.setHealth(health);
 }
 
