@@ -4,13 +4,14 @@
 
 #include "ImageManager.hpp"
 
-namespace tf{
+namespace tf {
+constexpr const char* ImageManager::fileNames[];
+
 ImageManager::ImageManager() {
-    textureArray[0].loadFromFile(PATH + "main_menu_bg.jpg");
-    textureArray[1].loadFromFile(PATH + "soldier1_machine.png");
-    textureArray[2].loadFromFile(PATH + "soldier1_reload.png");
-    textureArray[3].loadFromFile(PATH + "hitman1_machine.png");
-    textureArray[4].loadFromFile(PATH + "hitman1_reload.png");
+	for (unsigned i = 0 ; i < textures.size(); i++) {
+		textures[i].loadFromFile(fileNames[i]);
+	}
+
     icon.loadFromFile(PATH + "topforce_icon.png");
 }
 
@@ -19,19 +20,8 @@ ImageManager& ImageManager::getInstance() {
     return Instance;
 }
 
-const sf::Texture& ImageManager::getTexture(const tf::Texture &texture) {
-    switch(texture){
-        case tf::Texture::MenuBG:
-            return textureArray[0];
-        case tf::Texture::Stationary:
-            return textureArray[1];
-        case tf::Texture::Walking:
-            return textureArray[2];
-        case tf::Texture::EnemyStationary:
-            return textureArray[3];
-        case tf::Texture::EnemyWalking:
-            return textureArray[4];
-    }
+const sf::Texture& ImageManager::getTexture(Animation animation) {
+	return textures[static_cast<unsigned>(animation)];
 }
 
 const sf::Uint8* ImageManager::getWindowIcon() {

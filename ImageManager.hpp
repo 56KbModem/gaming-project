@@ -8,25 +8,35 @@
 #include <string>
 #include <SFML/Graphics/Image.hpp>
 #include <SFML/Graphics/Texture.hpp>
+#include <array>
 
-namespace tf{
-enum class Texture {
-    Stationary,
-    Walking,
-    MenuBG,
-    EnemyStationary,
-    EnemyWalking
+namespace tf {
+enum class Animation {
+	MenuBG = 0,
+    Stationary = 1,
+    Walking = 2,
+    EnemyStationary = 3,
+    EnemyWalking = 4
 };
 
 class ImageManager {
 private:
     ImageManager();
     const std::string PATH =  "assets/images/";
-    sf::Texture textureArray[5];
+    std::array<sf::Texture, 5> textures;
+
+    static constexpr const char* fileNames[] = {
+		    "main_menu_bg.jpg",
+		    "soldier1_machine.png",
+		    "soldier1_reload.png",
+		    "hitman1_machine.png",
+		    "hitman1_reload.png"
+    };
+
     sf::Image icon;
 public:
     static ImageManager & getInstance();
-    const sf::Texture& getTexture(const tf::Texture& texture);
+    const sf::Texture& getTexture(Animation animation);
     const sf::Uint8* getWindowIcon();
 };
 }
