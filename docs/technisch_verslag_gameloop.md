@@ -4,7 +4,7 @@
 ### Abstracte klassen
 Er zijn verschillende abstracte klassen die gebruikt worden als basis om objecten weer te geven en gamemodes te selecteren. De abstracte klassen zijn ScreenObject en MoveableScreenObject
 
-ScreenObject is een klasse die wordt gebruikt voor alle statische objecten zoals hitboxes in het level.
+ScreenObject is een klasse die wordt gebruikt voor alle statische objecten zoals hitBoxes in het level.
 MovableScreenObject is een realisatie daarvan, maar nog steeds abstract met een extra functie voor bewegende objecten zoals characters.
 
 ### Character klasse

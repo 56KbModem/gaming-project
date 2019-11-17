@@ -4,7 +4,7 @@
 
 #include "HUD.hpp"
 #include <iomanip>
-//#include <sstream>
+
 namespace tf {
 HUD::HUD(sf::RenderWindow &window, sf::View& view) :
     MoveableScreenObject(window),
@@ -15,12 +15,12 @@ HUD::HUD(sf::RenderWindow &window, sf::View& view) :
     seconds(10),
     clipSize(30),
     view(view)
-    {
-        if (!font.loadFromFile(FONT)) {
-            TF_ERROR("Unable to load HUD font");
-        }
-        configText();
+{
+    if (!font.loadFromFile(FONT)) {
+        TF_ERROR("Unable to load HUD font");
     }
+    configText();
+}
 
 void HUD::updateText() {
     ammoText.setString("Ammo: " + std::to_string(currentAmmo) + '/' + std::to_string(totalAmmo));
@@ -79,45 +79,47 @@ void HUD::update() {
     updateText();
 }
 
-void HUD::decreaseHealth(const int &amount) {
+void HUD::decreaseHealth(const int amount) {
     currentHealth -= amount;
 }
 
-void HUD::decreaseAmmo(const int &amount) {
+void HUD::decreaseAmmo(const int amount) {
     currentAmmo -= amount;
 }
 
-void HUD::setAmmo(const int &currentAmmo, const int &totalAmmo) {
+void HUD::setAmmo(const int currentAmmo, const int totalAmmo) {
     this->currentAmmo = currentAmmo;
     this->totalAmmo = totalAmmo;
 }
 
 
 void HUD::reload() {
-    if (currentAmmo != clipSize) {
-        if (totalAmmo != 0) {
-            int needed = clipSize - currentAmmo;
-            if (needed < totalAmmo) {
-                totalAmmo -= needed;
-                currentAmmo += needed;
-            } else {
-                currentAmmo += totalAmmo;
-                totalAmmo = 0;
-            }
-            soundManager.play(tf::Sounds::ReloadWeapon);
-            soundManager.play(tf::Sounds::VoiceReloading);
-        }
+    if (currentAmmo == clipSize || totalAmmo == 0) {
+        return;
     }
+
+    int needed = clipSize - currentAmmo;
+    if (needed < totalAmmo) {
+        totalAmmo -= needed;
+        currentAmmo += needed;
+    }
+    else {
+        currentAmmo += totalAmmo;
+        totalAmmo = 0;
+    }
+    soundManager.play(tf::Sounds::ReloadWeapon);
+    soundManager.play(tf::Sounds::VoiceReloading);
 }
 
-bool HUD::hasAmmo(){
+bool HUD::hasAmmo() {
     return currentAmmo > 0;
 }
 
 void HUD::setTime(const tf::TimePacket &packet) {
     if(packet.minutes > 200 || packet.minutes < 0){
         timeLeft.setString("Time left: 10:00");
-    }else{
+    }
+    else{
         std::stringstream seconds;
         std::stringstream minutes;
         seconds <<std::setw(2) <<std::setfill('0') <<packet.seconds ;
@@ -128,7 +130,7 @@ void HUD::setTime(const tf::TimePacket &packet) {
     }
 }
 
-void HUD::setHealth(const int &health) {
+void HUD::setHealth(const int health) {
     currentHealth = health;
 }
 
